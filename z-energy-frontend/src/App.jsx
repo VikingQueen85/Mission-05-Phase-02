@@ -1,8 +1,10 @@
+
 import { Routes, Route } from "react-router-dom"
 
 /*========== Component Imports ==========*/
 import Homepage from "./pages/Home/Homepage"
 import PriceComparison from "./pages/PriceComparison/PriceComparison"
+import Services from "./pages/Services/Services"
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="price-comparison" element={<PriceComparison />} />
+        <Route path="services" element={<Services />} />
 
         {/* For future nested routes */}
         {/* <Route path="/nested-route-path" element={<PageName />}>

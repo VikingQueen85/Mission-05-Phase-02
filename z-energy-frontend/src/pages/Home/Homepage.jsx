@@ -11,6 +11,8 @@ const Homepage = () => {
       <br />
       <div>Links to Pages</div>
       <NavLink to="/price-comparison">Price Comparison</NavLink>
+      <br />
+      <NavLink to="/services">Services</NavLink>
     </>
   )
 }
