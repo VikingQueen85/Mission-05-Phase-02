@@ -3,13 +3,7 @@ import { NavLink } from "react-router-dom"
 const PriceComparison = () => {
   return (
     <>
-      <div>PriceComparison</div>
-
-      {/* Temporary link to Home */}
-      <br />
-      <br />
-      <br />
-      <NavLink to="/">Go Home</NavLink>
+      <div>Price Comparison</div>
     </>
   )
 }
