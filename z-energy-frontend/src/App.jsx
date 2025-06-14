@@ -34,7 +34,6 @@ function App() {
         <div className="header-bottom-nav-row">
           <nav className="header-bottom-left-nav">
             <ul>
-              <li><Link to="/">Home</Link></li>
               <li><Link to="/power">Power</Link></li>
               <li><Link to="/rewards">Rewards and promotions</Link></li>
               <li><Link to="/locations">Locations</Link></li>
