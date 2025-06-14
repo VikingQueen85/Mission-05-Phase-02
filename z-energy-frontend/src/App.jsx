@@ -11,6 +11,14 @@ function App() {
       <header className="main-header">
         <div className="header-top-band">
           <div className="header-top-left">
+            <Link to="/" className="z-logo-link">
+              <img
+                src="Z Logo.webp"
+                alt="Z Energy Logo"
+                className="z-logo"
+              />
+            </Link>
+
             <button className="header-button orange-gradient-button">For Personal</button>
             <button className="header-button normal-button">For Business</button>
           </div>
