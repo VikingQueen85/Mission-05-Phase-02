@@ -2,8 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const cors = require("cors")
-
-dotenv.config()
+const routes = require("./routes")
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -25,6 +24,9 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Backend is running!")
 })
+
+// Routes
+app.use("/api/stations", routes.stationFuelPriceRoutes)
 
 // Start the server
 app.listen(port, () => {
