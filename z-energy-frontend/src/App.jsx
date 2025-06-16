@@ -40,7 +40,6 @@ function App() {
             </ul>
           </nav>
         </div>
-        <div className="orange-gradient-band"></div>
       </header>
 
       <main className="main-content">

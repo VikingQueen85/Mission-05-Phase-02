@@ -53,20 +53,12 @@ body {
 }
 
 .header-button {
-    padding: 0.4rem 0.8rem;
+    padding: 1rem 1.5rem;
     border-radius: 0.25rem;
-    border: 1px solid transparent;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 0.95rem;
     transition: all 0.2s ease-in-out;
-    white-space: nowrap;
-}
-
-.normal-button {
-    background-color: transparent;
-    color: #555;
-    border-color: #ddd;
 }
 
 .normal-button:hover {
@@ -74,6 +66,7 @@ body {
 }
 
 .orange-gradient-button {
+    padding: 1rem 1.5rem;
     background: linear-gradient(to right, #f97316, #fca586);
     color: #FFFFFF;
     border: none;
@@ -140,13 +133,6 @@ body {
 
 .header-bottom-left-nav a:hover {
     color: #f97316;
-}
-
-.orange-gradient-band {
-    height: 90px;
-    background: linear-gradient(to right, #f97316, #fca586);
-    width: 100%;
-    margin-top: 0.5cm;
 }
 
 .main-content {
