@@ -1,52 +1,90 @@
 import { useState } from "react"
 import axios from "axios"
 import SearchBar from "./components/SearchBar"
+import SearchResults from "./components/SearchResults" // <-- Import new component
 import StationCard from "./components/StationCard"
 import styles from "./PriceComparison.module.css"
 
 const PriceComparison = () => {
-  const [stations, setStations] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+  // State for the initial search
+  const [searchResults, setSearchResults] = useState([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [searchError, setSearchError] = useState("")
+  const [hasSearched, setHasSearched] = useState(false)
+
+  // State for fetching details of a selected station
+  const [stationDetails, setStationDetails] = useState(null)
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false)
+  const [detailsError, setDetailsError] = useState("")
 
   const handleSearch = async query => {
-    setLoading(true)
-    setError("")
-    setStations([])
+    setIsSearching(true)
+    setSearchError("")
+    setHasSearched(true)
+    setSearchResults([])
+    setStationDetails(null) // Clear previous selection
+    setDetailsError("")
+
     try {
       // Make sure this URL points to your running backend
-      const apiUrl =
-        import.meta.env.VITE_API_URL || "http://localhost:3000/api/stations"
-      const response = await axios.get(`${apiUrl}?search=${query}`)
-      setStations(response.data)
+      const apiUrl = `http://localhost:3000/api/stations/search?term=${query}`
+      const response = await axios.get(apiUrl)
+      setSearchResults(response.data)
     } catch (err) {
-      setError("Failed to fetch stations. Please try again.")
-      console.error(err)
+      console.error("Search Error:", err)
+      setSearchError("Could not perform search. Please check the backend.")
+    } finally {
+      setIsSearching(false)
     }
-    setLoading(false)
+  }
+
+  const handleStationSelect = async stationSlug => {
+    setIsLoadingDetails(true)
+    setDetailsError("")
+    setStationDetails(null)
+
+    try {
+      const apiUrl = `http://localhost:3000/api/stations/prices/${stationSlug}`
+      const response = await axios.get(apiUrl)
+      setStationDetails(response.data)
+    } catch (err) {
+      console.error("Details Fetch Error:", err)
+      setDetailsError("Could not fetch station prices.")
+    } finally {
+      setIsLoadingDetails(false)
+    }
   }
 
   return (
     <div className={styles.outerContainer}>
       <div className={styles.container}>
         <h1>Z Fuel Price Checker</h1>
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar onSearch={handleSearch} isLoading={isSearching} />
 
-        {loading && <p>Loading...</p>}
-        {error && <p className={styles.error}>{error}</p>}
-
-        {!loading && !error && stations.length === 0 && (
-          <p>
-            No stations found. Try searching for "Greenlane", "Wellington", or
-            "25 Verissimo Drive".
-          </p>
-        )}
-
-        <div className="station-list">
-          {stations.map(station => (
-            <StationCard key={station._id} station={station} />
-          ))}
+        <div className={styles.messageArea}>
+          {isSearching && <p>Searching...</p>}
+          {searchError && <p className={styles.error}>{searchError}</p>}
+          {hasSearched && !isSearching && searchResults.length === 0 && (
+            <p>No stations found for your search.</p>
+          )}
         </div>
+
+        <SearchResults
+          results={searchResults}
+          onSelect={station => handleStationSelect(station.slug)}
+          isLoadingDetails={isLoadingDetails}
+        />
+
+        <div className={styles.messageArea}>
+          {isLoadingDetails && <p>Loading prices...</p>}
+          {detailsError && <p className={styles.error}>{detailsError}</p>}
+        </div>
+
+        {stationDetails && (
+          <div style={{ marginTop: "30px" }}>
+            <StationCard station={stationDetails} />
+          </div>
+        )}
       </div>
     </div>
   )
