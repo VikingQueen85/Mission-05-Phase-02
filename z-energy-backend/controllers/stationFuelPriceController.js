@@ -1,60 +1,179 @@
-const StationFuelPrice = require("../models/stationFuelPriceModel")
+// controllers/stationController.js
 const axios = require("axios")
-require("dotenv").config()
+const randomUserAgent = require("random-useragent")
+const cheerio = require("cheerio")
+const config = require("../config/config")
 
+// // This helper function now transforms a SINGLE station object
+// const transformStationDetails = station => {
+//   const unleaded91 = station.prices.find(p => p.fuel_type === "unleaded_91")
+//   const unleaded95 = station.prices.find(
+//     p => p.fuel_type === "unleaded_95_premium"
+//   )
+//   const diesel = station.prices.find(p => p.fuel_type === "diesel")
+
+//   const fuels = []
+//   if (unleaded91)
+//     fuels.push({ fuelType: "Unleaded 91", price: unleaded91.price / 100 })
+//   if (unleaded95)
+//     fuels.push({ fuelType: "Unleaded 95", price: unleaded95.price / 100 })
+//   if (diesel) fuels.push({ fuelType: "Diesel", price: diesel.price / 100 })
+
+//   return {
+//     _id: station.id,
+//     name: station.name,
+//     address: station.address,
+//     fuels: fuels,
+//   }
+// }
+
+// ----- FUNCTION 1: To Search for Stations -----
 const getStations = async (req, res) => {
   try {
-    const { search } = req.query
+    console.log("Request received with query:", req.query)
+    const { term } = req.query
+    if (!term)
+      return res.status(400).json({ message: "Search term is required." })
 
-    if (!search) {
-      return res.status(400).json({ message: "Search query is required" })
+    console.log(`Searching for term: '${term}'`) // Keep for debugging
+
+    const headers = {
+      "User-Agent": randomUserAgent.getRandom(),
+      Referer: config.REFERER_URL,
     }
+    const searchApiUrl = `${
+      config.GASSY_API.SEARCH_URL
+    }?term=${encodeURIComponent(term)}`
 
-    // Try to geocode the search term to see if it's an address
-    const geoUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-      search
-    )}&key=${process.env.OPENCAGE_API_KEY}&limit=1&countrycode=nz`
+    const response = await axios.get(searchApiUrl, { headers })
 
-    const geoResponse = await axios.get(geoUrl)
+    // --- DEBUGGING STEP ---
+    // Log the entire response data from Gassy before we do anything with it.
+    console.log("--- RAW RESPONSE FROM GASSY ---")
+    console.log(response.data)
+    console.log("-----------------------------")
+    // --- END DEBUGGING STEP ---
 
-    let stations
+    // The Gassy API returns { label: "...", value: "..." }
+    const zStationsFound = response.data
+      // 1. Filter by checking if the 'label' starts with 'Z '
+      .filter(
+        station => station.label && station.label.toLowerCase().startsWith("z ")
+      )
+      // 2. Map the new structure to what our frontend needs for the results list
+      .map(station => {
+        // Extract the ID from the 'value' string (e.g., "112-z-courtenay-place")
+        const id = station.value.split("-")[0]
 
-    // If geocoding is successful and confident, find stations nearby
-    if (
-      geoResponse.data.results.length > 0 &&
-      geoResponse.data.results[0].confidence >= 5
-    ) {
-      const { lat, lng } = geoResponse.data.results[0].geometry
-
-      // Find stations within a 10km radius
-      stations = await StationFuelPrice.find({
-        location: {
-          $near: {
-            $geometry: {
-              type: "Point",
-              coordinates: [lng, lat],
-            },
-            $maxDistance: 10000, // in meters (10km)
-          },
-        },
+        return {
+          id: parseInt(id, 10),
+          name: station.label,
+          // Send the full value string to the frontend called "slug"
+          slug: station.value,
+        }
       })
-    } else {
-      // If not a location, search by name or address text
-      stations = await StationFuelPrice.find({
-        $or: [
-          { name: { $regex: search, $options: "i" } },
-          { address: { $regex: search, $options: "i" } },
-        ],
-      })
-    }
 
-    res.json(stations)
+    console.log(`Found ${zStationsFound.length} matching Z stations.`)
+    res.json(zStationsFound)
   } catch (error) {
-    console.error(error)
-    res.status(500).send("Server Error")
+    console.error("Search Error:", error.message)
+    res.status(500).send("Server error during station search.")
   }
 }
 
-module.exports = {
-  getStations,
+// ----- FUNCTION 2: To Get Prices for a Specific Station -----
+const getStationPrices = async (req, res) => {
+  try {
+    const { slug } = req.params
+    if (!slug)
+      return res.status(400).json({ message: "Station slug is required." })
+
+    console.log(`Fetching prices for station slug: ${slug}`)
+
+    const stationUrl = `https://www.gassy.co.nz/${slug}/`
+
+    console.log(`Station URL: ${stationUrl}`)
+
+    const headers = {
+      "User-Agent": randomUserAgent.getRandom(),
+    }
+
+    // 1. Fetch the HTML of the station's page
+    const response = await axios.get(stationUrl, { headers })
+    const html = response.data
+
+    // 2. Load the HTML into Cheerio to parse it like jQuery
+    const $ = cheerio.load(html)
+
+    // 3. Extract the data by finding the right HTML elements
+    // Find the station name inside the first <h3> tag within the first <div class="well">
+    const stationName = $("div.well").first().find("h3").first().text().trim()
+
+    // Find the address in the second <div class="well">, it's the first <p> tag
+    const stationAddress = $("div.well").eq(1).find("p").first().text().trim()
+
+    const fuels = []
+
+    // Find all <h3> tags within the first <div class="well">
+    $("div.well")
+      .first()
+      .find("h3")
+      .each((i, el) => {
+        const h3Text = $(el).text().trim() // e.g., "91 $2.499" or "Diesel $1.789"
+
+        // We need to separate the fuel type from the price
+        // Let's check for known fuel types
+        if (h3Text.toLowerCase().includes("diesel")) {
+          const price = h3Text.split("$")[1] // Get the part after the '$'
+          if (price) {
+            fuels.push({
+              fuelType: "Diesel",
+              price: parseFloat(price),
+            })
+          }
+        } else if (h3Text.includes("91")) {
+          const price = h3Text.split("$")[1]
+          if (price) {
+            fuels.push({
+              fuelType: "Unleaded 91",
+              price: parseFloat(price),
+            })
+          }
+        } else if (h3Text.includes("95")) {
+          const price = h3Text.split("$")[1]
+          if (price) {
+            fuels.push({
+              fuelType: "Unleaded 95",
+              price: parseFloat(price),
+            })
+          }
+        }
+        // You can add more 'else if' blocks here for other fuel types like 98
+      })
+
+    // We no longer have a simple station ID, so we can use the slug
+    const id = slug.split("-")[0]
+
+    // 4. Construct the final JSON object to send to the frontend
+    const stationDetails = {
+      _id: id,
+      name: stationName,
+      address: stationAddress,
+      fuels: fuels,
+    }
+
+    res.json(stationDetails)
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return res
+        .status(404)
+        .json({ message: `Could not find a Gassy page for this station.` })
+    }
+    console.error(`Scraping Error for slug ${req.params.slug}:`, error.message)
+    res
+      .status(500)
+      .send("An unexpected error occurred while fetching station prices.")
+  }
 }
+
+module.exports = { getStations, getStationPrices }
