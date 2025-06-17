@@ -2,7 +2,6 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Homepage from './pages/Home/Homepage';
-import Services from './pages/Services/Services';
 import './styles.css';
 
 function App() {
@@ -45,7 +44,6 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/services" element={<Services />} />
           <Route path="/price-comparison" element={<div><h1>Price Comparison Page</h1><p>Content for Price Comparison.</p></div>} />
           <Route path="/z-app" element={<div><h1>Z App Page</h1><p>Content for Z App.</p></div>} />
           <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />

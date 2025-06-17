@@ -37,9 +37,7 @@
 .homepage-buttons-container .orange-gradient-button {
     background: linear-gradient(to right, #f97316, #fca586);
     color: white;
-    border: none;
     box-shadow: 0 2px 5px rgba(249, 115, 22, 0.3);
-    transition: all 0.2s ease-in-out;
 }
 
 .homepage-buttons-container .orange-gradient-button:hover {
