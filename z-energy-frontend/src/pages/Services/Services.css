@@ -1,0 +1,118 @@
+
+.services-container {
+    padding: 1rem;
+    color: #333;
+    text-align: center;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.services-heading {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.service-dropdown-wrapper {
+    margin-bottom: 1rem;
+}
+
+.service-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.service-select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    width: calc(100% - 2rem);
+    max-width: 300px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+    background-color: white;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200%20-13%20-5.4H18.4c-6.5%200-12.1%203.2-15.9%208.1a17.6%2017.6%200%200%200%200%2022.9l128%20128c3.7%203.7%209.2%205.5%2014.9%205.5s11.2-1.8%2014.9-5.5l128-128c3.7-3.6%205.5-9.1%205.5-14.9a17.6%2017.6%200%200%200%20-5.4-13z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+}
+
+.service-select:focus {
+    border-color: #f97316;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25);
+}
+
+.service-info-text {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #555;
+}
+
+.filtered-stations-list {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #fcfcfc;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.filtered-list-heading {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.filtered-stations-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.filtered-station-item {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.filtered-station-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.filtered-station-address {
+    font-size: 0.95rem;
+    color: #718096;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.no-stations-found-message {
+    font-size: 1rem;
+    color: #e53e3e;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+@media (max-width: 600px) {
+.filtered-stations-list ul {
+    grid-template-columns: 1fr;
+}
+.filtered-list-heading {
+    font-size: 1.4rem;
+}
+}

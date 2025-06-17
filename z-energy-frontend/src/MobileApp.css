@@ -1,0 +1,25 @@
+.mobile-app {
+  font-family: sans-serif;
+  padding: 1rem;
+}
+
+.mobile-header, .mobile-footer {
+  background-color: #ffa500;
+  padding: 10px;
+  text-align: center;
+}
+
+.mobile-content {
+  padding: 20px;
+}
+
+.mobile-header nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.mobile-header nav ul li {
+  font-weight: bold;
+}
