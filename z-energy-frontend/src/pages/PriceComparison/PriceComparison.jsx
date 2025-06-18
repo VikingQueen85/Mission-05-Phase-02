@@ -27,7 +27,7 @@ const PriceComparison = () => {
 
     try {
       // Make sure this URL points to your running backend
-      const apiUrl = `http://localhost:3000/api/stations/search?term=${query}`
+      const apiUrl = `http://localhost:3000/api/station-fuel-prices/search?term=${query}`
       const response = await axios.get(apiUrl)
       setSearchResults(response.data)
     } catch (err) {
@@ -44,7 +44,7 @@ const PriceComparison = () => {
     setStationDetails(null)
 
     try {
-      const apiUrl = `http://localhost:3000/api/stations/prices/${stationSlug}`
+      const apiUrl = `http://localhost:3000/api/station-fuel-prices/prices/${stationSlug}`
       const response = await axios.get(apiUrl)
       setStationDetails(response.data)
     } catch (err) {
