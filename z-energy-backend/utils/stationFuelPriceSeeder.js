@@ -1,42 +1,64 @@
+require("dotenv").config() // Load environment variables from .env file
 const mongoose = require("mongoose")
-const dotenv = require("dotenv")
-dotenv.config({ path: "./.env" })
 
 // --- Import Model and Data---
-const StationFuelPrice = require("../models/stationFuelPriceModel.js")
+const StationFuelPrice = require("../models/StationFuelPrice.js")
 const stationFuelPriceData = require("../data/stationFuelPriceData.js")
 
-// --- Connect to MongoDB ---
-const connectToDatabase = async () => {
-  try {
-    // Check if MONGODB_URI is defined in the environment variables
-    if (!process.env.MONGODB_URI) {
-      console.error("MONGODB_URI is not defined in .env file.")
-      process.exit(1) // Exit the process with an error code
-    }
-
-    await mongoose.connect(process.env.MONGODB_URI)
-
-    console.info("MongoDB Connected...")
-  } catch (err) {
-    console.error("Error connecting to MongoDB during seeding:", err.message)
-
-    process.exit(1) // Exit the process with an error code
-  }
-}
-
+// --- Seeder Function ---
+/**
+ * Seeds the station fuel price data only if the collection is empty
+ * @returns {Promise<boolean>} true if seeding was performed, false if skipped
+ */
 const seedStationFuelPrices = async () => {
   try {
-    await connectToDatabase()
-    await StationFuelPrice.deleteMany({}) // Clear existing data
-    await StationFuelPrice.insertMany(stationFuelPriceData)
-    console.info("Station Fuel Prices seeded successfully!")
-    await mongoose.connection.close()
+    // Check if we have any documents in the collection
+    const count = await StationFuelPrice.countDocuments()
+
+    // If collection has data, skip seeding
+    if (count > 0) {
+      console.info(
+        `Database already contains ${count} station fuel prices. Skipping seed.`
+      )
+      return false
+    }
+
+    console.info("No station fuel prices found. Seeding database...")
+
+    // Clear existing data (optional safety measure)
+    await StationFuelPrice.deleteMany({})
+
+    // Seed new data
+    const createdStationFuelPrices = await StationFuelPrice.insertMany(
+      stationFuelPriceData
+    )
+    console.info(
+      `${createdStationFuelPrices.length} Station Fuel Prices seeded successfully!`
+    )
   } catch (err) {
     console.error("Error seeding Station Fuel Prices:", err.message)
-    mongoose.connection.close()
+    return false
   }
 }
 
-// Run the seed function
-seedStationFuelPrices()
+// Allow running the seeder directly from command line if needed
+if (require.main === module) {
+  // This code runs ONLY when executing: node stationFuelPriceSeeder.js
+  mongoose
+    .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/zpetrolapp")
+    .then(() => {
+      console.log("Connected to MongoDB for seeding")
+      return seedStationFuelPrices()
+    })
+    .then(() => {
+      console.log("Seeding completed")
+      mongoose.connection.close() // Close the connection after seeding
+    })
+    .catch(err => {
+      console.error("Error during seeding:", err)
+      process.exit(1)
+    })
+} else {
+  // When imported as a module, just export the function
+  module.exports = seedStationFuelPrices
+}
