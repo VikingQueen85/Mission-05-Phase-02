@@ -3,6 +3,7 @@ import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Homepage from './pages/Home/Homepage';
 import Services from './pages/Services/Services';
+import PriceComparison from './pages/PriceComparison/PriceComparison';
 import './styles.css';
 
 function App() {
@@ -47,9 +48,9 @@ function App() {
         <div className="header-bottom-nav-row">
           <nav className="header-bottom-left-nav">
             <ul>
-              <li><Link to="/power">Power</Link></li>
+              <li><Link to="/how-to-enjoy-Z-station">How to enjoy Z station</Link></li>
               <li><Link to="/rewards">Rewards and promotions</Link></li>
-              <li><Link to="/">Locations</Link></li>
+              <li><Link to="/locations">Locations</Link></li>
               <li><Link to="/services">Services</Link></li>
             </ul>
           </nav>
@@ -62,13 +63,13 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/services" element={<Services />} />
           <Route path="/share-tank" element={<div><h1>Sharetank Page</h1><p>Details about Sharetank.</p></div>} />
-          <Route path="/price-comparison" element={<div><h1>Price Comparison Page</h1><p>Content for Price Comparison.</p></div>} />
+          <Route path="/price-comparison" element={<PriceComparison />} />
           <Route path="/order-food" element={<div><h1>Order Food Online Page</h1><p>Information about ordering food and drinks.</p></div>} />
           <Route path="/z-app" element={<div><h1>Z App Page</h1><p>Content for Z App.</p></div>} />
           <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />
-          <Route path="/power" element={<div><h1>Power Page</h1><p>Content for Power.</p></div>} />
+          <Route path="/how-to-enjoy-Z-station" element={<div><h1>Z Stations Page</h1><p>How to enjoy Z stations</p></div>} />
           <Route path="/rewards" element={<div><h1>Rewards and Promotions Page</h1><p>Content for Rewards and Promotions.</p></div>} />
-          <Route path="/locations" element={<Homepage />} />
+          <Route path="/locations" element={<div><h1>Locations Page</h1><p>Content for Locations.</p></div>} />
           <Route path="/login" element={<div><h1>Login Page</h1><p>Content for Login.</p></div>} />
           {/* Routes for icons */}
           <Route path="/cart" element={<div><h1>Shopping Cart</h1><p>Your shopping cart items will appear here.</p></div>} />
