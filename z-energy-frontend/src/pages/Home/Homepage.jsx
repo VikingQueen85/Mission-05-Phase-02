@@ -152,8 +152,7 @@ function Homepage() {
             <div className="content-block-text">
               <h3 className="content-block-heading">Price comparison</h3>
               <p className="content-block-description">Compare fuel prices with nearby stations</p>
-              {/* Changed this from a Link to a button that toggles the PriceComparison component */}
-              <Link to="/price-comparison" className="content-block-button orange-gradient-button" onClick={() => setShowPriceComparisonTool(true)}>Find out more</Link>
+              <Link to="/price-comparison" className="content-block-button orange-gradient-button">Find out more</Link>
             </div>
           </div>
 
