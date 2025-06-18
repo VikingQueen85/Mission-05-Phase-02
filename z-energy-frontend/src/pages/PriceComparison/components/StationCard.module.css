@@ -6,7 +6,129 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.cardStyle h3 {
+  margin-top: 0;
+  color: #f37120;
+  margin-bottom: 5px;
+}
+
+.cardStyle p {
+  margin-bottom: 15px;
+  color: #666;
+}
+
 .fuelListStyle {
   list-style: none;
   padding: 0;
+}
+
+.fuelListStyle li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fuelListStyle li:last-child {
+  border-bottom: none;
+}
+
+.fuelType {
+  font-weight: bold;
+}
+
+.price {
+  font-weight: bold;
+  color: #f68c19;
+}
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.stationInfo {
+  flex-grow: 1;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.address {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.priceSection {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #16a085;
+  margin: 0;
+}
+
+.priceUnit {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #7f8c8d;
+}
+
+.fuelSection {
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.fuelType {
+  margin: 0;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.topUpButton {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  width: 100%;
+}
+
+.topUpButton:hover {
+  background-color: #2980b9;
 }
