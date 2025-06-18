@@ -1,8 +1,8 @@
-
-import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import Homepage from './pages/Home/Homepage';
-import './styles.css';
+import { Routes, Route, Link } from "react-router-dom"
+import Homepage from "./pages/Home/Homepage"
+import PriceComparison from "./pages/PriceComparison/PriceComparison"
+import Services from "./pages/Services/Services"
+import "./styles.css"
 
 function App() {
   return (
@@ -11,21 +11,29 @@ function App() {
         <div className="header-top-band">
           <div className="header-top-left">
             <Link to="/" className="z-logo-link">
-              <img
-                src="Z Logo.webp"
-                alt="Z Energy Logo"
-                className="z-logo"
-              />
+              <img src="Z Logo.webp" alt="Z Energy Logo" className="z-logo" />
             </Link>
 
-            <button className="header-button orange-gradient-button">For Personal</button>
-            <button className="header-button normal-button">For Business</button>
+            <button className="header-button orange-gradient-button">
+              For Personal
+            </button>
+            <button className="header-button normal-button">
+              For Business
+            </button>
           </div>
           <nav className="header-top-right-nav">
             <ul>
-              <li><Link to="/z-app">Z App</Link></li>
-              <li><Link to="/about-z">About Z</Link></li>
-              <li><button className="header-button orange-gradient-button">Login</button></li>
+              <li>
+                <Link to="/z-app">Z App</Link>
+              </li>
+              <li>
+                <Link to="/about-z">About Z</Link>
+              </li>
+              <li>
+                <button className="header-button orange-gradient-button">
+                  Login
+                </button>
+              </li>
             </ul>
           </nav>
         </div>
@@ -33,9 +41,15 @@ function App() {
         <div className="header-bottom-nav-row">
           <nav className="header-bottom-left-nav">
             <ul>
-              <li><Link to="/power">Power</Link></li>
-              <li><Link to="/rewards">Rewards and promotions</Link></li>
-              <li><Link to="/locations">Locations</Link></li>
+              <li>
+                <Link to="/power">Power</Link>
+              </li>
+              <li>
+                <Link to="/rewards">Rewards and promotions</Link>
+              </li>
+              <li>
+                <Link to="/locations">Locations</Link>
+              </li>
             </ul>
           </nav>
         </div>
@@ -44,20 +58,63 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/price-comparison" element={<div><h1>Price Comparison Page</h1><p>Content for Price Comparison.</p></div>} />
-          <Route path="/z-app" element={<div><h1>Z App Page</h1><p>Content for Z App.</p></div>} />
-          <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />
-          <Route path="/power" element={<div><h1>Power Page</h1><p>Content for Power.</p></div>} />
-          <Route path="/rewards" element={<div><h1>Rewards and Promotions Page</h1><p>Content for Rewards and Promotions.</p></div>} />
-          <Route path="/locations" element={<div><h1>Locations Page</h1><p>Content for Locations.</p></div>} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/price-comparison" element={<PriceComparison />} />
+          <Route
+            path="/z-app"
+            element={
+              <div>
+                <h1>Z App Page</h1>
+                <p>Content for Z App.</p>
+              </div>
+            }
+          />
+          <Route
+            path="/about-z"
+            element={
+              <div>
+                <h1>About Z Page</h1>
+                <p>Content for About Z.</p>
+              </div>
+            }
+          />
+          <Route
+            path="/power"
+            element={
+              <div>
+                <h1>Power Page</h1>
+                <p>Content for Power.</p>
+              </div>
+            }
+          />
+          <Route
+            path="/rewards"
+            element={
+              <div>
+                <h1>Rewards and Promotions Page</h1>
+                <p>Content for Rewards and Promotions.</p>
+              </div>
+            }
+          />
+          <Route
+            path="/locations"
+            element={
+              <div>
+                <h1>Locations Page</h1>
+                <p>Content for Locations.</p>
+              </div>
+            }
+          />
         </Routes>
       </main>
 
       <footer className="main-footer">
-        <p className="footer-text">&copy; 2025 Z Petrol App. All rights reserved.</p>
+        <p className="footer-text">
+          &copy; 2025 Z Petrol App. All rights reserved.
+        </p>
       </footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
