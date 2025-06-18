@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const stationFuelPriceSchema = new mongoose.Schema({
+const StationFuelPriceSchema = new mongoose.Schema({
   name: { type: String, required: true },
   address: { type: String, required: true },
   // GeoJSON for location-based queries
@@ -17,18 +17,18 @@ const stationFuelPriceSchema = new mongoose.Schema({
   },
   fuels: [
     {
-      fuelType: { type: String, required: true },
-      price: { type: Number, required: true },
+      fuelType: { type: String, required: true }, // e.g., 'Unleaded 91', 'Diesel'
+      price: { type: Number, required: true }, // Price per litre
     },
   ],
 })
 
-// Define geospatial index for location
-stationFuelPriceSchema.index({ location: "2dsphere" })
+// Create a 2dsphere index on the location field for geospatial queries
+StationFuelPriceSchema.index({ location: "2dsphere" })
 
 const StationFuelPrice = mongoose.model(
   "StationFuelPrice",
-  stationFuelPriceSchema
+  StationFuelPriceSchema
 )
 
 module.exports = StationFuelPrice
