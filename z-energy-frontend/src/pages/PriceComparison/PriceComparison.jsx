@@ -110,7 +110,7 @@ const PriceComparison = () => {
             <SearchBar
               onSearch={query => handleSearch(query, index)}
               isLoading={column.isSearching}
-              placeholder="Enter Address, Suburb or Postcode"
+              placeholder="Enter Address"
             />
 
             {/* Conditionally render the station selector */}

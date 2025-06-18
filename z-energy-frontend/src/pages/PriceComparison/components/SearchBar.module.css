@@ -1,21 +1,23 @@
 .searchForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 380px;
+  height: 100%;
 }
 
 .searchInput {
-  width: 100%;
-  padding: 12px 15px;
+  width: 143px;
+  height: 30px;
+  padding: 5px 11px;
+  border: none;
+  border-radius: 10px;
   font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  font-weight: 300;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: #3498db;
 }
 
 .searchInput:disabled {

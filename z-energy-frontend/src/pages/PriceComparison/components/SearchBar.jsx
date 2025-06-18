@@ -21,7 +21,8 @@ const SearchBar = ({ onSearch, isLoading, placeholder = "Enter Address" }) => {
         placeholder={placeholder}
         disabled={isLoading}
       />
-      {/* Search button removed as requested, search triggers on Enter */}
+      {/* No search button for mobile version */}
+      {/* Search triggers on Enter */}
     </form>
   )
 }
