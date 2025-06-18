@@ -1,43 +1,43 @@
-
-import React, { useState, useEffect } from 'react';
-import './homepage.css';
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import "./homepage.css"
 
 function Homepage() {
-  const [stations, setStations] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showStations, setShowStations] = useState(false);
+  const [stations, setStations] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [showStations, setShowStations] = useState(false)
 
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/stations');
+        const response = await fetch("http://localhost:3000/api/stations")
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
-        const data = await response.json();
-        setStations(data);
+        const data = await response.json()
+        setStations(data)
       } catch (error) {
-        console.error("Error fetching stations:", error);
-        setError("Failed to load stations. Please try again later.");
+        console.error("Error fetching stations:", error)
+        setError("Failed to load stations. Please try again later.")
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchStations();
-  }, []);
+    fetchStations()
+  }, [])
 
   const handleShowStations = () => {
-    setShowStations(!showStations);
-  };
+    setShowStations(!showStations)
+  }
 
   if (loading) {
     return (
       <div className="homepage-container">
         <p className="homepage-intro-text">Loading stations...</p>
       </div>
-    );
+    )
   }
 
   if (error) {
@@ -45,19 +45,21 @@ function Homepage() {
       <div className="homepage-container">
         <p className="homepage-intro-text error-message">{error}</p>
       </div>
-    );
+    )
   }
 
   return (
     <div className="homepage-container">
       <h2 className="homepage-heading">Find a Z Petrol Station</h2>
-      <p className="homepage-intro-text">Click the button below to see available Z petrol stations</p>
+      <p className="homepage-intro-text">
+        Click the button below to see available Z petrol stations
+      </p>
 
       <button onClick={handleShowStations} className="find-stations-button">
         {showStations ? "Hide Stations" : "Show Stations"}
       </button>
 
-      <div style={{ marginTop: '1rem' }}>
+      <div style={{ marginTop: "1rem" }}>
         <Link to="/services" className="find-stations-button">
           Go to Services Page
         </Link>
@@ -67,7 +69,7 @@ function Homepage() {
         <div className="stations-list">
           {stations.length > 0 ? (
             <ul>
-              {stations.map((station) => (
+              {stations.map(station => (
                 <li key={station._id || station.name} className="station-item">
                   <h3 className="station-name">{station.name}</h3>
                   <p className="station-address">{station.address}</p>
@@ -80,7 +82,7 @@ function Homepage() {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default Homepage;
+export default Homepage

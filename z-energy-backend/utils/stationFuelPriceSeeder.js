@@ -1,0 +1,64 @@
+require("dotenv").config() // Load environment variables from .env file
+const mongoose = require("mongoose")
+
+// --- Import Model and Data---
+const StationFuelPrice = require("../models/StationFuelPrice.js")
+const stationFuelPriceData = require("../data/stationFuelPriceData.js")
+
+// --- Seeder Function ---
+/**
+ * Seeds the station fuel price data only if the collection is empty
+ * @returns {Promise<boolean>} true if seeding was performed, false if skipped
+ */
+const seedStationFuelPrices = async () => {
+  try {
+    // Check if we have any documents in the collection
+    const count = await StationFuelPrice.countDocuments()
+
+    // If collection has data, skip seeding
+    if (count > 0) {
+      console.info(
+        `Database already contains ${count} station fuel prices. Skipping seed.`
+      )
+      return false
+    }
+
+    console.info("No station fuel prices found. Seeding database...")
+
+    // Clear existing data (optional safety measure)
+    await StationFuelPrice.deleteMany({})
+
+    // Seed new data
+    const createdStationFuelPrices = await StationFuelPrice.insertMany(
+      stationFuelPriceData
+    )
+    console.info(
+      `${createdStationFuelPrices.length} Station Fuel Prices seeded successfully!`
+    )
+  } catch (err) {
+    console.error("Error seeding Station Fuel Prices:", err.message)
+    return false
+  }
+}
+
+// Allow running the seeder directly from command line if needed
+if (require.main === module) {
+  // This code runs ONLY when executing: node stationFuelPriceSeeder.js
+  mongoose
+    .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/zpetrolapp")
+    .then(() => {
+      console.log("Connected to MongoDB for seeding")
+      return seedStationFuelPrices()
+    })
+    .then(() => {
+      console.log("Seeding completed")
+      mongoose.connection.close() // Close the connection after seeding
+    })
+    .catch(err => {
+      console.error("Error during seeding:", err)
+      process.exit(1)
+    })
+} else {
+  // When imported as a module, just export the function
+  module.exports = seedStationFuelPrices
+}
