@@ -4,6 +4,8 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Homepage from './pages/Home/Homepage';
 import Services from './pages/Services/Services';
 import './styles.css';
+import Location from './pages/Location/Location';
+import './styles.css';
 
 function App() {
   return (
@@ -36,7 +38,7 @@ function App() {
             <ul>
               <li><Link to="/power">Power</Link></li>
               <li><Link to="/rewards">Rewards and promotions</Link></li>
-              <li><Link to="/locations">Locations</Link></li>
+            <li><Link to="/locations">Locations</Link></li>
             </ul>
           </nav>
         </div>
@@ -52,7 +54,7 @@ function App() {
           <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />
           <Route path="/power" element={<div><h1>Power Page</h1><p>Content for Power.</p></div>} />
           <Route path="/rewards" element={<div><h1>Rewards and Promotions Page</h1><p>Content for Rewards and Promotions.</p></div>} />
-          <Route path="/locations" element={<div><h1>Locations Page</h1><p>Content for Locations.</p></div>} />
+          <Route path="/locations" element={<Location />} />
         </Routes>
       </main>
 
