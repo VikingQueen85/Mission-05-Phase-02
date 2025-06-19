@@ -4,8 +4,10 @@ import './Location.css';
 const Location = () => {
   const [map, setMap] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredLocations, setFilteredLocations] = useState([]);
 
-  // nz sample data
+  // Sample Z Station locations in New Zealand
   const locations = [
     {
       id: 1,
@@ -49,71 +51,111 @@ const Location = () => {
     }
   ];
 
-  // Google Maps
+  // Initialize filtered locations on component mount
   useEffect(() => {
-    const initMap = () => {
-      const mapInstance = new window.google.maps.Map(
-        document.getElementById('map'),
-        {
-          center: { lat: -36.8485, lng: 174.7633 }, // auckland cbd
-          zoom: 12,
-          styles: [
-            {
-              featureType: 'poi.business',
-              stylers: [{ visibility: 'off' }]
-            }
-          ]
-        }
-      );
+    setFilteredLocations(locations);
+  }, []);
 
-      // marker
-      locations.forEach(location => {
-        const marker = new window.google.maps.Marker({
-          position: { lat: location.lat, lng: location.lng },
-          map: mapInstance,
-          title: location.name,
-          icon: {
-            url: 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FF6600" width="30" height="30"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
-            scaledSize: new window.google.maps.Size(30, 30)
+  // Filter locations based on search query
+  const filterLocations = (query) => {
+    if (!query.trim()) {
+      return locations;
+    }
+
+    return locations.filter(location => 
+      location.name.toLowerCase().includes(query.toLowerCase()) ||
+      location.address.toLowerCase().includes(query.toLowerCase()) ||
+      location.services.some(service => 
+        service.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+  };
+
+  // Handle search input changes with real-time filtering
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setFilteredLocations(filterLocations(query));
+  };
+
+  // Handle search button click
+  const handleSearch = () => {
+    setFilteredLocations(filterLocations(searchQuery));
+  };
+
+  // Handle Enter key press in search input
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  // Initialize Google Maps
+  const initializeMap = () => {
+    const mapInstance = new window.google.maps.Map(
+      document.getElementById('map'),
+      {
+        center: { lat: -36.8485, lng: 174.7633 }, // Auckland CBD center
+        zoom: 12,
+        styles: [
+          {
+            featureType: 'poi.business',
+            stylers: [{ visibility: 'off' }]
           }
-        });
+        ]
+      }
+    );
 
-        // info window
-        const infoWindow = new window.google.maps.InfoWindow({
-          content: `
-            <div style="padding: 10px; max-width: 250px;">
-              <h3 style="margin: 0 0 10px 0; color: #FF6600;">${location.name}</h3>
-              <p style="margin: 5px 0;"><strong>Address:</strong> ${location.address}</p>
-              <p style="margin: 5px 0;"><strong>Hours:</strong> ${location.hours}</p>
-              <p style="margin: 5px 0;"><strong>Phone:</strong> ${location.phone}</p>
-              <p style="margin: 5px 0;"><strong>Services:</strong> ${location.services.join(', ')}</p>
-            </div>
-          `
-        });
-
-        marker.addListener('click', () => {
-          infoWindow.open(mapInstance, marker);
-          setSelectedLocation(location);
-        });
+    // Create markers for each location
+    locations.forEach(location => {
+      const marker = new window.google.maps.Marker({
+        position: { lat: location.lat, lng: location.lng },
+        map: mapInstance,
+        title: location.name,
+        icon: {
+          url: 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FF6600" width="30" height="30"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
+          scaledSize: new window.google.maps.Size(30, 30)
+        }
       });
 
-      setMap(mapInstance);
-    };
+      // Create info window for each marker
+      const infoWindow = new window.google.maps.InfoWindow({
+        content: `
+          <div style="padding: 10px; max-width: 250px;">
+            <h3 style="margin: 0 0 10px 0; color: #FF6600;">${location.name}</h3>
+            <p style="margin: 5px 0;"><strong>Address:</strong> ${location.address}</p>
+            <p style="margin: 5px 0;"><strong>Hours:</strong> ${location.hours}</p>
+            <p style="margin: 5px 0;"><strong>Phone:</strong> ${location.phone}</p>
+            <p style="margin: 5px 0;"><strong>Services:</strong> ${location.services.join(', ')}</p>
+          </div>
+        `
+      });
 
-    // Google Maps API가 로드되었는지 확인
+      // Add click listener to marker
+      marker.addListener('click', () => {
+        infoWindow.open(mapInstance, marker);
+        setSelectedLocation(location);
+      });
+    });
+
+    setMap(mapInstance);
+  };
+
+  // Load Google Maps API and initialize map
+  useEffect(() => {
     if (window.google && window.google.maps) {
-      initMap();
+      initializeMap();
     } else {
-      // Google Maps API 스크립트 동적 로드
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;//will replace
       script.async = true;
       script.defer = true;
-      window.initMap = initMap;
+      window.initMap = initializeMap;
       document.head.appendChild(script);
     }
   }, []);
 
+  // Handle location item click from sidebar
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
     if (map) {
@@ -136,13 +178,21 @@ const Location = () => {
               type="text"
               placeholder="Enter suburb or address..."
               className="location-search"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              onKeyPress={handleKeyPress}
             />
-            <button className="search-button">Search</button>
+            <button 
+              className="search-button"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
           </div>
 
           <div className="locations-list">
             <h3>Nearby Stations</h3>
-            {locations.map(location => (
+            {filteredLocations.map(location => (
               <div
                 key={location.id}
                 className={`location-item ${selectedLocation?.id === location.id ? 'selected' : ''}`}
