@@ -13,6 +13,7 @@ function App() {
       <header className="main-header">
         <div className="header-top-band">
           <div className="header-top-left">
+            {/* Z Logo as Homepage Link */}
             <Link to="/" className="z-logo-link">
               <img
                 src="Z Logo.webp"
@@ -20,15 +21,27 @@ function App() {
                 className="z-logo"
               />
             </Link>
-
+            {/* "For Personal" button remains */}
             <button className="header-button orange-gradient-button">For Personal</button>
-            <button className="header-button normal-button">For Business</button>
           </div>
           <nav className="header-top-right-nav">
             <ul>
               <li><Link to="/z-app">Z App</Link></li>
               <li><Link to="/about-z">About Z</Link></li>
-              <li><button className="header-button orange-gradient-button">Login</button></li>
+              {/* New: Shopping Cart Icon */}
+              <li>
+                <Link to="/cart" className="header-icon-link">
+                  <i className="fa-solid fa-cart-shopping"></i>
+                </Link>
+              </li>
+              {/* New: Magnifying Glass Icon */}
+              <li>
+                <Link to="/search" className="header-icon-link">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </Link>
+              </li>
+              {/* Login button */}
+              <li><Link to="/login" className="header-button login-button">Login</Link></li>
             </ul>
           </nav>
         </div>
@@ -39,6 +52,8 @@ function App() {
               <li><Link to="/power">Power</Link></li>
               <li><Link to="/rewards">Rewards and promotions</Link></li>
             <li><Link to="/locations">Locations</Link></li>
+              <li><Link to="/services">Services</Link></li>
+
             </ul>
           </nav>
         </div>
@@ -49,12 +64,18 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/share-tank" element={<div><h1>Sharetank Page</h1><p>Details about Sharetank.</p></div>} />
           <Route path="/price-comparison" element={<div><h1>Price Comparison Page</h1><p>Content for Price Comparison.</p></div>} />
+          <Route path="/order-food" element={<div><h1>Order Food Online Page</h1><p>Information about ordering food and drinks.</p></div>} />
           <Route path="/z-app" element={<div><h1>Z App Page</h1><p>Content for Z App.</p></div>} />
           <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />
           <Route path="/power" element={<div><h1>Power Page</h1><p>Content for Power.</p></div>} />
           <Route path="/rewards" element={<div><h1>Rewards and Promotions Page</h1><p>Content for Rewards and Promotions.</p></div>} />
           <Route path="/locations" element={<Location />} />
+          <Route path="/login" element={<div><h1>Login Page</h1><p>Content for Login.</p></div>} />
+          {/* Routes for icons */}
+          <Route path="/cart" element={<div><h1>Shopping Cart</h1><p>Your shopping cart items will appear here.</p></div>} />
+          <Route path="/search" element={<div><h1>Search Page</h1><p>Enter your search query here.</p></div>} />
         </Routes>
       </main>
 

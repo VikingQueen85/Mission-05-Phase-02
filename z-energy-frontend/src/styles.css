@@ -30,7 +30,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 75px;
-    padding: 0.3rem 3rem;
+    padding: 0.3rem 4rem;
     flex-wrap: wrap;
     gap: 2rem;
 }
@@ -53,20 +53,12 @@ body {
 }
 
 .header-button {
-    padding: 0.4rem 0.8rem;
+    padding: 1rem 1.5rem;
     border-radius: 0.25rem;
-    border: 1px solid transparent;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 0.95rem;
     transition: all 0.2s ease-in-out;
-    white-space: nowrap;
-}
-
-.normal-button {
-    background-color: transparent;
-    color: #555;
-    border-color: #ddd;
 }
 
 .normal-button:hover {
@@ -74,9 +66,11 @@ body {
 }
 
 .orange-gradient-button {
+    padding: 1rem 2.5rem;
     background: linear-gradient(to right, #f97316, #fca586);
     color: #FFFFFF;
     border: none;
+    border-radius: 9999px;
     box-shadow: 0 2px 5px rgba(249, 115, 22, 0.3);
 }
 
@@ -94,16 +88,18 @@ body {
     align-items: center;
 }
 
-.header-top-right-nav a {
+.header-top-right-nav a,
+.header-bottom-left-nav a {
     text-decoration: none;
     color: #555;
     font-weight: 500;
-    font-size: 1.0rem;
+    font-size: 0.95rem;
     padding: 0.5rem 0;
     transition: color 0.3s ease;
 }
 
-.header-top-right-nav a:hover {
+.header-top-right-nav a:hover,
+.header-bottom-left-nav a:hover {
     color: #f97316;
 }
 
@@ -115,7 +111,7 @@ body {
 }
 
 .header-bottom-nav-row {
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 3rem;
     display: flex;
     align-items: center;
 }
@@ -129,29 +125,9 @@ body {
     flex-wrap: wrap;
 }
 
-.header-bottom-left-nav a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    font-size: 1.0rem;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease;
-}
-
-.header-bottom-left-nav a:hover {
-    color: #f97316;
-}
-
-.orange-gradient-band {
-    height: 90px;
-    background: linear-gradient(to right, #f97316, #fca586);
-    width: 100%;
-    margin-top: 0.5cm;
-}
-
 .main-content {
     flex-grow: 1;
-    padding: 2rem 1rem;
+    padding: 2rem 3rem;
     background-color: #FFFFFF;
 }
 
@@ -173,6 +149,7 @@ body {
 .header-top-band {
     flex-direction: column;
     align-items: flex-start;
+    padding: 0.3rem 1rem;
 }
 
 .header-top-left,
@@ -201,13 +178,4 @@ body {
     width: auto;
     font-size: 0.9rem;
 }
-
-.orange-gradient-band {
-    margin-top: 0.5rem;
-}
-}
-
-.header-top-right-nav li a,
-.header-bottom-left-nav li a {
-    font-size: 0.95rem;
 }
