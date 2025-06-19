@@ -7,14 +7,14 @@
   );
   border: 2px solid #ffffff;
 
-  width: 100%;
-  max-width: 147px;
-  max-height: 255px;
-  padding: 10px 5px 20px 5px;
+  width: 147px;
+  height: 255px;
+  padding: 10px 5px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 
   font-family: "Roboto", sans-serif;
   font-weight: 700;
