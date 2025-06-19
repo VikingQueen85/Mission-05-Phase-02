@@ -63,16 +63,16 @@ function Homepage() {
 
   return (
     <div className="homepage-main-container">
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-text">Welcome to Z</h1>
-        </div>
+      <section className="top-banner-section">
+        <h1 className="top-banner-text">Welcome to Z</h1>
       </section>
+
+      {/* Hero Section */}
+      <section className="main-image-section"></section>
 
       <section className="find-station-band">
         <h2 className="find-station-text">Find a Z Station</h2>
-        <div className="find-station-icons">
-        </div>
+        <div className="find-station-icons"></div>
       </section>
 
       <div className="find-station-toggle-wrapper">
@@ -134,36 +134,57 @@ function Homepage() {
 
       <section className="content-blocks-section">
         <div className="content-grid">
-          <div className="content-block">
-            <div className="content-block-text">
-              <h3 className="content-block-heading">Sharetank</h3>
-              <p className="content-block-description">Buy fuel and share with up to 5 family/friends with Sharetank</p>
-              <Link to="/share-tank" className="content-block-button orange-gradient-button">Find out more</Link>
-            </div>
-            <div className="content-block-image-wrapper">
-              <img src="Sharetank.webp" alt="Hand fueling a car" className="content-block-image" />
-            </div>
-          </div>
-
+          {/* Sharetank Block */}
           <div className="content-block reverse-layout">
             <div className="content-block-image-wrapper">
-              <img src="Price-Comparison.webp" alt="Z station sign" className="content-block-image" />
+              <img
+                src="./public/Sharetank.webp"
+                alt="Sharetank"
+                className="content-block-image"
+              />
             </div>
             <div className="content-block-text">
-              <h3 className="content-block-heading">Price comparison</h3>
-              <p className="content-block-description">Compare fuel prices with nearby stations</p>
-              <Link to="/price-comparison" className="content-block-button orange-gradient-button">Find out more</Link>
+              <h3 className="content-block-heading">Sharetank</h3>
+              <p className="content-block-description">
+                Buy fuel when it's cheap and share it with up to 5 family members or friends. Save more together.
+              </p>
+              <Link to="/share-tank" className="content-block-button orange-gradient-button">Learn more</Link>
             </div>
           </div>
 
+          {/* Price Comparison Block */}
           <div className="content-block">
-            <div className="content-block-text">
-              <h3 className="content-block-heading">Order food online</h3>
-              <p className="content-block-description">Order food and drinks via the app and pick up at the station</p>
-              <Link to="/order-food" className="content-block-button orange-gradient-button">Find out more</Link>
-            </div>
             <div className="content-block-image-wrapper">
-              <img src="Order-Food.webp" alt="Hand holding coffee and sandwich" className="content-block-image" />
+              <img
+                src="./public/Price-Comparison.webp"
+                alt="Price Comparison"
+                className="content-block-image"
+              />
+            </div>
+            <div className="content-block-text content-block-text-align-right">
+              <h3 className="content-block-heading">Price Comparison</h3>
+              <p className="content-block-description">
+                Compare fuel prices across different Z stations to find the best deals near you. Save money on every fill-up.
+              </p>
+              <Link to="/price-comparison" className="content-block-button orange-gradient-button">Price comparison</Link>
+            </div>
+          </div>
+
+          {/* Order Food Online Block */}
+          <div className="content-block reverse-layout">
+            <div className="content-block-image-wrapper">
+              <img
+                src="./public/Order-Food.webp"
+                alt="Order Food Online"
+                className="content-block-image"
+              />
+            </div>
+            <div className="content-block-text">
+              <h3 className="content-block-heading">Order Food Online</h3>
+              <p className="content-block-description">
+                Pre-order your favorite food and coffee from Z Espress and pick it up on the go.
+              </p>
+              <Link to="/order-food" className="content-block-button orange-gradient-button">Order food</Link>
             </div>
           </div>
         </div>
