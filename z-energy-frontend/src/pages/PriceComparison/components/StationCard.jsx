@@ -5,7 +5,7 @@ const StationCard = ({ stationName, stationAddress, fuel }) => {
     <div className={styles.card}>
       <div className={styles.header}>
         {/* Assuming Z-Logo.png is in your public folder */}
-        <img src="/Z-Logo.png" alt="Z Logo" className={styles.logo} />
+        <img src="/Z-Logo-2.png" alt="Z Logo" className={styles.logo} />
         <div className={styles.stationInfo}>
           <h3 className={styles.name}>{stationName}</h3>
           <p className={styles.address}>{stationAddress}</p>
