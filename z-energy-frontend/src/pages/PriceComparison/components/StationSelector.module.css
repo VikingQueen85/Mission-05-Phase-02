@@ -1,17 +1,21 @@
 .selectorContainer {
-  width: 100%;
-  max-width: 380px;
-  margin-top: 10px;
+  width: 143px;
+  margin: 5px auto;
+  position: relative;
+  z-index: 10;
 }
 
 .selector {
   width: 100%;
-  padding: 12px 15px;
-  font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  background-color: white;
+  padding: 0 15px;
+  font-size: 10px;
+
+  border: none;
+  background-color: #ffffff;
+
   cursor: pointer;
+
+  /* Dropdown / Select Element */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -23,7 +27,6 @@
 
 .selector:focus {
   outline: none;
-  border-color: #3498db;
 }
 
 .selector:disabled {

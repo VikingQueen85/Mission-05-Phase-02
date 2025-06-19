@@ -23,7 +23,7 @@ const StationSelector = ({
         value={selectedValue}
         onChange={handleChange}
         disabled={isLoading || disabled}>
-        <option value="">-- Select a Station --</option>
+        <option value="">- Select a Station -</option>
         {results.map(station => (
           <option key={station.id} value={station.slug}>
             {station.name} - {station.address}
