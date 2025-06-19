@@ -4,6 +4,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Homepage from './pages/Home/Homepage';
 import Services from './pages/Services/Services';
 import PriceComparison from './pages/PriceComparison/PriceComparison';
+import OrderFoodOnline from './pages/Order Food Online/OrderFoodOnline';
 import './styles.css';
 
 function App() {
@@ -64,7 +65,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/share-tank" element={<div><h1>Sharetank Page</h1><p>Details about Sharetank.</p></div>} />
           <Route path="/price-comparison" element={<PriceComparison />} />
-          <Route path="/order-food" element={<div><h1>Order Food Online Page</h1><p>Information about ordering food and drinks.</p></div>} />
+          <Route path="/order-food" element={<OrderFoodOnline />} />
           <Route path="/z-app" element={<div><h1>Z App Page</h1><p>Content for Z App.</p></div>} />
           <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />
           <Route path="/how-to-enjoy-Z-station" element={<div><h1>Z Stations Page</h1><p>How to enjoy Z stations</p></div>} />
