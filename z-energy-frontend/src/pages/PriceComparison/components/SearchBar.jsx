@@ -1,9 +1,12 @@
-import { useState } from "react"
 import styles from "./SearchBar.module.css" // Using CSS Module for consistency
 
-const SearchBar = ({ onSearch, isLoading, placeholder = "Enter Address" }) => {
-  const [query, setQuery] = useState("")
-
+const SearchBar = ({
+  query,
+  onQueryChange,
+  onSearch,
+  isLoading,
+  placeholder = "Enter Address",
+}) => {
   const handleSubmit = e => {
     e.preventDefault()
     if (query.trim() && !isLoading) {
@@ -17,7 +20,7 @@ const SearchBar = ({ onSearch, isLoading, placeholder = "Enter Address" }) => {
         className={styles.searchInput}
         type="text"
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={e => onQueryChange(e.target.value)}
         placeholder={placeholder}
         disabled={isLoading}
       />

@@ -8,8 +8,7 @@ const StationSelector = ({
   disabled,
 }) => {
   // Don't render anything if there are no search results
-  // Or if a station is already selected
-  if (results.length === 0 || selectedValue) {
+  if (results.length === 0) {
     return null
   }
 

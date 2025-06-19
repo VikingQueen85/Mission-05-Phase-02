@@ -8,6 +8,7 @@ import styles from "./PriceComparison.module.css"
 
 // Initial state for a single column
 const initialColumnState = {
+  searchQuery: "",
   isSearching: false,
   isLoadingDetails: false,
   searchError: "",
@@ -33,10 +34,19 @@ const PriceComparison = () => {
     })
   }
 
+  // Handle input changes
+  const handleQueryChange = (query, index) => {
+    updateColumnState(index, { searchQuery: query })
+  }
+
   // Step 1: Search for a list of stations
   const handleSearch = async (query, index) => {
     // Reset the entire column state and set searching to true
-    updateColumnState(index, { ...initialColumnState, isSearching: true })
+    updateColumnState(index, {
+      ...initialColumnState,
+      searchQuery: query,
+      isSearching: true,
+    })
 
     try {
       const apiUrl = `http://localhost:3000/api/station-fuel-prices/search?term=${query}`
@@ -85,6 +95,8 @@ const PriceComparison = () => {
       updateColumnState(index, {
         stationDetails: response.data,
         isLoadingDetails: false,
+        searchQuery: "", // Clear search query after selection
+        searchResults: [], // Hides the dropdown after selection
       })
     } catch (err) {
       console.error("Details Fetch Error:", err)
@@ -108,6 +120,8 @@ const PriceComparison = () => {
         {columns.map((column, index) => (
           <div key={index} className={styles.stationColumn}>
             <SearchBar
+              query={column.searchQuery} // Pass the current query to SearchBar
+              onQueryChange={query => handleQueryChange(query, index)}
               onSearch={query => handleSearch(query, index)}
               isLoading={column.isSearching}
               placeholder="Enter Address"
