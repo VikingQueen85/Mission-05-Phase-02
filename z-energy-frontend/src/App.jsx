@@ -2,9 +2,8 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Homepage from './pages/Home/Homepage';
-import Services from './pages/Services/Services';
 import PriceComparison from './pages/PriceComparison/PriceComparison';
-import OrderFoodOnline from './pages/Order Food Online/OrderFoodOnline';
+import OrderFoodOnline from './pages/OrderFoodOnline/OrderFoodOnline';
 import './styles.css';
 
 function App() {
@@ -13,28 +12,28 @@ function App() {
       <header className="main-header">
         <div className="header-top-band">
           <div className="header-top-left">
-            {/* Z Logo as Homepage Link */}
             <Link to="/" className="z-logo-link">
               <img
-                src="Z Logo.webp"
+                src="/Z-Logo.png"
                 alt="Z Energy Logo"
                 className="z-logo"
               />
             </Link>
             {/* "For Personal" button remains */}
             <button className="header-button orange-gradient-button">For Personal</button>
+            <button className="header-button normal-button">For Business</button>
           </div>
           <nav className="header-top-right-nav">
             <ul>
               <li><Link to="/z-app">Z App</Link></li>
               <li><Link to="/about-z">About Z</Link></li>
-              {/* New: Shopping Cart Icon */}
+              {/* Shopping Cart Icon */}
               <li>
                 <Link to="/cart" className="header-icon-link">
                   <i className="fa-solid fa-cart-shopping"></i>
                 </Link>
               </li>
-              {/* New: Magnifying Glass Icon */}
+              {/* Magnifying Glass Icon */}
               <li>
                 <Link to="/search" className="header-icon-link">
                   <i className="fa-solid fa-magnifying-glass"></i>
@@ -52,7 +51,6 @@ function App() {
               <li><Link to="/how-to-enjoy-Z-station">How to enjoy Z station</Link></li>
               <li><Link to="/rewards">Rewards and promotions</Link></li>
               <li><Link to="/locations">Locations</Link></li>
-              <li><Link to="/services">Services</Link></li>
             </ul>
           </nav>
         </div>
@@ -62,7 +60,6 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/services" element={<Services />} />
           <Route path="/share-tank" element={<div><h1>Sharetank Page</h1><p>Details about Sharetank.</p></div>} />
           <Route path="/price-comparison" element={<PriceComparison />} />
           <Route path="/order-food" element={<OrderFoodOnline />} />
