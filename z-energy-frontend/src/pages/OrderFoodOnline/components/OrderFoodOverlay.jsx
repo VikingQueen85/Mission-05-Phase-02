@@ -4,19 +4,6 @@ import './OrderFoodOverlay.css';
 
 import zLogoImage from '/Z-Logo.png';
 
-import itemLongBlack from './images/LongBlack.png';
-import itemShortBlack from './images/ShortBlack.png';
-import itemGingerBreadLatte from './images/GingerBreadLatte.png';
-import itemFluffy from './images/Fluffy.png';
-import itemMochachino from './images/Mochaccino.png';
-import itemLemonGingerHoney from './images/LemonGingerHoney.png';
-import itemFlatWhite from './images/FlatWhite.png';
-import itemMatchaLatte from './images/MatchaLatte.png';
-import itemCappuccino from './images/Cappuccino.png';
-import itemHotChocolate from './images/HotChocolate.png';
-import itemLatte from './images/Latte.png';
-import itemChaiLatte from './images/ChaiLatte.png';
-
 function OrderFoodOverlay({ contentType, onClose }) {
     const getLabelText = (type) => {
         switch (type) {

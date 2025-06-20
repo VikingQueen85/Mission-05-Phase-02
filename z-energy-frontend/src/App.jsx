@@ -21,7 +21,6 @@ function App() {
             </Link>
             {/* "For Personal" button remains */}
             <button className="header-button orange-gradient-button">For Personal</button>
-            <button className="header-button normal-button">For Business</button>
           </div>
           <nav className="header-top-right-nav">
             <ul>
