@@ -1,34 +1,51 @@
 const mongoose = require("mongoose")
 
-const StationFuelPriceSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  address: { type: String, required: true },
-  // GeoJSON for location-based queries
-  location: {
-    type: {
+const FuelSchema = new mongoose.Schema(
+  {
+    fuelType: {
       type: String,
-      enum: ["Point"],
       required: true,
     },
-    coordinates: {
-      type: [Number], // [longitude, latitude]
-      required: true,
+    price: {
+      type: Number,
+      require: true,
     },
   },
-  fuels: [
-    {
-      fuelType: { type: String, required: true }, // e.g., 'Unleaded 91', 'Diesel'
-      price: { type: Number, required: true }, // Price per litre
-    },
-  ],
+  { _id: false }
+) // No _id for sub-documents
+
+const ZStationSchema = new mongoose.Schema({
+  // Use Gassy Station ID as primary key (_id)
+  _id: {
+    type: Number,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  fuels: [FuelSchema], // Use the FuelSchema for fuel prices
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
-// Create a 2dsphere index on the location field for geospatial queries
-StationFuelPriceSchema.index({ location: "2dsphere" })
+// Set the lastUpdated field to the current date before every save
+ZStationSchema.pre("save", function (next) {
+  this.lastUpdated = Date.now()
+  next()
+})
 
-const StationFuelPrice = mongoose.model(
-  "StationFuelPrice",
-  StationFuelPriceSchema
-)
+const StationFuelPrice = mongoose.model("StationFuelPrice", ZStationSchema)
 
 module.exports = StationFuelPrice
