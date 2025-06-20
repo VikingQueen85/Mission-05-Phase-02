@@ -1,0 +1,218 @@
+
+/* Main overlay background - fixed and full screen */
+.order-food-overlay {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 1000;
+}
+
+/* The actual content box */
+.overlay-content-box {
+    width: 519px;
+    height: 805px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px 0 20px 20px;
+    transform: translateX(0);
+}
+
+/* Close button within the content box */
+.overlay-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #333;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    z-index: 1001;
+    transition: color 0.2s ease;
+}
+
+.overlay-close-button:hover {
+    color: #F36F21;
+}
+
+/* Header frame for Z logo and label */
+.overlay-header-frame {
+    display: flex;
+    align-items: center;
+    width: auto;
+    max-width: 389px;
+    min-height: 56px;
+    gap: 35px;
+    margin-bottom: 20px;
+}
+
+/* Z Logo inside the overlay header */
+.overlay-logo {
+    width: 40px;
+    height: auto;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+/* Dynamic label inside the overlay header */
+.overlay-label {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #F36F21;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Container for the grid of specific item options */
+.overlay-items-container {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Grid for the item options */
+.item-options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 91px);
+    gap: 53px 58px;
+    padding: 0;
+    margin: 0;
+    justify-content: start;
+}
+
+/* Individual item option button */
+.item-option-button {
+    background-color: #F8F8F8;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 91px;
+    height: 108px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-option-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Image within the item option button */
+.item-option-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Label within the item option button */
+.item-option-label {
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #000000;
+    margin: 0;
+}
+
+.placeholder-text {
+    font-size: 1.1em;
+    color: #888;
+    text-align: center;
+    width: 100%;
+    padding-top: 50px;
+}
+
+/* Responsive adjustments for the overlay */
+@media (max-width: 768px) {
+    .overlay-content-box {
+        width: 90vw;
+        height: 90vh;
+        margin: 5vh 5vw;
+        padding: 15px;
+    }
+
+    .overlay-close-button {
+        font-size: 1.8em;
+    }
+
+    .overlay-header-frame {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .overlay-logo {
+        width: 60px;
+    }
+
+    .overlay-label {
+        font-size: 1.5em;
+    }
+
+    .item-options-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 15px;
+        padding: 0;
+    }
+
+    .item-option-button {
+        width: 100%;
+        height: auto;
+        padding: 8px;
+    }
+    .item-option-image {
+        width: 50px;
+        height: 50px;
+    }
+    .item-option-label {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay-content-box {
+        width: 95vw;
+        height: 95vh;
+        margin: 2.5vh 2.5vw;
+        padding: 10px;
+    }
+
+    .overlay-close-button {
+        font-size: 1.5em;
+        top: 10px;
+        right: 10px;
+    }
+
+    .overlay-logo {
+        width: 50px;
+    }
+
+    .overlay-label {
+        font-size: 1.2em;
+    }
+
+    .item-options-grid {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 10px;
+    }
+}
