@@ -44,7 +44,7 @@ const getStationPrices = async (req, res) => {
     )
     return res
       .status(500)
-      .json("An unexpected error occurred while fetching station prices.")
+      .json({ message: "An unexpected error occurred while fetching station prices." })
   }
 }
 
