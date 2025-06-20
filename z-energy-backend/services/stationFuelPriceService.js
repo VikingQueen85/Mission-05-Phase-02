@@ -5,13 +5,19 @@ const config = require("../config/config")
 const logger = require("../config/logger") // Import the logger
 const StationFuelPrice = require("../models/StationFuelPrice") // Import the ZStation model
 
-// --- Constants ---
-// HTTP headers to use for requests
-const HEADERS = {
-  "User-Agent": randomUserAgent.getRandom(), // Random user agent for each request
-  Referer: config.GASSY_API.REFERER_URL, // Referer URL for the API
-}
+// --- CONSTANTS ---
 const CACHE_EXPIRATION = 8 * 60 * 60 * 1000 // Cache for 8 hours
+
+/**
+ * Generate fresh request headers with a new random user agent
+ * @returns {Object} Fresh headers object
+ */
+const getFreshHeaders = () => {
+  return {
+    "User-Agent": randomUserAgent.getRandom(),
+    Referer: config.GASSY_API.REFERER_URL,
+  }
+}
 
 /**
  * Service to search for stations by a search term.
@@ -27,7 +33,9 @@ const searchForStations = async term => {
     }?term=${encodeURIComponent(term)}` // Encode search term to make it URL-safe
 
     // Fetch data from API
-    const response = await axios.get(searchApiUrl, { headers: HEADERS })
+    const response = await axios.get(searchApiUrl, {
+      headers: getFreshHeaders(),
+    })
 
     // Filter the stations that start with "Z "
     // Map according to website's format
@@ -93,7 +101,7 @@ const fetchStationPricesBySlug = async slug => {
     const stationUrl = `${config.GASSY_API.REFERER_URL}${slug}/`
 
     // Fetch the HTML content of the station's page
-    const response = await axios.get(stationUrl, { headers: HEADERS })
+    const response = await axios.get(stationUrl, { headers: getFreshHeaders() })
     const html = response.data
 
     // Load the HTML into Cheerio for parsing
