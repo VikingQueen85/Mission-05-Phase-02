@@ -1,7 +1,6 @@
 // src/MobileApp.jsx
 import { Routes, Route, Link } from "react-router-dom"
 import PriceComparison from "./pages/PriceComparison/PriceComparison"
-import Services from "./pages/Services/Services"
 
 import "./MobileApp.css" // Mobile-specific styles
 
@@ -14,9 +13,6 @@ function MobileApp() {
           <ul>
             <li>
               <Link to="/price-comparison">Fuel Price Comparison</Link>
-            </li>
-            <li>
-              <Link to="/services">Order Food</Link>
             </li>
             <li>
               <Link to="/near-me">Z Near me</Link>
@@ -35,7 +31,6 @@ function MobileApp() {
               </div>
             }
           />
-          <Route path="/services" element={<Services />} />
           <Route path="/price-comparison" element={<PriceComparison />} />
         </Routes>
       </main>

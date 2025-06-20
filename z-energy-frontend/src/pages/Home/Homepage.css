@@ -13,9 +13,9 @@
 
 /* Updated Hero Section for the new banner */
 .top-banner-section {
-    width: 100%;
+    width: 100vw;
     height: 200px;
-    background-image: url('/Banner-Home-Page.webp');
+    background-image: url('/Banner-Home-Page.png');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -48,7 +48,7 @@
 .main-image-section {
     width: 100%;
     height: 684px;
-    background-image: url('Homepage-Hero.webp');
+    background-image: url('Homepage-Hero.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -65,12 +65,12 @@
 
 .find-station-band {
     display: flex;
-    background-image: url('Find-Z-Station.webp');
-    background-size: contain;
+    background-image: url('Find-Z-Station.png');
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    padding: 1.5rem 0;
-    width: 100%;
+    padding: 1.5rem;
+    width: 100vw;
     height: 200px;
     margin-bottom: 2rem;
 }
