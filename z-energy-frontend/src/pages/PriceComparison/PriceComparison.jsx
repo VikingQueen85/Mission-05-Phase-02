@@ -6,6 +6,9 @@ import StationCard from "./components/StationCard"
 import StationSelector from "./components/StationSelector"
 import styles from "./PriceComparison.module.css"
 
+// Constants
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 // Initial state for a single column
 const initialColumnState = {
   searchQuery: "",
@@ -49,7 +52,7 @@ const PriceComparison = () => {
     })
 
     try {
-      const apiUrl = `http://localhost:3000/api/station-fuel-prices/search?term=${query}`
+      const apiUrl = `${API_BASE_URL}/api/station-fuel-prices/search?term=${query}`
       const response = await axios.get(apiUrl)
       const results = response.data
 
@@ -90,7 +93,7 @@ const PriceComparison = () => {
     })
 
     try {
-      const apiUrl = `http://localhost:3000/api/station-fuel-prices/prices/${slug}`
+      const apiUrl = `${API_BASE_URL}/api/station-fuel-prices/prices/${slug}`
       const response = await axios.get(apiUrl)
       updateColumnState(index, {
         stationDetails: response.data,
