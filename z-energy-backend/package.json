@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "reseed-all": "node scripts/reseed.js",
+    "seed-stations": "node utils/rawStationDataSeeder.js",
+    "seed-prices": "node utils/stationFuelPriceSeeder.js"
   },
   "keywords": [],
   "author": "",
