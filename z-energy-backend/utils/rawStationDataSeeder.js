@@ -20,17 +20,16 @@ const seedStations = async (force = false) => {
     // Check if there is data in the collection
     const count = await Station.countDocuments()
 
-    // If collection has data, skip seeding
-    if (count > 0 && !force) {
-      console.info(
-        `Database already contains ${count} stations data. Skipping seed.`
-      )
+    if (force) {
+      console.info("Force seeding Stations data...")
+    } else if (count > 0) {
+      console.info(`Database already contains ${count} Stations. Skip seeding.`)
       return false
+    } else {
+      console.info("No Stations found. Seeding database...")
     }
 
-    console.info("No stations data found. Seeding database...")
-
-    // Clear existing data (optional safety measure)
+    // Clear existing data
     await Station.deleteMany({})
 
     // Prepare data to include the 'town' field
@@ -54,10 +53,10 @@ const seedStations = async (force = false) => {
 if (require.main === module) {
   // This code runs ONLY when executing: node utils/rawStationDataSeeder.js
   mongoose
-    .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/zpetrolapp")
+    .connect(process.env.MONGODB_URI)
     .then(() => {
       console.log("Connected to MongoDB for seeding")
-      return seedStations()
+      return seedStations(true)
     })
     .then(() => {
       console.log("Seeding completed")
