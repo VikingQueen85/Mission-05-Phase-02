@@ -14,7 +14,7 @@ const getStations = async (req, res) => {
     res.json(stations)
   } catch (error) {
     console.error("Search Controller Error:", error.message)
-    res.status(500).send("Server error during station search.")
+    res.status(500).json({ message: "Server error during station search." })
   }
 }
 
