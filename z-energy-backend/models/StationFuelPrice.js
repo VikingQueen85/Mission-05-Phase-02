@@ -8,7 +8,7 @@ const FuelSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
-      require: true,
+      required: true,
     },
   },
   { _id: false }
