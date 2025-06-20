@@ -1,12 +1,134 @@
-.cardStyle {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.card {
+  /* Card Gradient Background Color */
+  background: linear-gradient(
+    325.69deg,
+    rgba(49, 41, 171, 0.782912) 24.99%,
+    #1e196b 63.26%
+  );
+  border: 2px solid #ffffff;
+
+  width: 147px;
+  height: 255px;
+  padding: 10px 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  letter-spacing: -2%;
+  color: #ffffff;
+  gap: 10px;
 }
 
-.fuelListStyle {
-  list-style: none;
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 5px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+}
+
+.stationInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.name {
+  font-size: 16px;
+  letter-spacing: -2%;
+  text-align: center;
+}
+
+.address {
+  width: 100%;
+  height: 28px;
+  font-size: 12px;
+  letter-spacing: -2%;
+  text-align: center;
+}
+
+.name,
+.address {
+  margin: 0;
   padding: 0;
+}
+
+.priceSection {
+  height: 18px;
+  width: fit-content;
+  font-size: 14px;
+  text-align: center;
+}
+
+.price {
+  border-radius: 10px;
+  padding: 0 10px;
+  margin: 0;
+}
+
+.fuelSection {
+  margin: 0;
+  padding: 0;
+}
+
+.fuelType {
+  margin: 0;
+}
+
+.fuelLogo {
+  height: 19px;
+  width: auto;
+  object-fit: contain;
+}
+
+.topUpButton {
+  background: linear-gradient(
+    89.78deg,
+    #f37120 0.06%,
+    #f68c19 31.04%,
+    #f9a711 62.01%,
+    #ffdd02 92.99%
+  );
+
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+
+  height: 22px;
+  width: fit-content;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+/* New Colour Classes */
+.greenGradient {
+  background: linear-gradient(180deg, #03924c 0%, #006f2a 100%);
+}
+
+.orangeGradient {
+  background: linear-gradient(180deg, #f58a22 0%, #d93627 100%);
+}
+
+.yellowGradient {
+  background: linear-gradient(
+    89.78deg,
+    #f37120 0.06%,
+    #f68c19 31.04%,
+    #f9a711 62.01%,
+    #ffdd02 92.99%
+  );
 }

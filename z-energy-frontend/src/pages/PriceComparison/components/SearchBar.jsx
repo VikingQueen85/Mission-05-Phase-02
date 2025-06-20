@@ -1,27 +1,31 @@
-import { useState } from "react"
+import styles from "./SearchBar.module.css" // Using CSS Module for consistency
 
-const SearchBar = ({ onSearch }) => {
-  const [query, setQuery] = useState("")
-
+const SearchBar = ({
+  query,
+  onQueryChange,
+  onSearch,
+  isLoading,
+  placeholder = "Enter Address",
+}) => {
   const handleSubmit = e => {
     e.preventDefault()
-    if (query.trim()) {
+    if (query.trim() && !isLoading) {
       onSearch(query)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
+    <form onSubmit={handleSubmit} className={styles.searchForm}>
       <input
+        className={styles.searchInput}
         type="text"
         value={query}
-        onChange={e => setQuery(e.target.value)}
-        placeholder="Enter Z station name or address..."
-        style={{ width: "300px", padding: "10px" }}
+        onChange={e => onQueryChange(e.target.value)}
+        placeholder={placeholder}
+        disabled={isLoading}
       />
-      <button type="submit" style={{ padding: "10px" }}>
-        Search
-      </button>
+      {/* No search button for mobile version */}
+      {/* Search triggers on Enter */}
     </form>
   )
 }
