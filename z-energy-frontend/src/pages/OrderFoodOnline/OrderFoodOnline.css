@@ -1,10 +1,12 @@
 
+/* Universal box-sizing for consistent layout */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+/* Basic body styling */
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -14,11 +16,20 @@ body {
     overflow-x: hidden;
 }
 
+/* Main container for the entire Order Food Online page */
+.order-food-online-container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Styling for the main banner section at the top of the page */
 .order-food-banner-section {
     position: relative;
-    width: 100%;
+    width: 100vw;
+    max-width: none;
+    margin: 0 auto;
     height: 200px;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
@@ -29,9 +40,10 @@ body {
     overflow: hidden;
 }
 
+/* Styling for the main content area which includes text and the floating food image */
 .order-food-content {
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 20px;
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
@@ -41,30 +53,42 @@ body {
     position: relative;
 }
 
+/* Styling for the wrapper containing the text content (heading and description) */
+.order-food-text-wrapper {
+    flex: 1;
+    min-width: 300px;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Styling for the floating food image */
 .order-food-floating-image {
     width: 515px;
     height: 330px;
     object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     order: 2;
+    margin-left: 80px;
     margin-bottom: 20px;
     transition: transform 0.3s ease;
     flex-shrink: 0;
 }
 
+/* Hover effect for the floating food image */
 .order-food-floating-image:hover {
     transform: translateY(-5px);
 }
 
+/* Styling for main content headings like "Fuel up more than just your car!" */
 .content-heading {
     height: 30px;
     font-size: 35px;
     color: #F36F21;
-    margin-top: 0;
     text-align: left;
 }
 
+/* Styling for the main content description paragraph */
 .content-description {
     font-size: 1.1em;
     line-height: 25px;
@@ -73,6 +97,7 @@ body {
     margin-bottom: 10px;
 }
 
+/* Styling for the "Find your nearest Z Station" button */
 .find-z-station-button {
     padding: 8px 10px;
     width: 309px;
@@ -89,29 +114,32 @@ body {
     justify-content: center;
     text-align: center;
     margin-top: 60px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     outline: none;
 }
 
+/* Hover effect for the "Find your nearest Z Station" button */
 .find-z-station-button:hover {
     filter: brightness(1.1);
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Active (click) effect for the "Find your nearest Z Station" button */
 .find-z-station-button:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Styling for the "Pre-Order Online" message section */
 .pre-order-message-section {
     max-width: 1200px;
-    margin: 100px auto 40px auto;
+    margin: 20px;
     padding: 20px;
     text-align: left;
 }
 
+/* Styling for the <h2> heading within the pre-order message section */
 .pre-order-message-section h2 {
     font-size: 2.2em;
     color: #F36F21;
@@ -119,44 +147,71 @@ body {
     margin-top: 0;
 }
 
+/* Styling for the container that holds the four pre-order food image buttons */
 .pre-order-images-container {
     max-width: 1200px;
-    margin: 40px auto;
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 90px;
+    gap: 20px;
     justify-items: center;
-    align-items: start;
+    align-items: center;
 }
 
-.pre-order-image-item {
+/* Styling for the individual pre-order image buttons (Hot Drinks, Cold Drinks, etc.) */
+.pre-order-image-button {
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: block;
+    width: 228px;
+    height: 182px;
+    border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.3s ease;
 }
 
-.pre-order-image-item:hover {
+/* Hover effect for the pre-order image buttons */
+.pre-order-image-button:hover {
     transform: translateY(-5px);
 }
 
+/* Styling for the images inside the pre-order image buttons */
 .pre-order-image {
-    width: 228px;
-    height: 182px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 15px;
     display: block;
 }
 
+.inline-overlay-wrapper {
+    animation: fadeSlideDown 0.3s ease-in-out;
+}
+
+@keyframes fadeSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media queries for responsive adjustments on screens up to 992px wide */
 @media (max-width: 992px) {
     .order-food-banner-text {
         font-size: 3em;
     }
 
+    /* Stack content elements vertically and center them */
     .order-food-content {
         flex-direction: column;
         align-items: center;
     }
 
+    /* Reset order and adjust width for text wrapper and floating image */
     .order-food-text-wrapper,
     .order-food-floating-image {
         order: unset;
@@ -166,24 +221,29 @@ body {
         margin-right: 0;
     }
 
+    /* Adjust height and margin for floating image when stacked */
     .order-food-floating-image {
         height: auto;
         margin-bottom: 30px;
     }
 
+    /* Center align content headings and description */
     .content-heading,
     .content-description {
         text-align: center;
     }
 
+    /* Adjust font size for content heading */
     .content-heading {
         font-size: 2em;
     }
 
+    /* Adjust font size for content description */
     .content-description {
         font-size: 1em;
     }
 
+    /* Adjust button width and padding for responsiveness */
     .find-z-station-button {
         width: 100%;
         max-width: 280px;
@@ -191,18 +251,33 @@ body {
         font-size: 1em;
     }
 
+    /* Adjust grid for pre-order images to 2 columns */
     .pre-order-images-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
 
+    /* Adjust button width and height for responsive pre-order images */
+    .pre-order-image-button {
+        width: 100%;
+        max-width: 228px;
+        height: auto;
+    }
+    /* Ensure image fills its responsive container */
     .pre-order-image {
         width: 100%;
         height: auto;
     }
+
+    /* Adjust font size for pre-order message heading */
+    .pre-order-message-section h2 {
+        font-size: 1.8em;
+    }
 }
 
+/* Media queries for responsive adjustments on screens up to 768px wide */
 @media (max-width: 768px) {
+    /* Adjust banner height and text size */
     .order-food-banner-section {
         height: 250px;
     }
@@ -211,25 +286,31 @@ body {
         font-size: 2.5em;
     }
 
+    /* Adjust padding for content area */
     .order-food-content {
         padding: 0 15px;
     }
 
+    /* Center align content headings and description */
     .content-heading,
     .content-description {
         text-align: center;
     }
 
+    /* Adjust font size for content heading */
     .content-heading {
         font-size: 1.8em;
     }
 
+    /* Adjust font size for pre-order message heading */
     .pre-order-message-section h2 {
         font-size: 1.5em;
     }
 }
 
+/* Media queries for responsive adjustments on screens up to 480px wide (mobile) */
 @media (max-width: 480px) {
+    /* Adjust banner height and text size */
     .order-food-banner-section {
         height: 200px;
     }
@@ -238,18 +319,22 @@ body {
         font-size: 2em;
     }
 
+    /* Adjust font size for content heading */
     .content-heading {
         font-size: 1.5em;
     }
 
+    /* Adjust font size for content description */
     .content-description {
         font-size: 0.95em;
     }
 
+    /* Adjust font size for pre-order message heading */
     .pre-order-message-section h2 {
         font-size: 1.2em;
     }
 
+    /* Adjust grid for pre-order images to 1 column */
     .pre-order-images-container {
         grid-template-columns: 1fr;
         gap: 10px;
