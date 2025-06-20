@@ -3,12 +3,15 @@ import React from 'react';
 import './OrderFoodOnline.css';
 import orderFoodBannerImage from './components/images/Order-Food-Banner.png';
 import zWebsiteFoodImage from './components/images/Z-Website-Food-Image.png';
+import preOrderImage1 from './components/images/HotDrinksCropped.png';
+import preOrderImage2 from './components/images/ColdDrinks.png';
+import preOrderImage3 from './components/images/Food.png';
+import preOrderImage4 from './components/images/MakeItACombo.png';
 
 function OrderFoodOnline() {
     return (
         <div className="order-food-online-container">
             <div className="order-food-banner-section" style={{ backgroundImage: `url(${orderFoodBannerImage})` }}>
-                <div className="order-food-banner-text">Order Food Online</div>
             </div>
 
             {/* Main content area: This section contains the text and the floating image. */}
@@ -24,6 +27,7 @@ function OrderFoodOnline() {
                         <br />
                         Stop in today and enjoy food that’s ready when you are!
                     </p>
+                
                     <button className="find-z-station-button">Find your nearest Z Station</button>
                 </div>
 
@@ -35,6 +39,22 @@ function OrderFoodOnline() {
             <div className="pre-order-message-section">
                 <h2>Pre-Order Online – Skip the Queue and Save Time!</h2>
             </div>
+
+            <section className="pre-order-images-container">
+                <div className="pre-order-image-item">
+                    <img src={preOrderImage1} alt="Hot Drinks" className="pre-order-image" />
+                </div>
+                <div className="pre-order-image-item">
+                    <img src={preOrderImage2} alt="Cold Drinks" className="pre-order-image" />
+                </div>
+                <div className="pre-order-image-item">
+                    <img src={preOrderImage3} alt="Food Items" className="pre-order-image" />
+                </div>
+                <div className="pre-order-image-item">
+                    <img src={preOrderImage4} alt="Make It A Combo" className="pre-order-image" />
+                </div>
+            </section>
+
         </div>
     );
 }

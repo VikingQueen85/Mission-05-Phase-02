@@ -5,22 +5,15 @@
     box-sizing: border-box;
 }
 
-/* Basic body styling for a clean slate */
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     color: #000000;
     background-color: #FFFFFF;
-}
-
-/* Main container for the Order Food Online page */
-.order-food-online-container {
-    width: 100%;
     overflow-x: hidden;
 }
 
-/* Banner section styling */
 .order-food-banner-section {
     position: relative;
     width: 100%;
@@ -31,13 +24,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFFFFF;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     overflow: hidden;
 }
 
-/* Main content area styling */
 .order-food-content {
     max-width: 1200px;
     margin: 40px auto;
@@ -45,22 +36,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    height: 200px;
+    height: auto;
     gap: 30px;
     position: relative;
 }
 
-.order-food-text-wrapper {
-    flex: 1;
-    min-width: 300px;
-    order: 1;
-}
-
-/* Styling for the floating image */
 .order-food-floating-image {
     width: 515px;
     height: 330px;
     object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     order: 2;
     margin-bottom: 20px;
     transition: transform 0.3s ease;
@@ -71,31 +57,29 @@ body {
     transform: translateY(-5px);
 }
 
-/* Content headings */
 .content-heading {
     height: 30px;
     font-size: 35px;
     color: #F36F21;
     margin-top: 0;
-    flex-basis: 100%;
     text-align: left;
 }
 
-/* Content description paragraph */
 .content-description {
     font-size: 1.1em;
     line-height: 25px;
     color: #000000;
     text-align: left;
+    margin-bottom: 10px;
 }
 
-/* Styling for the new inline button */
 .find-z-station-button {
     padding: 8px 10px;
     width: 309px;
     height: 26px;
     background: linear-gradient(to right, #1E196B, #4940ad);
     color: #FFFFFF;
+    border: none;
     border-radius: 30px;
     cursor: pointer;
     font-size: 1em;
@@ -103,18 +87,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     margin-top: 60px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
 }
 
 .find-z-station-button:hover {
+    filter: brightness(1.1);
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .find-z-station-button:active {
     transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Pre-Order message section styling */
 .pre-order-message-section {
     max-width: 1200px;
     margin: 100px auto 40px auto;
@@ -126,18 +116,64 @@ body {
     font-size: 2.2em;
     color: #F36F21;
     font-weight: bold;
-    margin-top: 100px;
+    margin-top: 0;
 }
 
-/* Responsive adjustments */
+.pre-order-images-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 90px;
+    justify-items: center;
+    align-items: start;
+}
+
+.pre-order-image-item {
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.pre-order-image-item:hover {
+    transform: translateY(-5px);
+}
+
+.pre-order-image {
+    width: 228px;
+    height: 182px;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
+}
+
 @media (max-width: 992px) {
     .order-food-banner-text {
         font-size: 3em;
     }
 
+    .order-food-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .order-food-text-wrapper,
     .order-food-floating-image {
-        width: 300px;
-        margin-left: 20px;
+        order: unset;
+        width: 100%;
+        max-width: 515px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .order-food-floating-image {
+        height: auto;
+        margin-bottom: 30px;
+    }
+
+    .content-heading,
+    .content-description {
+        text-align: center;
     }
 
     .content-heading {
@@ -148,8 +184,21 @@ body {
         font-size: 1em;
     }
 
-    .menu-categories ul {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .find-z-station-button {
+        width: 100%;
+        max-width: 280px;
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    .pre-order-images-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .pre-order-image {
+        width: 100%;
+        height: auto;
     }
 }
 
@@ -163,22 +212,11 @@ body {
     }
 
     .order-food-content {
-        flex-direction: column;
-        align-items: center;
         padding: 0 15px;
     }
 
-    .order-food-floating-image {
-        float: none;
-        margin: 0 0 30px 0;
-        width: 80%;
-        max-width: 350px;
-    }
-
     .content-heading,
-    .content-description,
-    .menu-categories,
-    .cta-section {
+    .content-description {
         text-align: center;
     }
 
@@ -186,13 +224,8 @@ body {
         font-size: 1.8em;
     }
 
-    .cta-text {
-        font-size: 1.2em;
-    }
-
-    .order-now-button {
-        padding: 12px 30px;
-        font-size: 1.1em;
+    .pre-order-message-section h2 {
+        font-size: 1.5em;
     }
 }
 
@@ -213,8 +246,12 @@ body {
         font-size: 0.95em;
     }
 
-    .menu-categories li {
-        font-size: 1em;
-        padding: 12px 15px;
+    .pre-order-message-section h2 {
+        font-size: 1.2em;
+    }
+
+    .pre-order-images-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 }
