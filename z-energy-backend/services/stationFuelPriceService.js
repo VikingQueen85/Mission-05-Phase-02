@@ -23,7 +23,7 @@ const searchForStations = async term => {
   }?term=${encodeURIComponent(term)}` // Encode search term to make it URL-safe
 
   // Fetch data from API
-  const response = await axios.get(searchApiUrl, { headers: HEADERS }) //
+  const response = await axios.get(searchApiUrl, { headers: HEADERS })
 
   // Filter the stations that start with "Z "
   // Map according to website's format
