@@ -18,7 +18,7 @@ body {
 
 .main-header {
     width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -67,7 +67,7 @@ body {
 
 .orange-gradient-button {
     padding: 1rem 2.5rem;
-    background: linear-gradient(to right, #f97316, #fca586);
+    background: #F36F21;
     color: #FFFFFF;
     border: none;
     border-radius: 9999px;

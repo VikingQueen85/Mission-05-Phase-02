@@ -25,7 +25,7 @@ const searchForStations = async term => {
   }?term=${encodeURIComponent(term)}` // Encode search term to make it URL-safe
 
   // Fetch data from API
-  const response = await axios.get(searchApiUrl, { headers: HEADERS }) //
+  const response = await axios.get(searchApiUrl, { headers: HEADERS })
 
   // Filter the stations that start with "Z "
   // Map according to website's format
@@ -100,12 +100,12 @@ const fetchStationPricesBySlug = async slug => {
       else if (h3Text.includes("95")) fuelType = "Unleaded 95"
 
       if (fuelType) {
-        const priceMatch = h3Text.match(/\$(\d+(\.\d+)?)/) //
+        const priceMatch = h3Text.match(/\$(\d+(\.\d+)?)/)
         if (priceMatch && priceMatch[1]) {
           const price = priceMatch[1]
           fuels.push({
             fuelType: fuelType,
-            price: !isNaN(parseFloat(price)) ? parseFloat(price) : null, //
+            price: !isNaN(parseFloat(price)) ? parseFloat(price) : null,
           })
         }
       }
