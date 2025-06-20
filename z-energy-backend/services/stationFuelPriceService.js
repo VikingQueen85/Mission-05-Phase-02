@@ -2,7 +2,7 @@ const axios = require("axios")
 const randomUserAgent = require("random-useragent")
 const cheerio = require("cheerio")
 const config = require("../config/config")
-const ZStation = require("../models/ZStation") // Import the ZStation model
+const StationFuelPrice = require("../models/StationFuelPrice") // Import the ZStation model
 
 // --- Constants ---
 // HTTP headers to use for requests
@@ -56,7 +56,7 @@ const fetchStationPricesBySlug = async slug => {
   const stationId = parseInt(slug.split("-")[0], 10)
 
   // 1. CHECK THE CACHE (DATABASE) FIRST
-  const cachedStation = await ZStation.findById(stationId)
+  const cachedStation = await StationFuelPrice.findById(stationId)
 
   if (cachedStation) {
     const isCacheFresh =
@@ -123,7 +123,7 @@ const fetchStationPricesBySlug = async slug => {
   // 3. SAVE THE NEW SCRAPED DATA TO THE DATABASE
   // findByIdAndUpdate with `upsert: true` will UPDATE if it exists, or INSERT if it doesn't.
   // `new: true` ensures it returns the updated document.
-  const updatedStation = await ZStation.findByIdAndUpdate(
+  const updatedStationDetails = await StationFuelPrice.findByIdAndUpdate(
     stationId,
     zStationDetails,
     {
@@ -132,7 +132,7 @@ const fetchStationPricesBySlug = async slug => {
     }
   )
 
-  return updatedStation
+  return updatedStationDetails
 }
 
 module.exports = {
