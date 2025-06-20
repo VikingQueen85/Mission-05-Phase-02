@@ -78,36 +78,63 @@ const fetchStationPricesBySlug = async slug => {
   // Load the HTML into Cheerio for parsing
   const $ = cheerio.load(html)
 
-  // Extract the station name and address from the page
-  // The first div.well contains the station name in an h3 tag
-  const stationName = $("div.well").first().find("h3").first().text().trim()
-  // The second div.well contains the address in a p tag
-  const stationAddress = $("div.well").eq(1).find("p").first().text().trim()
+    // EXTRACTION OF DATA FROM HTML ---
 
-  // Initialize an array to hold the fuel details
-  const fuels = []
-  // Extract fuel prices from the first div.well
-  // Each fuel type is in an h3 tag, and the price is in the text of that tag
-  $("div.well")
-    .first()
-    .find("h3")
-    .each((i, el) => {
-      const h3Text = $(el).text().trim()
-      let fuelType = null
+    // 1: Find the containers using robust "anchor" selectors ---
 
-      if (h3Text.toLowerCase().includes("diesel")) fuelType = "Diesel"
-      else if (h3Text.includes("91")) fuelType = "Unleaded 91"
-      else if (h3Text.includes("95")) fuelType = "Unleaded 95"
+    // Find the station block by looking for a div.well that CONTAINS a span with a class starting with "_"
+    const $stationInfoBlock = $("div.well:has(span[class^='_'])")
 
-      if (fuelType) {
-        const priceMatch = h3Text.match(/\$(\d+(\.\d+)?)/)
-        if (priceMatch && priceMatch[1]) {
-          const price = priceMatch[1]
-          fuels.push({
-            fuelType: fuelType,
-            price: !isNaN(parseFloat(price)) ? parseFloat(price) : null,
-          })
-        }
+    // Find the address block by looking for a div.well that CONTAINS a paragraph with the class "tel"
+    const $addressBlock = $("div.well:has(p.tel)")
+
+    // - Critical Validation -
+    // If we can't find these essential blocks, we can't proceed.
+    if (!$stationInfoBlock.length || !$addressBlock.length) {
+      throw new Error(
+        "Could not find station info or address blocks. Page layout may have changed."
+      )
+    }
+
+    // --- 2: Extract data from within those specific blocks ---
+
+    // The station name is the h3 in the info block that DOES NOT have a span inside it
+    const stationName = $stationInfoBlock
+      .find("h3:not(:has(span))")
+      .text()
+      .trim()
+
+    // The address is the first paragraph in the address block
+    const stationAddress = $addressBlock.find("p").first().text().trim()
+
+    // - Final validation on individual fields -
+    if (!stationName || !stationAddress) {
+      throw new Error(
+        "Failed to extract station name or address from the blocks."
+      )
+    }
+
+    // --- Step 3: Extract fuel details from the station info block ---
+    const fuels = []
+
+    // Find only the h3s that have a span (the fuel prices)
+    $stationInfoBlock.find("h3:has(span)").each((i, el) => {
+      const $h3 = $(el)
+
+      // Get fuel type directly from the span's class name, removing the underscore
+      const fuelType = $h3.find("span").attr("class").replace("_", "").trim()
+
+      // To get just the price, remove the child span's text from the parent h3's text
+      // e.g., "91 $2.459" -> remove "91" -> " $2.459"
+      const priceText = $h3.clone().children().remove().end().text().trim() // A safe way to get text without children
+
+      const priceMatch = priceText.match(/(\d+\.\d+)/)
+
+      if (fuelType && priceMatch && priceMatch[1]) {
+        fuels.push({
+          fuelType: fuelType, // Will be "91", "95", "Diesel"
+          price: parseFloat(priceMatch[1]),
+        })
       }
     })
 
