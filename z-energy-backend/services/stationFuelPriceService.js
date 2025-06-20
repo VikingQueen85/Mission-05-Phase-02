@@ -2,6 +2,7 @@ const axios = require("axios")
 const randomUserAgent = require("random-useragent")
 const cheerio = require("cheerio")
 const config = require("../config/config")
+const logger = require("../config/logger") // Import the logger
 const StationFuelPrice = require("../models/StationFuelPrice") // Import the ZStation model
 
 // --- Constants ---
@@ -20,29 +21,38 @@ const CACHE_EXPIRATION = 8 * 60 * 60 * 1000 // Cache for 8 hours
  */
 
 const searchForStations = async term => {
-  const searchApiUrl = `${
-    config.GASSY_API.SEARCH_URL
-  }?term=${encodeURIComponent(term)}` // Encode search term to make it URL-safe
+  try {
+    const searchApiUrl = `${
+      config.GASSY_API.SEARCH_URL
+    }?term=${encodeURIComponent(term)}` // Encode search term to make it URL-safe
 
-  // Fetch data from API
-  const response = await axios.get(searchApiUrl, { headers: HEADERS })
+    // Fetch data from API
+    const response = await axios.get(searchApiUrl, { headers: HEADERS })
 
-  // Filter the stations that start with "Z "
-  // Map according to website's format
-  const zStationsFound = response.data
-    .filter(
-      station => station.label && station.label.toLowerCase().startsWith("z ")
-    )
-    .map(station => {
-      const id = station.value.split("-")[0]
-      return {
-        id: parseInt(id, 10),
-        name: station.label,
-        slug: station.value,
-      }
+    // Filter the stations that start with "Z "
+    // Map according to website's format
+    const zStationsFound = response.data
+      .filter(
+        station => station.label && station.label.toLowerCase().startsWith("z ")
+      )
+      .map(station => {
+        const id = station.value.split("-")[0]
+        return {
+          id: parseInt(id, 10),
+          name: station.label,
+          slug: station.value,
+        }
+      })
+
+    return zStationsFound
+  } catch (error) {
+    logger.error("Failed to search for stations", {
+      term: term,
+      error: error.message,
+      stack: error.stack,
     })
-
-  return zStationsFound
+    throw new Error(`Failed to search for stations with term '${term}'.`)
+  }
 }
 
 /**
@@ -52,31 +62,41 @@ const searchForStations = async term => {
  */
 
 const fetchStationPricesBySlug = async slug => {
-  // Extract the station ID from the slug
-  const stationId = parseInt(slug.split("-")[0], 10)
+  try {
+    // Extract the station ID from the slug
+    const stationId = parseInt(slug.split("-")[0], 10)
 
-  // 1. CHECK THE CACHE (DATABASE) FIRST
-  const cachedStation = await StationFuelPrice.findById(stationId)
+    // 1. CHECK THE CACHE (DATABASE) FIRST
+    const cachedStation = await StationFuelPrice.findById(stationId)
 
-  if (cachedStation) {
-    const isCacheFresh =
-      new Date() - new Date(cachedStation.lastUpdated) < CACHE_EXPIRATION
+    if (cachedStation) {
+      const isCacheFresh =
+        new Date() - new Date(cachedStation.lastUpdated) < CACHE_EXPIRATION
 
-    if (isCacheFresh) {
-      return cachedStation // Return the cached station if it's fresh
+      if (isCacheFresh) {
+        logger.info("Serving fresh data from cache", {
+          slug: slug,
+          stationId: stationId,
+        })
+        return cachedStation // Return the cached station if it's fresh
+      }
     }
-  }
 
-  // 2. IF NOT IN CACHE OR CACHE IS STALE, SCRAPE THE DATA
-  // Construct the URL for the station's page
-  const stationUrl = `${config.GASSY_API.REFERER_URL}${slug}/`
+    logger.info("Cache stale, initiating scrape", {
+      slug: slug,
+      stationId: stationId,
+    })
 
-  // Fetch the HTML content of the station's page
-  const response = await axios.get(stationUrl, { headers: HEADERS })
-  const html = response.data
+    // 2. IF NOT IN CACHE OR CACHE IS STALE, SCRAPE THE DATA
+    // Construct the URL for the station's page
+    const stationUrl = `${config.GASSY_API.REFERER_URL}${slug}/`
 
-  // Load the HTML into Cheerio for parsing
-  const $ = cheerio.load(html)
+    // Fetch the HTML content of the station's page
+    const response = await axios.get(stationUrl, { headers: HEADERS })
+    const html = response.data
+
+    // Load the HTML into Cheerio for parsing
+    const $ = cheerio.load(html)
 
     // EXTRACTION OF DATA FROM HTML ---
 
@@ -138,28 +158,36 @@ const fetchStationPricesBySlug = async slug => {
       }
     })
 
-  const zStationDetails = {
-    _id: stationId,
-    name: stationName,
-    address: stationAddress,
-    slug: slug,
-    fuels: fuels,
-    lastUpdated: new Date(),
-  }
-
-  // 3. SAVE THE NEW SCRAPED DATA TO THE DATABASE
-  // findByIdAndUpdate with `upsert: true` will UPDATE if it exists, or INSERT if it doesn't.
-  // `new: true` ensures it returns the updated document.
-  const updatedStationDetails = await StationFuelPrice.findByIdAndUpdate(
-    stationId,
-    zStationDetails,
-    {
-      upsert: true, // Create if it doesn't exist
-      new: true, // Return the updated document
+    const zStationDetails = {
+      _id: stationId,
+      name: stationName,
+      address: stationAddress,
+      slug: slug,
+      fuels: fuels,
+      lastUpdated: new Date(),
     }
-  )
 
-  return updatedStationDetails
+    // 3. SAVE THE NEW SCRAPED DATA TO THE DATABASE
+    // findByIdAndUpdate with `upsert: true` will UPDATE if it exists, or INSERT if it doesn't.
+    // `new: true` ensures it returns the updated document.
+    const updatedStationDetails = await StationFuelPrice.findByIdAndUpdate(
+      stationId,
+      zStationDetails,
+      {
+        upsert: true, // Create if it doesn't exist
+        new: true, // Return the updated document
+      }
+    )
+
+    return updatedStationDetails
+  } catch (error) {
+    logger.error("Failed to fetch station fuel prices", {
+      slug: slug,
+      error: error.message,
+      stack: error.stack,
+    })
+    throw new Error(`Failed to process station fuel prices with '${slug}'.`)
+  }
 }
 
 module.exports = {
