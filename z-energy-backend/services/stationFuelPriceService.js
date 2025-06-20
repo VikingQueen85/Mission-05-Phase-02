@@ -82,7 +82,7 @@ const fetchStationPricesBySlug = async slug => {
       else if (h3Text.includes("95")) fuelType = "Unleaded 95"
 
       if (fuelType) {
-        const priceMatch = h3Text.match(/\$(\d+(\.\d+)?)/) //
+        const priceMatch = h3Text.match(/\$(\d+(\.\d+)?)/)
         if (priceMatch && priceMatch[1]) {
           const price = priceMatch[1]
           fuels.push({
