@@ -1,23 +1,23 @@
 // Raw Station Data Seeder
 // To manually seed the station data, run: node utils/rawStationDataSeeder.js
 
-require("dotenv").config() // Load environment variables from .env file
+require("dotenv").config()
 const mongoose = require("mongoose")
 
-// --- Import Model and Data---
+// --- Model and Data Imports ---
 const Station = require("../models/Station.js")
 const rawStationsData = require("../data/rawStationsData.js")
 
 // --- Seeder Function ---
+
 /**
- * Seeds the station fuel price data only if the collection is empty
+ * Seeds the stations data only if the collection is empty
  * @returns {Promise<boolean>} true if seeding was performed, false if skipped
  *  @param {boolean} force - If true, forces seeding even if data exists
  */
-
 const seedStations = async (force = false) => {
   try {
-    // Check if we have any documents in the collection
+    // Check if there is data in the collection
     const count = await Station.countDocuments()
 
     // If collection has data, skip seeding
@@ -43,7 +43,7 @@ const seedStations = async (force = false) => {
     // Seed the new data
     const createdStations = await Station.insertMany(stationsToInsert)
 
-    console.info(`${createdStations.length} Stations seeded successfully!`)
+    console.info(`${createdStations.length} Stations data seeded successfully!`)
   } catch (err) {
     console.error("Error seeding Stations:", err.message)
     return false
@@ -52,7 +52,7 @@ const seedStations = async (force = false) => {
 
 // Allow running the seeder directly from command line if needed
 if (require.main === module) {
-  // This code runs ONLY when executing: node utils/stationFuelPriceSeeder.js
+  // This code runs ONLY when executing: node utils/rawStationDataSeeder.js
   mongoose
     .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/zpetrolapp")
     .then(() => {
@@ -68,6 +68,5 @@ if (require.main === module) {
       process.exit(1)
     })
 } else {
-  // When imported as a module, just export the function
   module.exports = seedStations
 }

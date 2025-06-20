@@ -1,7 +1,10 @@
-require("dotenv").config() // Load environment variables from .env file
+// Raw Station Data Seeder
+// To manually seed the station data, run: node utils/stationFuelPriceSeeder.js
+
+require("dotenv").config()
 const mongoose = require("mongoose")
 
-// --- Import Model and Data---
+// --- Model and Data Imports ---
 const StationFuelPrice = require("../models/StationFuelPrice.js")
 const stationFuelPriceData = require("../data/stationFuelPriceData.js")
 
@@ -9,10 +12,11 @@ const stationFuelPriceData = require("../data/stationFuelPriceData.js")
 /**
  * Seeds the station fuel price data only if the collection is empty
  * @returns {Promise<boolean>} true if seeding was performed, false if skipped
+ *  @param {boolean} force - If true, forces seeding even if data exists
  */
 const seedStationFuelPrices = async () => {
   try {
-    // Check if we have any documents in the collection
+    // Check if there is data in the collection
     const count = await StationFuelPrice.countDocuments()
 
     // If collection has data, skip seeding
@@ -59,6 +63,5 @@ if (require.main === module) {
       process.exit(1)
     })
 } else {
-  // When imported as a module, just export the function
   module.exports = seedStationFuelPrices
 }
