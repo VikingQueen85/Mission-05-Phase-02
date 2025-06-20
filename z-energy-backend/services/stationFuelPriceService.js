@@ -87,7 +87,7 @@ const fetchStationPricesBySlug = async slug => {
           const price = priceMatch[1]
           fuels.push({
             fuelType: fuelType,
-            price: !isNaN(parseFloat(price)) ? parseFloat(price) : null, //
+            price: !isNaN(parseFloat(price)) ? parseFloat(price) : null,
           })
         }
       }
