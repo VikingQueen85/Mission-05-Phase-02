@@ -49,9 +49,10 @@ const searchForStations = async term => {
     logger.error("Failed to search for stations", {
       term: term,
       error: error.message,
+      axiosStatus: error.response?.status,
       stack: error.stack,
     })
-    throw new Error(`Failed to search for stations with term '${term}'.`)
+    throw error
   }
 }
 
@@ -184,9 +185,10 @@ const fetchStationPricesBySlug = async slug => {
     logger.error("Failed to fetch station fuel prices", {
       slug: slug,
       error: error.message,
+      axiosStatus: error.response?.status,
       stack: error.stack,
     })
-    throw new Error(`Failed to process station fuel prices with '${slug}'.`)
+    throw error
   }
 }
 
