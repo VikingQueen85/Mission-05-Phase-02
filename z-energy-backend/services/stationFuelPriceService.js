@@ -2,6 +2,7 @@ const axios = require("axios")
 const randomUserAgent = require("random-useragent")
 const cheerio = require("cheerio")
 const config = require("../config/config")
+const ZStation = require("../models/ZStation") // Import the ZStation model
 
 // --- Constants ---
 // HTTP headers to use for requests
@@ -9,6 +10,7 @@ const HEADERS = {
   "User-Agent": randomUserAgent.getRandom(), // Random user agent for each request
   Referer: config.GASSY_API.REFERER_URL, // Referer URL for the API
 }
+const CACHE_EXPIRATION = 8 * 60 * 60 * 1000 // Cache for 8 hours
 
 /**
  * Service to search for stations by a search term.
@@ -50,6 +52,22 @@ const searchForStations = async term => {
  */
 
 const fetchStationPricesBySlug = async slug => {
+  // Extract the station ID from the slug
+  const stationId = parseInt(slug.split("-")[0], 10)
+
+  // 1. CHECK THE CACHE (DATABASE) FIRST
+  const cachedStation = await ZStation.findById(stationId)
+
+  if (cachedStation) {
+    const isCacheFresh =
+      new Date() - new Date(cachedStation.lastUpdated) < CACHE_EXPIRATION
+
+    if (isCacheFresh) {
+      return cachedStation // Return the cached station if it's fresh
+    }
+  }
+
+  // 2. IF NOT IN CACHE OR CACHE IS STALE, SCRAPE THE DATA
   // Construct the URL for the station's page
   const stationUrl = `${config.GASSY_API.REFERER_URL}${slug}/`
 
@@ -93,18 +111,28 @@ const fetchStationPricesBySlug = async slug => {
       }
     })
 
-  // Extract the id from the slug
-  const id = slug.split("-")[0]
-
   const zStationDetails = {
-    _id: id,
+    _id: stationId,
     name: stationName,
     address: stationAddress,
     slug: slug,
     fuels: fuels,
+    lastUpdated: new Date(),
   }
 
-  return zStationDetails
+  // 3. SAVE THE NEW SCRAPED DATA TO THE DATABASE
+  // findByIdAndUpdate with `upsert: true` will UPDATE if it exists, or INSERT if it doesn't.
+  // `new: true` ensures it returns the updated document.
+  const updatedStation = await ZStation.findByIdAndUpdate(
+    stationId,
+    zStationDetails,
+    {
+      upsert: true, // Create if it doesn't exist
+      new: true, // Return the updated document
+    }
+  )
+
+  return updatedStation
 }
 
 module.exports = {
