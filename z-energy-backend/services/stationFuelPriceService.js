@@ -65,7 +65,7 @@ const searchForStations = async term => {
 const fetchStationPricesBySlug = async slug => {
   try {
     // Extract the station ID from the slug
-    const stationId = parseInt(slug.split("-")[0], 10)
+    const stationId = parseInt(slug.match(/\d+/)[0], 10)
 
     // 1. CHECK THE CACHE (DATABASE) FIRST
     const cachedStation = await StationFuelPrice.findById(stationId)
