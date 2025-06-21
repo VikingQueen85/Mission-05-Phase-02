@@ -61,7 +61,7 @@ const updateFoodItem = async (req, res) => {
         if (error.name === 'CastError') {
             return res.status(400).json({ message: 'Invalid food item ID' });
         }
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
