@@ -46,7 +46,7 @@ const createFoodItem = async (req, res) => {
         if (error.code === 11000) {
             return res.status(409).json({ message: 'Food item with this name already exists' });
         }
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
