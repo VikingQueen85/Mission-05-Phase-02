@@ -1,8 +1,8 @@
-// src/MobileApp.jsx
+
 import { Routes, Route, Link } from "react-router-dom"
 import PriceComparison from "./pages/PriceComparison/PriceComparison"
-
-import "./MobileApp.css" // Mobile-specific styles
+import "./MobileApp.css"
+import OrderFoodOnline from "./pages/OrderFoodOnline/OrderFoodOnline"
 
 function MobileApp() {
   return (
@@ -13,6 +13,9 @@ function MobileApp() {
           <ul>
             <li>
               <Link to="/price-comparison">Fuel Price Comparison</Link>
+            </li>
+            <li>
+              <Link to="/order-food">Order Food Online</Link>
             </li>
             <li>
               <Link to="/near-me">Z Near me</Link>
@@ -32,6 +35,7 @@ function MobileApp() {
             }
           />
           <Route path="/price-comparison" element={<PriceComparison />} />
+          <Route path="order-food" element={<OrderFoodOnline />} />
         </Routes>
       </main>
 
