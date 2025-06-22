@@ -1,0 +1,76 @@
+
+/* Import Google Font 'Inter' */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Basic setup for HTML, body, and root element */
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Main container for the mobile page */
+.mobile-order-food-container {
+    width: 320px;
+    height: 907px;
+    background-color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Top Frame Section */
+.mobile-top-frame {
+    width: 100%;
+    height: 39px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 0 16px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* Main Banner Section */
+.mobile-main-banner-section {
+    width: 100%;
+    height: 142px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    margin-top: 10px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+/* Main Content Section */
+.mobile-main-content-section {
+    width: 100%;
+    height: 657px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    margin-top: 10px;
+    padding: 6px 16px;
+    box-sizing: border-box;
+}
+
+/* Footer Section */
+.mobile-footer-section {
+    width: 100%;
+    height: 62px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    margin-top: 10px;
+    padding: 6px 16px;
+    box-sizing: border-box;
+}
