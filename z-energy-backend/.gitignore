@@ -24,7 +24,6 @@ coverage/
 # Temporary files
 *.tmp
 *.bak
-*.swp
 *.swo
 
 # OS generated files
