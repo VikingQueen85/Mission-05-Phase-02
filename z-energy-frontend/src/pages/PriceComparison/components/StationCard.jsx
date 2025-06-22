@@ -1,11 +1,11 @@
 import styles from "./StationCard.module.css"
 
 const fuelConfig = {
-  "Unleaded 91": {
+  91: {
     logoSrc: "/Z-91.png",
     colourClass: styles.greenGradient,
   },
-  "Unleaded 95": {
+  95: {
     logoSrc: "/Z-95.png",
     colourClass: styles.orangeGradient,
   },

@@ -2,23 +2,17 @@
 
 require("dotenv").config()
 const mongoose = require("mongoose")
-const Station = require("../models/Station")
-const StationFuelPrice = require("../models/StationFuelPrice")
+
+// --- Seeder Imports ---
 const seedStations = require("../utils/rawStationDataSeeder")
 const seedStationFuelPrices = require("../utils/stationFuelPriceSeeder")
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/zpetrolapp"
+const MONGODB_URI = process.env.MONGODB_URI
 
 async function reseedDatabase() {
   try {
     await mongoose.connect(MONGODB_URI)
     console.log("MongoDB connected...")
-
-    // Clear all existing data
-    console.log("Clearing existing data...")
-    await Station.deleteMany({})
-    await StationFuelPrice.deleteMany({})
 
     // Seeding fresh data
     await seedStations(true)

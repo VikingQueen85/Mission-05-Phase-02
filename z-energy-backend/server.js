@@ -10,6 +10,9 @@ const cors = require("cors");
 const routes = require("./routes");
 const foodRoutes = require("./routes/foodRoutes");
 
+// --- Import Middleware ---
+const globalErrorHandler = require("./middleware/errorMiddleware")
+
 // --- Import Seeders ---
 const seedStationFuelPrices = require("./utils/stationFuelPriceSeeder");
 const seedStations = require("./utils/rawStationDataSeeder");
@@ -67,6 +70,17 @@ app.use("/api/station-fuel-prices", routes.stationFuelPriceRoutes);
 
 // --- New Food Ordering Routes ---`
 app.use("/api/fooditems", foodRoutes);
+
+// --- Handle 404 > ROUTE NOT FOUND ---
+// Runs if no route matched the request
+app.use((req, res, next) => {
+  const err = new Error("Not Found") // Create a new error object
+  err.statusCode = 404
+  next(err) // Pass error to the global error handler
+})
+
+// --- Global Error Handler ---
+app.use(globalErrorHandler)
 
 // Start the server
 app.listen(PORT, () => {

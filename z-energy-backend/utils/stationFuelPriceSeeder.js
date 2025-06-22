@@ -1,4 +1,4 @@
-// Raw Station Data Seeder
+// Station Fuel Price Seeder
 // To manually seed the station data, run: node utils/stationFuelPriceSeeder.js
 
 require("dotenv").config()
@@ -14,22 +14,23 @@ const stationFuelPriceData = require("../data/stationFuelPriceData.js")
  * @returns {Promise<boolean>} true if seeding was performed, false if skipped
  *  @param {boolean} force - If true, forces seeding even if data exists
  */
-const seedStationFuelPrices = async () => {
+const seedStationFuelPrices = async (force = false) => {
   try {
     // Check if there is data in the collection
     const count = await StationFuelPrice.countDocuments()
 
-    // If collection has data, skip seeding
-    if (count > 0) {
+    if (force) {
+      console.info("Force seeding station fuel prices data...")
+    } else if (count > 0) {
       console.info(
-        `Database already contains ${count} station fuel prices. Skipping seed.`
+        `Database already contains ${count} station fuel prices. Skip seeding.`
       )
       return false
+    } else {
+      console.info("No station fuel prices found. Seeding database...")
     }
 
-    console.info("No station fuel prices found. Seeding database...")
-
-    // Clear existing data (optional safety measure)
+    // Clear existing data
     await StationFuelPrice.deleteMany({})
 
     // Seed new data
@@ -49,10 +50,10 @@ const seedStationFuelPrices = async () => {
 if (require.main === module) {
   // This code runs ONLY when executing: node stationFuelPriceSeeder.js
   mongoose
-    .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/zpetrolapp")
+    .connect(process.env.MONGODB_URI)
     .then(() => {
       console.log("Connected to MongoDB for seeding")
-      return seedStationFuelPrices()
+      return seedStationFuelPrices(true)
     })
     .then(() => {
       console.log("Seeding completed")
