@@ -2,8 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './OrderFoodOverlay.css';
 import ItemDetailOverlay from './ItemDetailOverlay.jsx';
-import zLogoImage from '/Z-Logo.png';
-
+import zLogoImage from '../../../assets/images/Z-Logo.png';
 
 // Helper Component for a clickable item button
 const ItemButton = ({ item, onClick }) => {
@@ -69,6 +68,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
         }
     }, [allFoodItems]);
 
+    // Function to close the detail overlay
     const handleCloseItemDetail = useCallback(() => {
         setSelectedItem(null);
         setShowItemDetail(false);
@@ -100,7 +100,6 @@ function OrderFoodOverlay({ contentType, onClose }) {
         return (
             <div className="item-options-grid">
                 {filteredItems.map(item => (
-                    // Use the ItemButton helper component for each item
                     <ItemButton key={item.name} item={item} onClick={handleItemClick} />
                 ))}
             </div>

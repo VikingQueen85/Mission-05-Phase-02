@@ -41,7 +41,7 @@ body {
 }
 
 /* Styling for the main content area which includes text and the floating food image */
-.order-food-content {
+.order-food-content-section {
     max-width: 1200px;
     margin: 20px;
     padding: 0 20px;
