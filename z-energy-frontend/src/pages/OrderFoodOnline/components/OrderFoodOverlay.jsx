@@ -1,30 +1,33 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './OrderFoodOverlay.css';
 import ItemDetailOverlay from './ItemDetailOverlay.jsx';
-
 import zLogoImage from '/Z-Logo.png';
-import itemLongBlack from './images/LongBlack.png';
-import itemShortBlack from './images/ShortBlack.png';
-import itemGingerBreadLatte from './images/GingerBreadLatte.png';
-import itemFluffy from './images/Fluffy.png';
-import itemMochaccino from './images/Mochaccino.png';
-import itemLemonGingerHoney from './images/LemonGingerHoney.png';
-import itemFlatWhite from './images/FlatWhite.png';
-import itemMatchaLatte from './images/MatchaLatte.png';
-import itemCappuccino from './images/Cappuccino.png';
-import itemHotChocolate from './images/HotChocolate.png';
-import itemLatte from './images/Latte.png';
-import itemChaiLatte from './images/ChaiLatte.png';
+
+
+// Helper Component for a clickable item button
+const ItemButton = ({ item, onClick }) => {
+    return (
+        <button className="item-option-button" onClick={() => onClick(item.name)}>
+            <img src={item.imageUrl} alt={item.name} className="item-option-image" />
+            <p className="item-option-label">{item.name}</p>
+        </button>
+    );
+};
+
 
 function OrderFoodOverlay({ contentType, onClose }) {
     const [selectedItem, setSelectedItem] = useState(null);
     const [showItemDetail, setShowItemDetail] = useState(false);
     const [allFoodItems, setAllFoodItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // --- Fetch ALL food items ONCE when the component mounts ---
     useEffect(() => {
         const fetchAllFoodItems = async () => {
+            setLoading(true);
+            setError(null);
             try {
                 const response = await fetch(`http://localhost:3000/api/fooditems`);
                 if (!response.ok) {
@@ -34,15 +37,19 @@ function OrderFoodOverlay({ contentType, onClose }) {
                 setAllFoodItems(data);
             } catch (err) {
                 console.error("Failed to fetch all food items:", err);
+                setError("Failed to load items. Please try again later.");
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchAllFoodItems();
     }, []);
 
+    // Helper function to get the appropriate label for the overlay header
     const getLabelText = (type) => {
         switch (type) {
-            case 'hot_drinks': return 'Select hot drink:';
+            case 'hot_drinks': return 'Select Hot Drink:';
             case 'cold_drinks': return 'Select Cold Drink:';
             case 'food': return 'Select Food Item:';
             case 'combo': return 'Select Combo:';
@@ -50,8 +57,8 @@ function OrderFoodOverlay({ contentType, onClose }) {
         }
     };
 
-    // New: Function to handle opening the detail overlay
-    const handleItemClick = (itemName) => {
+    // Function to handle opening the detail overlay when an item button is clicked
+    const handleItemClick = useCallback((itemName) => {
         const itemDetails = allFoodItems.find(item => item.name === itemName);
 
         if (itemDetails) {
@@ -60,101 +67,44 @@ function OrderFoodOverlay({ contentType, onClose }) {
         } else {
             console.warn(`Details for ${itemName} not found in fetched data.`);
         }
-    };
+    }, [allFoodItems]);
 
-    // New: Function to close the detail overlay
-    const handleCloseItemDetail = () => {
+    const handleCloseItemDetail = useCallback(() => {
         setSelectedItem(null);
         setShowItemDetail(false);
-    };
+    }, []);
 
-    // Helper function to render specific items based on selection
-    const renderSpecificItems = (type) => {
-        switch (type) {
-            case 'hot_drinks':
-                return (
-                    <div className="item-options-grid">
-                        <button className="item-option-button" onClick={() => handleItemClick("Long Black")}>
-                            <img src={itemLongBlack} alt="Long Black" className="item-option-image" />
-                            <p className="item-option-label">Long Black</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Short Black")}>
-                            <img src={itemShortBlack} alt="Short Black" className="item-option-image" />
-                            <p className="item-option-label">Short Black</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Ginger Bread Latte")}>
-                            <img src={itemGingerBreadLatte} alt="Ginger Bread Latte" className="item-option-image" />
-                            <p className="item-option-label">Ginger Bread Latte</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Fluffy")}>
-                            <img src={itemFluffy} alt="Fluffy" className="item-option-image" />
-                            <p className="item-option-label">Fluffy</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Mochaccino")}>
-                            <img src={itemMochaccino} alt="Mochaccino" className="item-option-image" />
-                            <p className="item-option-label">Mochaccino</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Lemon Ginger Honey")}>
-                            <img src={itemLemonGingerHoney} alt="Lemon Ginger Honey" className="item-option-image" />
-                            <p className="item-option-label">Lemon Ginger Honey</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Flat White")}>
-                            <img src={itemFlatWhite} alt="Flat White" className="item-option-image" />
-                            <p className="item-option-label">Flat White</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Matcha Latte")}>
-                            <img src={itemMatchaLatte} alt="Matcha Latte" className="item-option-image" />
-                            <p className="item-option-label">Matcha Latte</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Cappuccino")}>
-                            <img src={itemCappuccino} alt="Cappuccino" className="item-option-image" />
-                            <p className="item-option-label">Cappuccino</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Hot Chocolate")}>
-                            <img src={itemHotChocolate} alt="Hot Chocolate" className="item-option-image" />
-                            <p className="item-option-label">Hot Chocolate</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Latte")}>
-                            <img src={itemLatte} alt="Latte" className="item-option-image" />
-                            <p className="item-option-label">Latte</p>
-                        </button>
-                        <button className="item-option-button" onClick={() => handleItemClick("Chai Latte")}>
-                            <img src={itemChaiLatte} alt="Chai Latte" className="item-option-image" />
-                            <p className="item-option-label">Chai Latte</p>
-                        </button>
-                    </div>
-                );
-            case 'cold_drinks':
-                const coldDrinks = allFoodItems.filter(item => item.category === 'cold_drinks');
-                if (coldDrinks.length === 0) return <p className="placeholder-text">Cold drinks options coming soon!</p>;
-                return (
-                    <div className="item-options-grid">
-                        {coldDrinks.map(item => (
-                            <button key={item._id} className="item-option-button" onClick={() => handleItemClick(item.name)}>
-                                <img src={item.imageUrl} alt={item.name} className="item-option-image" />
-                                <p className="item-option-label">{item.name}</p>
-                            </button>
-                        ))}
-                    </div>
-                );
-            case 'food':
-                const foodItems = allFoodItems.filter(item => item.category === 'food');
-                if (foodItems.length === 0) return <p className="placeholder-text">Food options coming soon!</p>;
-                return (
-                    <div className="item-options-grid">
-                        {foodItems.map(item => (
-                            <button key={item._id} className="item-option-button" onClick={() => handleItemClick(item.name)}>
-                                <img src={item.imageUrl} alt={item.name} className="item-option-image" />
-                                <p className="item-option-label">{item.name}</p>
-                            </button>
-                        ))}
-                    </div>
-                );
-            case 'combo':
-                return <p className="placeholder-text">Combo options coming soon!</p>;
-            default:
-                return null;
+    // Refactored function to render items based on the 'contentType' prop
+    // This uses a single map and filters items by category
+    const renderItemsByCategory = () => {
+        const filteredItems = allFoodItems.filter(item => item.category === contentType);
+
+        if (loading) {
+            return <p className="loading-text">Loading items...</p>;
         }
+
+        if (error) {
+            return <p className="error-text">{error}</p>;
+        }
+
+        if (filteredItems.length === 0) {
+            const placeholderMap = {
+                'hot_drinks': 'Hot drinks options coming soon!',
+                'cold_drinks': 'Cold drinks options coming soon!',
+                'food': 'Food options coming soon!',
+                'combo': 'Combo options coming soon!'
+            };
+            return <p className="placeholder-text">{placeholderMap[contentType] || 'No items available.'}</p>;
+        }
+
+        return (
+            <div className="item-options-grid">
+                {filteredItems.map(item => (
+                    // Use the ItemButton helper component for each item
+                    <ItemButton key={item.name} item={item} onClick={handleItemClick} />
+                ))}
+            </div>
+        );
     };
 
     return (
@@ -168,7 +118,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
                 </div>
 
                 <div className="overlay-items-container">
-                    {renderSpecificItems(contentType)}
+                    {renderItemsByCategory()}
                 </div>
             </div>
 

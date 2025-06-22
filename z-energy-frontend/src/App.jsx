@@ -9,7 +9,6 @@ import MobileApp from './MobileApp.jsx';
 import './styles.css';
 
 function App() {
-    // State to track if the screen is considered "mobile"
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const breakpoint = 768;
 
@@ -23,14 +22,11 @@ function App() {
             console.log(`[App - Resize Event] Window Width: ${currentWidth}px, Is Mobile: ${newIsMobile}`);
             setIsMobile(newIsMobile);
         };
-
-        // Set initial state on component mount
         handleResize();
 
         // Add the event listener when the component mounts
         window.addEventListener('resize', handleResize);
 
-        // Cleanup function: remove event listener when component unmounts
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
@@ -81,18 +77,10 @@ function App() {
 
             <main className="main-content">
                 <Routes>
-                    {/* Conditional rendering for the Homepage */}
                     <Route path="/" element={isMobile ? <MobileApp /> : <Homepage />} />
-
                     <Route path="/share-tank" element={<div><h1>Sharetank Page</h1><p>Details about Sharetank.</p></div>} />
                     <Route path="/price-comparison" element={<PriceComparison />} />
-
-                    {/* Conditional rendering for the Order Food Online page */}
-                    <Route
-                        path="/order-food"
-                        element={isMobile ? <OrderFoodOnlineMobile /> : <OrderFoodOnline />}
-                    />
-
+                    <Route path="/order-food" element={isMobile ? <OrderFoodOnlineMobile /> : <OrderFoodOnline />} />
                     <Route path="/z-app" element={<div><h1>Z App Page</h1><p>Content for Z App.</p></div>} />
                     <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />
                     <Route path="/how-to-enjoy-Z-station" element={<div><h1>Z Stations Page</h1><p>How to enjoy Z stations</p></div>} />

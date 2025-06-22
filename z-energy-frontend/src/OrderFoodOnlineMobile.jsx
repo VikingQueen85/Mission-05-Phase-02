@@ -12,6 +12,7 @@ import whiteRectangleBackground from '../src/components/images/WhiteRectangleBac
 import mobileHotDrinkIcon from '../src/components/images/MobileHotDrinkIcon.png'
 import mobileFoodIcon from '../src/components/images/MobileFoodIcon.png'
 import mobileVegeLeafIcon from '../src/components/images/MobileVegeLeafIcon.png'
+import orderColdDrinksImage from '../src/components/images/OrderColdDrinks.png'
 import zLogo from '../public/Z-Logo-2.png';
 
 function OrderFoodOnlineMobile() {
@@ -19,9 +20,8 @@ function OrderFoodOnlineMobile() {
         <div className="mobile-order-food-container">
             <div className="mobile-top-frame" style={{ backgroundImage: `url(${mobileFrameImage})` }}></div>
 
-            {/* Main Banner Section - NOW CORRECTLY CONTAINS THE TEXT AND LOGO OVERLAY */}
+            {/* Main Banner Section - */}
             <div className="mobile-main-banner-section" style={{ backgroundImage: `url(${mobileBannerImage})` }}>
-                {/* This div is now correctly NESTED inside the banner section */}
                 <div className="banner-text-overlay">
                     <img src={zLogo} alt="Z Logo" className="banner-logo" />
                     <div className="banner-text">Your Coffee, Your Way - Ready When You Are!</div>
@@ -29,7 +29,6 @@ function OrderFoodOnlineMobile() {
             </div>
 
             <div className="mobile-main-content-section" style={{ backgroundImage: `url(${mobileMainImage})` }}>
-                {/* New text overlay for the main content image */}
                 <div className="main-content-image-text-overlay">
                     <div className="main-content-text">"Fuel up on the go with locally sourced pies, veggie options, and your favourite coffee - all just a tap away."</div>
                 </div>
@@ -45,7 +44,9 @@ function OrderFoodOnlineMobile() {
                         </div>
                     </div>
 
-                    <div className="white-box" style={{ backgroundImage: `url(${whiteBoxBackground})` }}></div>
+                    <div className="white-box cold-drinks-box" style={{ backgroundImage: `url(${whiteBoxBackground})` }}>
+                        <img src={orderColdDrinksImage} alt="Order Cold Drinks" className="cold-drinks-image" />
+                    </div>
                     
                     <div className="white-box hot-food-box" style={{ backgroundImage: `url(${whiteBoxBackground})` }}>
                         <img src={mobileFoodIcon} alt="Hot Food Icon" className="hot-food-icon" />
