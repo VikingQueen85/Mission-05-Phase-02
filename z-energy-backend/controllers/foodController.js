@@ -44,9 +44,9 @@ const createFoodItem = async (req, res) => {
         res.status(201).json(newFoodItem);
     } catch (error) {
         if (error.code === 11000) {
-            return res.status(400).json({ message: 'Food item with this name already exists' });
+            return res.status(409).json({ message: 'Food item with this name already exists' });
         }
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -61,7 +61,7 @@ const updateFoodItem = async (req, res) => {
         if (error.name === 'CastError') {
             return res.status(400).json({ message: 'Invalid food item ID' });
         }
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
