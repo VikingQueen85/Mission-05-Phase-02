@@ -71,7 +71,6 @@ function OrderFoodOnline() {
                         onClick={() => handleImageClick(item.type)}
                     >
                         <img src={item.src} alt={item.alt} className="pre-order-image" />
-                        <p className="pre-order-image-label">{item.alt}</p>
                     </button>
                 ))}
             </section>
