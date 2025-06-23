@@ -12,7 +12,6 @@ import preOrderImage3 from './components/images/Food.png';
 import preOrderImage4 from './components/images/MakeItACombo.png';
 
 function OrderFoodOnline() {
-    // State to control overlay visibility and content type
     const [showOverlay, setShowOverlay] = useState(false);
     const [overlayContentType, setOverlayContentType] = useState('');
 
@@ -56,7 +55,6 @@ function OrderFoodOnline() {
             </div>
 
             <section className="pre-order-images-container">
-                {/* Clickable buttons for each main food category */}
                 <button className="pre-order-image-button" onClick={() => handleImageClick('hot_drinks')}>
                     <img src={preOrderImage1} alt="Hot Drinks" className="pre-order-image" />
                 </button>
