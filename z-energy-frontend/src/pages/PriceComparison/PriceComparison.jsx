@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import SearchBar from "././components/SearchBar"
@@ -20,6 +20,9 @@ const initialColumnState = {
   selectedStationSlug: "",
   stationDetails: null,
 }
+
+// Default stations to load
+const DEFAULT_STATIONS = ["437-z-shirley", "1602-z-moorhouse"]
 
 const PriceComparison = () => {
   // Array to manage state for both columns
@@ -109,6 +112,46 @@ const PriceComparison = () => {
       })
     }
   }
+
+  // Load initial station data when the component mounts
+  useEffect(() => {
+    const loadInitialStations = async () => {
+      // Not to load if data already exists (e.g., after a component remount)
+      if (columns[0].stationDetails || columns[1].stationDetails) {
+        return
+      }
+
+      try {
+        // Load each default station
+        for (let i = 0; i < Math.min(DEFAULT_STATIONS.length, 2); i++) {
+          const slug = DEFAULT_STATIONS[i]
+
+          // Set loading state
+          updateColumnState(i, {
+            isLoadingDetails: true,
+            selectedStationSlug: slug,
+          })
+
+          // Fetch the station data
+          const apiUrl = `${API_BASE_URL}/api/station-fuel-prices/prices/${slug}`
+          const response = await axios.get(apiUrl)
+
+          // Update state with fetched data
+          updateColumnState(i, {
+            stationDetails: response.data,
+            isLoadingDetails: false,
+            selectedStationSlug: slug,
+          })
+        }
+      } catch (error) {
+        console.error("Error loading initial station data:", error)
+        // Handle errors if needed
+      }
+    }
+
+    loadInitialStations()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={styles.container}>
