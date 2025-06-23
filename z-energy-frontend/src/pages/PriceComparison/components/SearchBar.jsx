@@ -1,4 +1,5 @@
 import styles from "./SearchBar.module.css" // Using CSS Module for consistency
+import { FaSearch } from "react-icons/fa"
 
 const SearchBar = ({
   query,
@@ -24,8 +25,12 @@ const SearchBar = ({
         placeholder={placeholder}
         disabled={isLoading}
       />
-      {/* No search button for mobile version */}
-      {/* Search triggers on Enter */}
+      <button
+        type="submit"
+        className={styles.searchButton}
+        disabled={isLoading}>
+        <FaSearch className={styles.searchIcon} />
+      </button>
     </form>
   )
 }
