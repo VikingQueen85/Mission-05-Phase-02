@@ -1,16 +1,22 @@
 import styles from "./StationCard.module.css"
 
+// Image Import Paths
+import z91 from "../../../assets/petrol-icons/Z-91.png"
+import z95 from "../../../assets/petrol-icons/Z-95.png"
+import zDiesel from "../../../assets/petrol-icons/Z-D.png"
+import zLogo from "../../../assets/images/Z-Logo-2.png"
+
 const fuelConfig = {
   91: {
-    logoSrc: "/Z-91.png",
+    logoSrc: z91,
     colourClass: styles.greenGradient,
   },
   95: {
-    logoSrc: "/Z-95.png",
+    logoSrc: z95,
     colourClass: styles.orangeGradient,
   },
   Diesel: {
-    logoSrc: "/Z-D.png",
+    logoSrc: zDiesel,
     colourClass: styles.yellowGradient,
   },
 }
@@ -23,7 +29,7 @@ const StationCard = ({ stationName, stationAddress, fuel }) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <img src="/Z-Logo-2.png" alt="Z Logo" className={styles.logo} />
+        <img src={zLogo} alt="Z Logo" className={styles.logo} />
         <div className={styles.stationInfo}>
           <h3 className={styles.name}>{stationName} Station</h3>
           <p className={styles.address}>{stationAddress}</p>
