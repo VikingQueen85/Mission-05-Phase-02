@@ -1,26 +1,25 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import "./OrderFoodOnlineMobile.css"
-import OrderFoodOverlay from "./pages/OrderFoodOnline/components/OrderFoodOverlay"
-import mobileFrameImage from "../src/assets/images/MobileFrame.png"
-import mobileBannerImage from "../src/assets/images/MobileBanner.png"
-import mobileMainImage from "../src/assets/images/MobileMain.png"
-import mobileFooterImage from "../src/assets/images/MobileFooter.png"
-import whiteBoxBackground from "../src/assets/images/WhiteBoxBackground.png"
-import whiteRectangleBackground from "../src/assets/images/WhiteRectangleBackground.png"
-import mobileHotDrinkIcon from "../src/assets/images/MobileHotDrinkIcon.png"
-import mobileFoodIcon from "../src/assets/images/MobileFoodIcon.png"
-import mobileVegeLeafIcon from "../src/assets/images/MobileVegeLeafIcon.png"
-import orderColdDrinksImage from "../src/assets/images/OrderColdDrinks.png"
-import zLogo from "../src/assets/images/Z-Logo-2.png"
+
+// Component Imports
+import OrderFoodOverlay from "./components/OrderFoodOverlay"
+
+// Image Imports
+import mobileFrameImage from "../../assets/images/MobileFrame.png"
+import mobileBannerImage from "../../assets/images/MobileBanner.png"
+import mobileMainImage from "../../assets/images/MobileMain.png"
+import mobileFooterImage from "../../assets/images/MobileFooter.png"
+import whiteBoxBackground from "../../assets/images/WhiteBoxBackground.png"
+import whiteRectangleBackground from "../../assets/images/WhiteRectangleBackground.png"
+import mobileHotDrinkIcon from "../../assets/images/MobileHotDrinkIcon.png"
+import mobileFoodIcon from "../../assets/images/MobileFoodIcon.png"
+import mobileVegeLeafIcon from "../../assets/images/MobileVegeLeafIcon.png"
+import orderColdDrinksImage from "../../assets/images/OrderColdDrinks.png"
+import zLogo from "../../assets/images/Z-Logo-2.png"
 
 function OrderFoodOnlineMobile() {
   const [showOverlay, setShowOverlay] = useState(false)
   const [overlayContentType, setOverlayContentType] = useState("")
-
-  const handleImageClick = type => {
-    setOverlayContentType(type)
-    setShowOverlay(true)
-  }
 
   const handleCloseOverlay = () => {
     setShowOverlay(false)
