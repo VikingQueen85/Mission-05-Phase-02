@@ -24,6 +24,7 @@
 
 .homeLink {
   position: absolute;
+  top: 25px;
   left: 15px;
   transition: transform 400ms ease-in;
 }
