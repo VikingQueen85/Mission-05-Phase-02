@@ -14,8 +14,8 @@ const FALLBACK_STATIONS = [
     address: "123 Main St, Christchurch",
     slug: "437-z-shirley",
     fuels: [
-      { fuelType: "Unleaded 91", price: 2.55 },
-      { fuelType: "Unleaded 95", price: 2.75 },
+      { fuelType: "91", price: 2.55 },
+      { fuelType: "95", price: 2.75 },
       { fuelType: "Diesel", price: 1.85 },
     ],
   },
@@ -24,8 +24,8 @@ const FALLBACK_STATIONS = [
     address: "456 Moorhouse Ave, Christchurch",
     slug: "1602-z-moorhouse",
     fuels: [
-      { fuelType: "Unleaded 91", price: 2.59 },
-      { fuelType: "Unleaded 95", price: 2.79 },
+      { fuelType: "91", price: 2.59 },
+      { fuelType: "95", price: 2.79 },
       { fuelType: "Diesel", price: 1.89 },
     ],
   },
