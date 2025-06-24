@@ -54,7 +54,6 @@ const StationColumn = ({ initialSlug }) => {
 
     setIsLoading(true)
     setError("")
-    setStationDetails(null) // Clear previous details
 
     try {
       const apiUrl = `${API_BASE_URL}/api/station-fuel-prices/prices/${slug}`
