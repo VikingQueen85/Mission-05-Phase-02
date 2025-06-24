@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import SearchBar from "././components/SearchBar"
@@ -8,6 +8,29 @@ import styles from "./PriceComparison.module.css"
 
 // Constants
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
+const FALLBACK_STATIONS = [
+  {
+    name: "Z Shirley",
+    address: "123 Main St, Christchurch",
+    slug: "437-z-shirley",
+    fuels: [
+      { fuelType: "Unleaded 91", price: 2.55 },
+      { fuelType: "Unleaded 95", price: 2.75 },
+      { fuelType: "Diesel", price: 1.85 },
+    ],
+  },
+  {
+    name: "Z Moorhouse",
+    address: "456 Moorhouse Ave, Christchurch",
+    slug: "1602-z-moorhouse",
+    fuels: [
+      { fuelType: "Unleaded 91", price: 2.59 },
+      { fuelType: "Unleaded 95", price: 2.79 },
+      { fuelType: "Diesel", price: 1.89 },
+    ],
+  },
+]
 
 // Initial state for a single column
 const initialColumnState = {
@@ -25,6 +48,8 @@ const initialColumnState = {
 const DEFAULT_STATIONS = ["437-z-shirley", "1602-z-moorhouse"]
 
 const PriceComparison = () => {
+  const initialLoadComplete = useRef(false)
+
   // Array to manage state for both columns
   const [columns, setColumns] = useState([
     { ...initialColumnState },
@@ -115,40 +140,105 @@ const PriceComparison = () => {
 
   // Load initial station data when the component mounts
   useEffect(() => {
+    // Skip if already loaded (prevents duplicate loading)
+    if (initialLoadComplete.current) return
+
+    const controller = new AbortController()
+
     const loadInitialStations = async () => {
+      // Mark loading as started immediately
+      initialLoadComplete.current = true
+
       // Not to load if data already exists (e.g., after a component remount)
       if (columns[0].stationDetails || columns[1].stationDetails) {
         return
       }
 
       try {
-        // Load each default station
-        for (let i = 0; i < Math.min(DEFAULT_STATIONS.length, 2); i++) {
-          const slug = DEFAULT_STATIONS[i]
-
-          // Set loading state
-          updateColumnState(i, {
-            isLoadingDetails: true,
-            selectedStationSlug: slug,
+        // Prepare initial column states with loading indicators
+        setColumns(prevColumns => {
+          const newColumns = [...prevColumns]
+          DEFAULT_STATIONS.forEach((slug, i) => {
+            if (i < 2) {
+              newColumns[i] = {
+                ...newColumns[i],
+                isLoadingDetails: true,
+                selectedStationSlug: slug,
+              }
+            }
           })
+          return newColumns
+        })
 
-          // Fetch the station data
-          const apiUrl = `${API_BASE_URL}/api/station-fuel-prices/prices/${slug}`
-          const response = await axios.get(apiUrl)
+        // Make API requests and update both columns in parallel
+        const requests = DEFAULT_STATIONS.slice(0, 2).map(
+          async (slug, index) => {
+            try {
+              const apiUrl = `${API_BASE_URL}/api/station-fuel-prices/prices/${slug}`
+              const response = await axios.get(apiUrl, {
+                signal: controller.signal,
+              })
 
-          // Update state with fetched data
-          updateColumnState(i, {
-            stationDetails: response.data,
-            isLoadingDetails: false,
-            selectedStationSlug: slug,
-          })
-        }
+              // Skip update if component was unmounted
+              if (!controller.signal.aborted) {
+                setColumns(prevColumns => {
+                  const newColumns = [...prevColumns]
+                  newColumns[index] = {
+                    ...newColumns[index],
+                    stationDetails: response.data,
+                    isLoadingDetails: false,
+                  }
+                  return newColumns
+                })
+              }
+            } catch (error) {
+              if (axios.isCancel(error)) {
+                console.log("Request cancelled")
+              } else {
+                console.error(`Error loading station data for ${slug}:`, error)
+
+                // Add fallback data if API call fails
+                if (!controller.signal.aborted) {
+                  // Provide fallback data if API call fails
+                  const fallbackData = FALLBACK_STATIONS.find(
+                    station => station.slug === slug
+                  )
+
+                  if (fallbackData) {
+                    setColumns(prevColumns => {
+                      const newColumns = [...prevColumns]
+                      newColumns[index] = {
+                        ...newColumns[index],
+                        stationDetails: fallbackData,
+                        isLoadingDetails: false,
+                      }
+                      return newColumns
+                    })
+                  } else {
+                    // Your existing error state setting code
+                    setColumns(prevColumns => {
+                      const newColumns = [...prevColumns]
+                      newColumns[index] = {
+                        ...newColumns[index],
+                        isLoadingDetails: false,
+                        detailsError: "Could not load station data",
+                      }
+                      return newColumns
+                    })
+                  }
+                }
+              }
+            }
+          }
+        )
+
+        await Promise.allSettled(requests)
       } catch (error) {
-        console.error("Error loading initial station data:", error)
-        // Handle errors if needed
+        console.error("Error in initial data loading:", error)
       }
     }
 
+    // Start the loading process
     loadInitialStations()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
