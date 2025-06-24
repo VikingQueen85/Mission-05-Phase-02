@@ -15,7 +15,7 @@
 .top-banner-section {
     width: 100vw;
     height: 200px;
-    background-image: url('/Banner-Home-Page.png');
+    background-image: url('../src/assets/images/Banner-Home-Page.png');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -48,7 +48,7 @@
 .main-image-section {
     width: 100%;
     height: 684px;
-    background-image: url('Homepage-Hero.png');
+    background-image: url('../src/assets/images/Homepage-Hero.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -65,7 +65,7 @@
 
 .find-station-band {
     display: flex;
-    background-image: url('Find-Z-Station.png');
+    background-image: url('../src/assets/images/Find-Z-Station.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

@@ -2,14 +2,12 @@
 import React, { useState } from 'react';
 import './OrderFoodOnline.css';
 import OrderFoodOverlay from './components/OrderFoodOverlay';
-
-// Main page image imports
-import orderFoodBannerImage from './components/images/Order-Food-Banner.png';
-import zWebsiteFoodImage from './components/images/Z-Website-Food-Image.png';
-import preOrderImage1 from './components/images/HotDrinks.png';
-import preOrderImage2 from './components/images/ColdDrinks.png';
-import preOrderImage3 from './components/images/Food.png';
-import preOrderImage4 from './components/images/MakeItACombo.png';
+import orderFoodBannerImage from '../../assets/images/Order-Food-Banner.png';
+import zWebsiteFoodImage from '../../assets/images/Z-Website-Food-Image.png';
+import preOrderImage1 from '../../assets/images/HotDrinks.png';
+import preOrderImage2 from '../../assets/images/ColdDrinks.png';
+import preOrderImage3 from '../../assets/images/Food.png';
+import preOrderImage4 from '../../assets/images/MakeItACombo.png';
 
 function OrderFoodOnline() {
     const [showOverlay, setShowOverlay] = useState(false);
@@ -29,10 +27,13 @@ function OrderFoodOnline() {
 
     return (
         <div className="order-food-online-container">
+            {/* Banner Section */}
             <div className="order-food-banner-section" style={{ backgroundImage: `url(${orderFoodBannerImage})` }}>
             </div>
 
-            <div className="order-food-content">
+            {/* Main Content Section */}
+            <div className="order-food-content-section">
+                {/* Text Wrapper */}
                 <div className="order-food-text-wrapper">
                     <h2 className="content-heading">Fuel up more than just your car!</h2>
                     <p className="content-description">
@@ -50,27 +51,33 @@ function OrderFoodOnline() {
                 <img src={zWebsiteFoodImage} alt="Delicious food" className="order-food-floating-image" />
             </div>
 
+            {/* Pre-Order Message Section */}
             <div className="pre-order-message-section">
                 <h2>Pre-Order Online – Skip the Queue and Save Time!</h2>
             </div>
 
+            {/* Pre-Order Images Container */}
             <section className="pre-order-images-container">
-                <button className="pre-order-image-button" onClick={() => handleImageClick('hot_drinks')}>
-                    <img src={preOrderImage1} alt="Hot Drinks" className="pre-order-image" />
-                </button>
-                <button className="pre-order-image-button" onClick={() => handleImageClick('cold_drinks')}>
-                    <img src={preOrderImage2} alt="Cold Drinks" className="pre-order-image" />
-                </button>
-                <button className="pre-order-image-button" onClick={() => handleImageClick('food')}>
-                    <img src={preOrderImage3} alt="Food Items" className="pre-order-image" />
-                </button>
-                <button className="pre-order-image-button" onClick={() => handleImageClick('combo')}>
-                    <img src={preOrderImage4} alt="Make It A Combo" className="pre-order-image" />
-                </button>
+                {/* Clickable buttons for each main food category */}
+                {[
+                    { type: 'hot_drinks', src: preOrderImage1, alt: 'Hot Drinks' },
+                    { type: 'cold_drinks', src: preOrderImage2, alt: 'Cold Drinks' },
+                    { type: 'food', src: preOrderImage3, alt: 'Food Items' },
+                    { type: 'combo', src: preOrderImage4, alt: 'Make It A Combo' },
+                ].map((item, index) => (
+                    <button
+                        key={index}
+                        className="pre-order-image-button"
+                        onClick={() => handleImageClick(item.type)}
+                    >
+                        <img src={item.src} alt={item.alt} className="pre-order-image" />
+                    </button>
+                ))}
             </section>
 
+            {/* Order Food Overlay */}
             {showOverlay && (
-                <div className="inline-overlay-wrapper">
+                <div className="overlay-fixed-wrapper">
                     <OrderFoodOverlay
                         contentType={overlayContentType}
                         onClose={handleCloseOverlay}

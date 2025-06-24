@@ -7,11 +7,11 @@ import OrderFoodOnline from './pages/OrderFoodOnline/OrderFoodOnline';
 import OrderFoodOnlineMobile from './OrderFoodOnlineMobile';
 import MobileApp from './MobileApp.jsx';
 import './styles.css';
+import ZLogoImage from './assets/images/Z-Logo.png';
 
 function App() {
-    // State to track if the screen is considered "mobile"
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-    const breakpoint = 768;
+    const breakpoint = 768
 
     // useEffect hook to add and clean up a window resize event listener
     useEffect(() => {
@@ -24,7 +24,6 @@ function App() {
             setIsMobile(newIsMobile);
         };
 
-        // Set initial state on component mount
         handleResize();
 
         // Add the event listener when the component mounts
@@ -41,7 +40,7 @@ function App() {
                     <div className="header-top-left">
                         <Link to="/" className="z-logo-link">
                             <img
-                                src="/Z-Logo.png"
+                                src={ZLogoImage}
                                 alt="Z Energy Logo"
                                 className="z-logo"
                             />
@@ -81,18 +80,10 @@ function App() {
 
             <main className="main-content">
                 <Routes>
-                    {/* Conditional rendering for the Homepage */}
                     <Route path="/" element={isMobile ? <MobileApp /> : <Homepage />} />
-
                     <Route path="/share-tank" element={<div><h1>Sharetank Page</h1><p>Details about Sharetank.</p></div>} />
                     <Route path="/price-comparison" element={<PriceComparison />} />
-
-                    {/* Conditional rendering for the Order Food Online page */}
-                    <Route
-                        path="/order-food"
-                        element={isMobile ? <OrderFoodOnlineMobile /> : <OrderFoodOnline />}
-                    />
-
+                    <Route path="/order-food"element={isMobile ? <OrderFoodOnlineMobile /> : <OrderFoodOnline />} />
                     <Route path="/z-app" element={<div><h1>Z App Page</h1><p>Content for Z App.</p></div>} />
                     <Route path="/about-z" element={<div><h1>About Z Page</h1><p>Content for About Z.</p></div>} />
                     <Route path="/how-to-enjoy-Z-station" element={<div><h1>Z Stations Page</h1><p>How to enjoy Z stations</p></div>} />

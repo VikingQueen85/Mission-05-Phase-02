@@ -217,6 +217,10 @@ html, body, #root {
     object-fit: contain;
 }
 
+.cold-drinks-image {
+    object-fit: contain;
+}
+
 .food-icon {
     width: 51px;
     height: 51px;

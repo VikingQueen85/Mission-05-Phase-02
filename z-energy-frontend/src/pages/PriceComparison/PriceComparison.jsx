@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import StationColumn from "./components/StationColumn" // Import the new component
 import styles from "./PriceComparison.module.css"
+import HomeIcon from "../../assets/images/Home-Icon.png"
 
 // Constants
 const DEFAULT_STATIONS = ["437-z-shirley", "1602-z-moorhouse"]
@@ -10,7 +11,8 @@ const PriceComparison = () => {
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <Link to="/" className={styles.homeLink}>
-          <img src="/Home-Icon.png" alt="Home" className={styles.homeIcon} />
+          {/* Use the imported HomeIcon */}
+          <img src={HomeIcon} alt="Home" className={styles.homeIcon} />
         </Link>
         <h1 className={styles.title}>Price Comparison</h1>
       </div>
