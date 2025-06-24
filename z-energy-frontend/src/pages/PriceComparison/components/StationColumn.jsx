@@ -130,7 +130,7 @@ const StationColumn = ({ initialSlug }) => {
 
       {/* Overlay message without affecting layout */}
       <div className={styles.messageArea}>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <p className={styles.loadingMessage}>Loading...</p>}
         {error && <p className={styles.error}>{error}</p>}
       </div>
 
