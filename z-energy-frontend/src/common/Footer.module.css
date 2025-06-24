@@ -1,0 +1,13 @@
+.mainFooter {
+  background: linear-gradient(to right, #f97316, #fca586);
+  color: #555;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  width: 100%;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footerText {
+  margin: 0;
+}

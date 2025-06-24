@@ -1,181 +1,51 @@
+:root {
+  /* Brands */
+  --primary-color: #f36f21;
+  --secondary-color: #ff9240;
+  --accent-color: #1e196b;
+
+  /* UI */
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --text-color: #555555;
+  --gray-color: #d1d1d1; /* Gray 20*/
+  --light-gray-color: #f8f8f8; /* Gray 10 */
+
+  /* Gradients */
+  --orange-gradient: linear-gradient(89.54deg, #f36f21 26.96%, #ffdd02 77.37%);
+  --blue-gradient: linear-gradient(
+    270deg,
+    rgba(49, 41, 171, 0.782912) -14.14%,
+    #1e196b 82.89%
+  );
+
+  /* Shadows */
+  --box-shadow-orange: 0px 2px 5px rgba(243, 111, 33, 0.3);
+  --box-shadow-orange-hover: 0px 4px 10px rgba(243, 111, 33, 0.4);
+}
 
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .main-header {
-    width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: #FFFFFF;
-}
-
-.header-top-band {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 75px;
-    padding: 0.3rem 4rem;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.header-top-left {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-}
-
-.z-logo-link {
-    display: flex;
-    align-items: center;
-}
-
-.z-logo {
-    height: 70px;
-    width: auto;
-    border-radius: 8px;
-}
-
-.header-button {
-    padding: 1rem 1.5rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.95rem;
-    transition: all 0.2s ease-in-out;
-}
-
-.normal-button:hover {
-    background-color: #FFFFFF;
-}
-
-.orange-gradient-button {
-    padding: 1rem 2.5rem;
-    background: #F36F21;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 9999px;
-    box-shadow: 0 2px 5px rgba(249, 115, 22, 0.3);
-}
-
-.orange-gradient-button:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
-}
-
-.header-top-right-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-}
-
-.header-top-right-nav a,
-.header-bottom-left-nav a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    font-size: 0.95rem;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease;
-}
-
-.header-top-right-nav a:hover,
-.header-bottom-left-nav a:hover {
-    color: #f97316;
-}
-
-.header-thin-divider {
-    height: 1px;
-    background-color: #e0e0e0;
-    width: 100%;
-    margin: 0.5rem 0;
-}
-
-.header-bottom-nav-row {
-    padding: 0.5rem 3rem;
-    display: flex;
-    align-items: center;
-}
-
-.header-bottom-left-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.main-content {
-    flex-grow: 1;
-    padding: 2rem 3rem;
-    background-color: #FFFFFF;
-}
-
-.main-footer {
-    background: linear-gradient(to right, #f97316, #fca586);
-    color: #555;
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    width: 100%;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.footer-text {
-    margin: 0;
-}
-
-@media (max-width: 768px) {
-.header-top-band {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.3rem 1rem;
-}
-
-.header-top-left,
-.header-top-right-nav ul {
-    width: 100%;
-    justify-content: flex-start;
-    margin-top: 0.5rem;
-}
-
-.header-top-right-nav ul {
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.header-bottom-nav-row {
-    padding: 0.5rem 1rem;
-}
-
-.header-bottom-left-nav ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-}
-
-.header-button {
-    width: auto;
-    font-size: 0.9rem;
-}
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--white-color);
 }
