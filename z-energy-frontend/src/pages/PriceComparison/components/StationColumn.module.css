@@ -1,14 +1,14 @@
 .stationColumn {
   flex: 1;
-
   display: flex;
   flex-direction: column;
-
   min-width: 0;
-  font-size: 12px;
+
+  position: relative;
 }
 
 .cardsContainer {
+  margin-top: 40px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -16,10 +16,25 @@
 }
 
 .messageArea {
-  min-height: 24px; /* Ensures layout doesn't jump when messages appear/disappear */
-  margin-top: 15px; /* Add some space above the messages */
-  color: #555;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  z-index: 10;
+  pointer-events: none;
+
+  font-size: 10px;
+
   text-align: center;
+}
+
+.messageArea p {
+  display: inline-block;
+}
+
+.loadingMessage {
+  color: #555;
 }
 
 .error {

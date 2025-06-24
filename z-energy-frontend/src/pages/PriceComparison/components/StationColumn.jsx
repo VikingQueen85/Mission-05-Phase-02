@@ -3,8 +3,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import SearchBar from "./SearchBar"
 import StationCard from "./StationCard"
-import StationSelector from "./StationSelector"
-import styles from "../PriceComparison.module.css" // Adjust path as needed
+import styles from "./StationColumn.module.css"
 
 // Constants
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
@@ -123,18 +122,14 @@ const StationColumn = ({ initialSlug }) => {
         query={searchQuery}
         onQueryChange={setSearchQuery}
         onSearch={handleSearch}
+        results={searchResults}
+        selectedValue={selectedStationSlug}
+        onSelect={handleStationSelect}
         isLoading={isLoading && searchResults.length === 0} // Only show loading for search
         placeholder="Enter Address"
       />
 
-      <StationSelector
-        results={searchResults}
-        onSelect={handleStationSelect}
-        selectedValue={selectedStationSlug}
-        isLoading={isLoading}
-        disabled={isLoading || searchResults.length === 0}
-      />
-
+      {/* Overlay message without affecting layout */}
       <div className={styles.messageArea}>
         {isLoading && <p>Loading...</p>}
         {error && <p className={styles.error}>{error}</p>}

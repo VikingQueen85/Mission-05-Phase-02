@@ -64,31 +64,3 @@
   gap: 5px;
   align-items: flex-start;
 }
-
-.stationColumn {
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-
-  min-width: 0;
-  font-size: 12px;
-}
-
-.cardsContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.messageArea {
-  min-height: 24px; /* Ensures layout doesn't jump when messages appear/disappear */
-  margin-top: 15px; /* Add some space above the messages */
-  color: #555;
-  text-align: center;
-}
-
-.error {
-  color: red;
-}
