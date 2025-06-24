@@ -1,16 +1,21 @@
 import styles from "./StationCard.module.css"
 
+// Image Import Paths
+import z91 from "../../../assets/fuel-types/Z-91.png"
+import z95 from "../../../assets/fuel-types/Z-95.png"
+import zDiesel from "../../../assets/fuel-types/Z-D.png"
+
 const fuelConfig = {
   91: {
-    logoSrc: "/Z-91.png",
+    logoSrc: z91,
     colourClass: styles.greenGradient,
   },
   95: {
-    logoSrc: "/Z-95.png",
+    logoSrc: z95,
     colourClass: styles.orangeGradient,
   },
   Diesel: {
-    logoSrc: "/Z-D.png",
+    logoSrc: zDiesel,
     colourClass: styles.yellowGradient,
   },
 }
