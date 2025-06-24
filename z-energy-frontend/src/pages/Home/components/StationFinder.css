@@ -1,0 +1,217 @@
+/* .station-finder-container {
+
+} */
+
+.find-station-band {
+  display: flex;
+  background-image: url("../src/assets/images/Find-Z-Station.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 1.5rem;
+  width: 100vw;
+  height: 200px;
+  margin-bottom: 2rem;
+}
+
+.find-station-text {
+  color: #ffffff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: left;
+  left: 80px;
+}
+
+.find-station-icons {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.find-station-toggle-wrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.find-stations-toggle-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.orange-button {
+  padding: 1rem 2.5rem;
+  background: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 9999px;
+  box-shadow: var(--box-shadow-orange);
+}
+
+.orange-button:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--box-shadow-orange-hover);
+}
+
+.stations-and-filters-section {
+  width: 90%;
+  max-width: 960px;
+  margin: 0 auto 3rem auto;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  background-color: var(--light-grey-color);
+  box-shadow: 0 10px 25px var(--black-color, 0.1);
+  text-align: center;
+}
+
+.status-message {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: #e53e3e;
+  font-weight: 500;
+}
+
+.town-select-wrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.town-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.town-select {
+  padding: 0.8rem 1.8rem;
+  font-size: 1.05rem;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e0;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  background-color: white;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200%20-13%20-5.4H18.4c-6.5%200-12.1%203.2-15.9%208.1a17.6%2017.6%200%200%200%200%2022.9l128%20128c3.7%203.7%209.2%205.5%2014.9%205.5s11.2-1.8%2014.9-5.5l128-128c3.7-3.6%205.5-9.1%205.5-14.9a17.6%2017.6%200%200%200%20-5.4-13z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em top 50%;
+  background-size: 0.7em auto;
+}
+
+.town-select:focus {
+  border-color: #f97316;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25);
+}
+
+.stations-list {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.filtered-list-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #2d3748;
+}
+
+.stations-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.station-item {
+  background-color: #f0f8ff;
+  border: 1px solid #b3e0ff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.station-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #2c5282;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.station-address {
+  font-size: 0.95rem;
+  color: #5a677b;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.station-services {
+  font-size: 0.85rem;
+  color: #4a5568;
+  margin-top: 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.no-stations-found-message {
+  font-size: 1.1rem;
+  color: #e53e3e;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .find-station-text {
+    font-size: 1.8rem;
+  }
+  .stations-and-filters-section {
+    padding: 1.5rem;
+  }
+  .filtered-list-heading {
+    font-size: 1.5rem;
+  }
+  .station-name {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .find-station-text {
+    font-size: 1.5rem;
+  }
+  .find-stations-toggle-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+  .stations-and-filters-section {
+    padding: 1rem;
+  }
+  .town-select {
+    font-size: 0.95rem;
+  }
+  .stations-list ul {
+    grid-template-columns: 1fr;
+  }
+  .station-item {
+    padding: 1rem;
+  }
+}
