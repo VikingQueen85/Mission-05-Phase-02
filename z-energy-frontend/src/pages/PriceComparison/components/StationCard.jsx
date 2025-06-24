@@ -1,9 +1,9 @@
 import styles from "./StationCard.module.css"
 
 // Image Import Paths
-import z91 from "../../../assets/fuel-types/Z-91.png"
-import z95 from "../../../assets/fuel-types/Z-95.png"
-import zDiesel from "../../../assets/fuel-types/Z-D.png"
+import z91 from "../../../assets/petrol-icons/Z-91.png"
+import z95 from "../../../assets/petrol-icons/Z-95.png"
+import zDiesel from "../../../assets/petrol-icons/Z-D.png"
 import zLogo from "../../../assets/images/Z-Logo-2.png"
 
 const fuelConfig = {
