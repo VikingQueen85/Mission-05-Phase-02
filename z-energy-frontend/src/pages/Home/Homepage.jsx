@@ -138,7 +138,7 @@ function Homepage() {
           <div className="content-block reverse-layout">
             <div className="content-block-image-wrapper">
               <img
-                src="/Sharetank.png"
+                src="../src/assets/images/Sharetank.png"
                 alt="Sharetank"
                 className="content-block-image"
               />
@@ -156,7 +156,7 @@ function Homepage() {
           <div className="content-block">
             <div className="content-block-image-wrapper">
               <img
-                src="/Price-Comparison.png"
+                src="../src/assets/images/Price-Comparison.png"
                 alt="Price Comparison"
                 className="content-block-image"
               />
@@ -174,7 +174,7 @@ function Homepage() {
           <div className="content-block reverse-layout">
             <div className="content-block-image-wrapper">
               <img
-                src="/Order-Food.png"
+                src="../src/assets/images/Order-Food.png"
                 alt="Order Food Online"
                 className="content-block-image"
               />

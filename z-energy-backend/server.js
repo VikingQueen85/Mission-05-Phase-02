@@ -5,19 +5,21 @@ dotenv.config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require('path');
 
-// --- Import Existing Routes & New Food Routes ---
+// --- Import Routes ---
 const routes = require("./routes");
 const foodRoutes = require("./routes/foodRoutes");
 
 // --- Import Middleware ---
-const globalErrorHandler = require("./middleware/errorMiddleware")
+const globalErrorHandler = require("./middleware/errorMiddleware");
 
 // --- Import Seeders ---
 const seedStationFuelPrices = require("./utils/stationFuelPriceSeeder");
 const seedStations = require("./utils/rawStationDataSeeder");
 const seedFoodItems = require("./utils/foodItemsSeeder");
 
+// --- Import Models ---
 const FoodItem = require("./models/FoodItem");
 
 // --- Initialise Express ---
@@ -31,7 +33,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/zpetro
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/images', express.static('public/images'));
+app.use('/images', express.static(path.join(__dirname, 'src', 'assets', 'images')));
 
 // --- MongoDB Connection ---
 mongoose
@@ -39,6 +41,7 @@ mongoose
     .then(async () => {
         console.info("MongoDB connected successfully!");
 
+        // Run seeders
         const didSeedStations = await seedStations();
         const didSeedFuelPrices = await seedStationFuelPrices();
         const didSeedFoodItems = await seedFoodItems();
@@ -59,7 +62,7 @@ mongoose
         }
 
         if (seedResults.foodItemsSeeded) {
-            console.log("Food items data was seeded successfully!")
+            console.info("Food items data was seeded successfully!");
         }
     })
     .catch(err => console.error("MongoDB connection error:", err));
@@ -74,16 +77,15 @@ app.use("/api/stations", routes.stationRoutes);
 app.use("/api/station-fuel-prices", routes.stationFuelPriceRoutes);
 app.use("/api/fooditems", foodRoutes);
 
-// --- Handle 404 > ROUTE NOT FOUND ---
-// Runs if no route matched the request
+// This middleware runs if no route matched the request
 app.use((req, res, next) => {
-  const err = new Error("Not Found") // Create a new error object
-  err.statusCode = 404
-  next(err) // Pass error to the global error handler
-})
+    const err = new Error("Not Found");
+    err.statusCode = 404;
+    next(err);
+});
 
 // --- Global Error Handler ---
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 
 // Start the server
 app.listen(PORT, () => {

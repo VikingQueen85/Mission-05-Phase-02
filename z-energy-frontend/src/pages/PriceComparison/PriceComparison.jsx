@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import SearchBar from "././components/SearchBar"
+import SearchBar from "./components/SearchBar"
 import StationCard from "./components/StationCard"
 import StationSelector from "./components/StationSelector"
 import styles from "./PriceComparison.module.css"
+import HomeIcon from '../../assets/images/Home-Icon.png';
 
 // Constants
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
@@ -88,7 +89,7 @@ const PriceComparison = () => {
     updateColumnState(index, {
       isLoadingDetails: true,
       selectedStationSlug: slug,
-      stationDetails: null, // Clear previous details
+      stationDetails: null,
       detailsError: "",
     })
 
@@ -98,8 +99,8 @@ const PriceComparison = () => {
       updateColumnState(index, {
         stationDetails: response.data,
         isLoadingDetails: false,
-        searchQuery: "", // Clear search query after selection
-        searchResults: [], // Hides the dropdown after selection
+        searchQuery: "",
+        searchResults: [],
       })
     } catch (err) {
       console.error("Details Fetch Error:", err)
@@ -114,7 +115,8 @@ const PriceComparison = () => {
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <Link to="/" className={styles.homeLink}>
-          <img src="/Home-Icon.png" alt="Home" className={styles.homeIcon} />
+          {/* Use the imported HomeIcon */}
+          <img src={HomeIcon} alt="Home" className={styles.homeIcon} />
         </Link>
         <h1 className={styles.title}>Price Comparison</h1>
       </div>
@@ -123,7 +125,7 @@ const PriceComparison = () => {
         {columns.map((column, index) => (
           <div key={index} className={styles.stationColumn}>
             <SearchBar
-              query={column.searchQuery} // Pass the current query to SearchBar
+              query={column.searchQuery}
               onQueryChange={query => handleQueryChange(query, index)}
               onSearch={query => handleSearch(query, index)}
               isLoading={column.isSearching}
