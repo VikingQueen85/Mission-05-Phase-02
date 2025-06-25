@@ -1,0 +1,381 @@
+
+.drink-detail-page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f9f9f9;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Header Styles - Specific styles for the top frame of DrinkDetailPage */
+.drink-detail-top-frame {
+    width: 100%;
+    height: 60px;
+    background-image: url("../../../assets/images/MobileFrame.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    position: relative;
+    z-index: 10;
+    justify-content: space-between;
+}
+
+/* Back arrow button */
+.back-arrow-button {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 20;
+}
+
+/* Title in the top frame */
+.drink-detail-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex-grow: 1;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    width: calc(100% - 100px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Cart icon button in the top frame */
+.cart-icon-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 15;
+}
+
+.cart-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+
+/* Banner Styles */
+.drink-detail-banner-section {
+    width: 100%;
+    height: 46px;
+    background-image: url("../../../assets/images/Cart.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 5;
+}
+
+/* Main Content Area */
+.drink-detail-main-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 360px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Drink Info Section (Image and Text) */
+.drink-info-section {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 15px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.drink-detail-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.drink-text-content {
+    flex-grow: 1;
+}
+
+.drink-detail-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.drink-detail-description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Option Groups (Size, Quantity, Milk, Strength, Flavor) */
+.option-group {
+    background-color: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    width: 100%;
+}
+
+.option-group h2 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option-group .extra-cost {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #777;
+}
+
+/* Size Selection Buttons */
+.option-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.option-button {
+    flex: 1;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 90px;
+    max-width: 100px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    position: relative;
+}
+
+.option-button,
+.radio-options-grid label {
+    z-index: 10;
+    position: relative;
+}
+
+.option-button.selected {
+    background-color: #e0eaff;
+    border-color: #1e3a8a;
+    color: #1e3a8a;
+    box-shadow: 0 0 0 2px #1e3a8a;
+}
+
+.option-button:hover {
+    background-color: #e9e9e9;
+}
+
+.cup-icon {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.quantity-selector button {
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.quantity-selector button:hover {
+    background-color: #152d6a;
+}
+
+.quantity-selector span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Radio Options Grid (Milk, Strength, Flavor) */
+.radio-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.radio-options-grid label {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #333;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.radio-options-grid input[type="radio"] {
+    margin-right: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.radio-options-grid input[type="radio"]:checked {
+    border-color: #1e3a8a;
+}
+
+.radio-options-grid input[type="radio"]:checked::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #1e3a8a;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.radio-options-grid label span {
+    font-size: 0.8rem;
+    color: #777;
+    margin-left: 5px;
+}
+
+/* Action Buttons */
+.action-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.cancel-button, .add-to-cart-button {
+    flex: 1;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-button {
+    background-color: #e0e0e0;
+    color: #555;
+    border: none;
+}
+
+.cancel-button:hover {
+    background-color: #d0d0d0;
+}
+
+.add-to-cart-button {
+    background-color: #1e3a8a;
+    color: #FFFFFF;
+    border: none;
+}
+
+.add-to-cart-button:hover {
+    background-color: #152d6a;
+}
+
+/* Footer Styles */
+.drink-detail-footer {
+    width: 100%;
+    height: 60px;
+    background-color: #FFFFFF;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.footer-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #777;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+
+.footer-nav-item:hover {
+    color: #1e3a8a;
+}
+
+.footer-nav-item svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 3px;
+    fill: currentColor;
+}

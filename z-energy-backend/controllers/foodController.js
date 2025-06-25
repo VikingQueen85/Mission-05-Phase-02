@@ -1,13 +1,30 @@
 
 const foodService = require('../services/foodService');
 
-const getFoodItems = async (req, res) => {
+const getFoodItems = async (req, res, next) => {
     try {
         const foodItems = await foodService.getAllFoodItems();
-        res.status(200).json(foodItems);
+        
+        if (!foodItems || !Array.isArray(foodItems) || foodItems.length === 0) {
+            console.log(`No food items found or invalid response for getFoodItems.`);
+            return res.status(404).json({ message: `No food items found.` });
+        }
+
+        // Apply the same mapping logic as getFoodItemsByCategory
+        const itemsWithFullUrls = foodItems.map(item => {
+            const itemObj = item && item.toObject ? item.toObject() : item;
+            const finalImageUrl = itemObj.imageUrl;
+
+            return {
+                ...itemObj,
+                src: finalImageUrl,
+                alt: itemObj.name,
+            };
+        });
+        res.status(200).json(itemsWithFullUrls);
     } catch (error) {
         console.error("Error in getFoodItems:", error);
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
@@ -26,18 +43,23 @@ const getFoodItemsByCategory = async (req, res, next) => {
 
         const itemsWithFullUrls = foodItems.map(item => {
             const itemObj = item && item.toObject ? item.toObject() : item;
+
+            console.log("Processing item:", itemObj);
+
             const finalImageUrl = itemObj.imageUrl;
+
+            console.log(`Final image URL for ${itemObj.name || 'Unknown'}: ${finalImageUrl}`);
 
             return {
                 ...itemObj,
                 src: finalImageUrl,
-                alt: itemObj.name
+                alt: itemObj.name,
             };
         });
 
         res.status(200).json(itemsWithFullUrls);
     } catch (error) {
-        console.error("Error in getFoodItemsByCategory:", error);
+        console.error("Critical Error in getFoodItemsByCategory:", error);
         next(error);
     }
 };
@@ -50,13 +72,11 @@ const getFoodItemById = async (req, res, next) => {
         }
         const itemObj = foodItem.toObject ? foodItem.toObject() : foodItem;
         const finalImageUrl = itemObj.imageUrl;
-        const enrichItemWithUrl = (item) => ({
-            ...item,
+        res.status(200).json({
+            ...itemObj,
             src: finalImageUrl,
             alt: itemObj.name
         });
-        res.status(200).json(enrichItemWithUrl(itemObj));
-
     } catch (error) {
         console.error("Error in getFoodItemById:", error);
         if (error.name === 'CastError') {

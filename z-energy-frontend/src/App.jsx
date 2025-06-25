@@ -23,38 +23,32 @@ import Search from "./pages/Search/Search"
 import "./styles.css"
 
 function App() {
-  const { isMobile } = useViewportSize()
+    const { isMobile } = useViewportSize()
 
-  return (
-    <div className="app-container">
-      <Header />
+    return (
+      <div className="app-container">
+        <Header />
 
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={isMobile ? <MobileApp /> : <Homepage />} />
-          <Route path="/share-tank" element={<ShareTank />} />
-          <Route path="/price-comparison" element={<PriceComparison />} />
-          <Route
-            path="/order-food"
-            element={isMobile ? <OrderFoodOnlineMobile /> : <OrderFoodOnline />}
-          />
-          <Route path="/z-app" element={<ZApp />} />
-          <Route path="/about-z" element={<AboutZ />} />
-          <Route
-            path="/how-to-enjoy-Z-station"
-            element={<HowToEnjoyZStation />}
-          />
-          <Route path="/rewards" element={<Rewards />} />
-          <Route path="/locations" element={<Locations />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/search" element={<Search />} />
-        </Routes>
-      </main>
+        <main className="main-content">
+          <Routes>
+            <Route path="/*" element={isMobile ? <MobileApp /> : <Homepage />} />
+            <Route path="/share-tank" element={<ShareTank />} />
+            <Route path="/price-comparison" element={<PriceComparison />} />
+            <Route path="/order-food" element={isMobile ? <OrderFoodOnlineMobile /> : <OrderFoodOnline />} />
+            <Route path="/z-app" element={<ZApp />} />
+            <Route path="/about-z" element={<AboutZ />} />
+            <Route path="/how-to-enjoy-Z-station" element={<HowToEnjoyZStation />} />
+            <Route path="/rewards" element={<Rewards />} />
+            <Route path="/locations" element={<Locations />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/search" element={<Search />} />
+          </Routes>
+        </main>
 
-      <Footer />
-    </div>
-  )
+        <Footer />
+      </div>
+    )
 }
 
 export default App

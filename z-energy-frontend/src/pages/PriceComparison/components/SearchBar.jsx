@@ -1,5 +1,6 @@
+
 import { useRef, useState, useEffect } from "react"
-import styles from "./SearchBar.module.css" // Using CSS Module for consistency
+import styles from "./SearchBar.module.css"
 import { FaSearch } from "react-icons/fa"
 
 const SearchBar = ({
