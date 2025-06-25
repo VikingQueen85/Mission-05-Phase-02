@@ -137,6 +137,7 @@ function DrinkDetailPage({ drink, onClose }) {
 
     return (
         <div className="drink-detail-page-container">
+        {/* Top Frame Section - Matches mobile-top-frame from HotDrinksPage */}
         <div
             className="mobile-top-frame drink-detail-top-frame"
             style={{ backgroundImage: `url(${mobileFrameImage})` }}
@@ -144,8 +145,9 @@ function DrinkDetailPage({ drink, onClose }) {
             <button className="back-arrow-button" onClick={onClose}>
             &larr;
             </button>
+            {/* Dynamic title for the drink detail page */}
             <span className="drink-detail-title">{drink.name}</span>
-            <button className="cart-icon-button">
+            <button className="cart-icon-button" onClick={onClose}>
             {/* Cart Icon SVG */}
             <svg className="cart-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17 18C17 18.5523 16.5523 19 16 19C15.4477 19 15 18.5523 15 18C15 17.4477 15.4477 17 16 17C16.5523 17 17 17.4477 17 18Z" />
@@ -155,10 +157,10 @@ function DrinkDetailPage({ drink, onClose }) {
             </button>
         </div>
 
-        {/* Banner Section - Matches hot-drinks-banner-section from HotDrinksPage */}
         <div
             className="drink-detail-banner-section"
-            style={{ backgroundImage: `url(${hotDrinksBannerImage})` }}>
+            style={{ backgroundImage: `url(${hotDrinksBannerImage})` }}
+            onClick={onClose}>
             <div className="drink-detail-banner-overlay"></div>
         </div>
 
@@ -285,6 +287,6 @@ function DrinkDetailPage({ drink, onClose }) {
         </div>
         </div>
     );
-    }
+}
 
 export default DrinkDetailPage;

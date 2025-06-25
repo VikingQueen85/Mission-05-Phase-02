@@ -68,10 +68,8 @@ function HotDrinksPage({ onClose }) {
         <div
             className="hot-drinks-banner-section"
             style={{ backgroundImage: `url(${hotDrinksBannerImage})` }}
-            onClick={onClose}
-        >
+            onClick={onClose}>
             <div className="hot-drinks-banner-overlay">
-
             </div>
         </div>
 
@@ -106,8 +104,6 @@ function HotDrinksPage({ onClose }) {
                     alt={drinkItem.name}
                     className="coffee-image"
                     />
-                    <span className="coffee-image-label">{drinkItem.name}</span>
-                    <span className="coffee-price">{`$${drinkItem.price ? drinkItem.price.toFixed(2) : 'N/A'}`}</span>
                 </div>
                 ))}
             </div>
