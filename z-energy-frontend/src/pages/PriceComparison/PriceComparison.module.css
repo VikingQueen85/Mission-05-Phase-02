@@ -1,18 +1,38 @@
+/* 
+ * Price Comparison Component Styles
+ * This file contains styles for both mobile and desktop versions
+ * Mobile: Fixed 320px width with column layout
+ * Desktop: Responsive layout with banner, hero, and row display
+ * Rendering and hiding of elements may be done in the component file
+ */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/*========== LAYOUT AND CONTAINER STYLES ==========*/
 .container {
   font-family: "Roboto", sans-serif;
-  background-color: #f8f8f8;
+  background-color: var(--light-grey-color);
   width: 320px;
-  height: 568px;
+  height: 568px; /* Adjust height based on content */
   padding: 10px 5px;
   margin: 0 auto; /* Center the container */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
+
+/* Desktop-specific styles */
+@media (min-width: 768px) {
+  .container {
+    width: 100%; /* Full width for desktop */
+    height: auto;
+    padding: 0; /*Remove padding for banner */
+  }
+}
+
+/*========== TITLE AND HOME ICON - MOBILE ==========*/
 
 .titleContainer {
   display: flex;
@@ -39,29 +59,60 @@
 }
 
 .title {
-  /* Applying linear-gradient to title "Price Comparison" */
-  background: linear-gradient(
-    89.78deg,
-    #f37120 0.06%,
-    #f68c19 5.89%,
-    #ffdd02 54.26%,
-    #f9a711 92.99%
-  );
+  background: var(--orange-gradient); /* Gradient background for title */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   display: inline-block;
 
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
-
   max-width: 193px;
   max-height: 28px;
 }
 
+/*========== BANNER AND HERO SECTION - DESKTOP  ==========*/
+
+.banner {
+  width: 100%;
+  height: 12.5rem; /* Adjust height for desktop */
+  background-image: url("../../assets/images/Banner-Price-Comparison.png"); /* image path relative to this module.css */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.hero {
+  width: 100%;
+  aspect-ratio: 21 / 9; /* Maintain aspect ratio for hero section - 21:9 for ultra-wide monitors - 16:9 for widescreen standard */
+  background-image: url("../../assets/images/Hero-Price-Comparison.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* COLUMNS AND CARDS LAYOUT - MOBILE */
 .comparisonContainer {
   display: flex;
   justify-content: space-between;
   gap: 5px;
   align-items: flex-start;
+}
+
+.contentWrapper {
+  max-width: 1200px; /* Set a maximum width for larger screens */
+  margin: 0 auto; /* Center the content on larger screens */
+  padding: 0 20px; /* Add padding for larger screens */
+}
+
+.contentWrapper h2 {
+  color: var(--accent-color);
+}
+
+/*========== Fonts ==========*/
+
+.title,
+.contentWrapper h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
