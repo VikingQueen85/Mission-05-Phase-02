@@ -3,6 +3,7 @@ import "./OrderFoodOnlineMobile.css"
 
 // Component Imports
 import OrderFoodOverlay from "./components/OrderFoodOverlay"
+import HotDrinksPage from "./components/HotDrinksPage"
 
 // Image Imports
 import mobileFrameImage from "../../assets/images/MobileFrame.png"
@@ -24,6 +25,16 @@ function OrderFoodOnlineMobile() {
   const handleCloseOverlay = () => {
     setShowOverlay(false)
     setOverlayContentType("")
+  };
+
+  const handleOrderHotDrinksClick = () => {
+    setOverlayContentType("hotDrinks");
+  };
+
+  if (overlayContentType === "hotDrinks") {
+    return (
+      <HotDrinksPage onClose={handleCloseOverlay} />
+    )
   }
 
   return (
@@ -58,7 +69,8 @@ function OrderFoodOnlineMobile() {
           {/* First white box with Hot Drinks content */}
           <div
             className="white-box hot-drinks-box"
-            style={{ backgroundImage: `url(${whiteBoxBackground})` }}>
+            style={{ backgroundImage: `url(${whiteBoxBackground})` }}
+            onClick={handleOrderHotDrinksClick}>
             <img
               src={mobileHotDrinkIcon}
               alt="Hot Drink Icon"
@@ -146,4 +158,4 @@ function OrderFoodOnlineMobile() {
   )
 }
 
-export default OrderFoodOnlineMobile
+export default OrderFoodOnlineMobile;

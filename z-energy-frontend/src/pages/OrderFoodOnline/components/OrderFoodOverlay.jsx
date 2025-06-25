@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './OrderFoodOverlay.css';
 import ItemDetailOverlay from './ItemDetailOverlay.jsx';
-import zLogoImage from '../../../assets/images/Z-Logo.png'; 
+import zLogoImage from '../../../assets/images/Z-Logo.png';
 
 // Helper Component for a clickable item button
 const ItemButton = ({ item, onClick }) => {
@@ -27,7 +27,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:3000/api/fooditems`); 
+                const response = await fetch(`http://localhost:3000/api/fooditems`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -109,7 +109,6 @@ function OrderFoodOverlay({ contentType, onClose }) {
                 <button className="overlay-close-button" onClick={onClose}>×</button>
 
                 <div className="overlay-header-frame">
-                    {/* Z Logo from frontend assets */}
                     <img src={zLogoImage} alt="Z Energy Logo" className="overlay-logo" />
                     {/* Dynamic label based on the content type */}
                     <p className="overlay-label">{getLabelText(contentType)}</p>
@@ -120,7 +119,6 @@ function OrderFoodOverlay({ contentType, onClose }) {
                 </div>
             </div>
 
-            {/* Render the ItemDetailOverlay conditionally when an item is selected */}
             {showItemDetail && (
                 <ItemDetailOverlay item={selectedItem} onClose={handleCloseItemDetail} />
             )}
