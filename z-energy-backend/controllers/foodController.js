@@ -37,7 +37,7 @@ const getFoodItemsByCategory = async (req, res, next) => {
 
         res.status(200).json(itemsWithFullUrls);
     } catch (error) {
-        console.error("Critical Error in getFoodItemsByCategory:", error);
+        console.error("Error in getFoodItemsByCategory:", error);
         next(error);
     }
 };
@@ -50,11 +50,13 @@ const getFoodItemById = async (req, res, next) => {
         }
         const itemObj = foodItem.toObject ? foodItem.toObject() : foodItem;
         const finalImageUrl = itemObj.imageUrl;
-        res.status(200).json({
-            ...itemObj,
+        const enrichItemWithUrl = (item) => ({
+            ...item,
             src: finalImageUrl,
             alt: itemObj.name
         });
+        res.status(200).json(enrichItemWithUrl(itemObj));
+
     } catch (error) {
         console.error("Error in getFoodItemById:", error);
         if (error.name === 'CastError') {

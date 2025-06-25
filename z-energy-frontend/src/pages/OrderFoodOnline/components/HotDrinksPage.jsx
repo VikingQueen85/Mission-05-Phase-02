@@ -16,7 +16,6 @@ function HotDrinksPage({ onClose }) {
 
     // State for the Item Detail Overlay
     const [selectedItem, setSelectedItem] = useState(null);
-    const [showItemDetail, setShowItemDetail] = useState(false);
 
 useEffect(() => {
     const fetchCoffeeImages = async () => {
@@ -42,14 +41,12 @@ useEffect(() => {
 
     // Function to handle clicking on a coffee item
     const handleItemClick = useCallback((item) => {
-        setSelectedItem(item);
-        setShowItemDetail(true);
+        setSelectedItem({ ...item, name: item.alt, imageUrl: item.src });
     }, []);
 
     // Function to close the Item Detail Overlay
     const handleCloseItemDetail = useCallback(() => {
         setSelectedItem(null);
-        setShowItemDetail(false);
     }, []);
 
     return (
@@ -104,7 +101,7 @@ useEffect(() => {
         </div>
 
         {/* Conditional rendering of ItemDetailOverlay */}
-        {showItemDetail && selectedItem && (
+        {selectedItem && (
             <ItemDetailOverlay
                 item={selectedItem}
                 onClose={handleCloseItemDetail}
