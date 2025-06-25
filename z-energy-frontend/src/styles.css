@@ -11,12 +11,21 @@
   --gray-color: #d1d1d1; /* Gray 20*/
   --light-gray-color: #f8f8f8; /* Gray 10 */
 
-  /* Gradients */
+  /* Main Gradients */
   --orange-gradient: linear-gradient(89.54deg, #f36f21 26.96%, #ffdd02 77.37%);
   --blue-gradient: linear-gradient(
     270deg,
     rgba(49, 41, 171, 0.782912) -14.14%,
     #1e196b 82.89%
+  );
+
+  /* Button Gradients */
+  --button-orange-gradient: linear-gradient(
+    89.78deg,
+    #f37120 0.06%,
+    #f68c19 31.04%,
+    #f9a711 62.01%,
+    #ffdd02 92.99%
   );
 
   /* Shadows */
