@@ -25,12 +25,12 @@
   /* BLUE GRADIENTS */
   --primary-blue-gradient: linear-gradient(
     270deg,
-    rgba(49, 41, 171, 0.782912) -14.14%,
+    #3129abc8 -14.14%,
     #1e196b 82.89%
   );
   --secondary-blue-gradient: linear-gradient(
     325.69deg,
-    rgba(49, 41, 171, 0.782912) 24.99%,
+    #3129abc8 24.99%,
     #1e196b 63.26%
   );
 
@@ -44,11 +44,7 @@
     #f9a711 62.01%,
     #ffdd02 92.99%
   );
-  --zD-blue-gradient: linear-gradient(
-    270deg,
-    rgba(49, 41, 171, 0.782912) 13.92%,
-    #1e196b 87.09%
-  );
+  --zD-blue-gradient: linear-gradient(270deg, #3129abc8 13.92%, #1e196b 87.09%);
 
   /*========== NEUTRAL COLOURS ==========*/
   --white: #ffffff;
@@ -62,14 +58,15 @@
 
   /*========== SHADOWS ==========*/
   /* ORANGE BOX SHADOWS*/
-  --box-shadow-orange: 0px 2px 5px rgba(243, 111, 33, 0.3);
-  --box-shadow-orange-hover: 0px 4px 10px rgba(243, 111, 33, 0.4);
+  --box-shadow-orange: 0px 2px 5px #f36f214d;
+  --box-shadow-orange-hover: 0px 4px 10px #f36f2166;
 
   /* BLACK BOX SHADOWS */
-  --box-shadow-black: 0px 4px 4px 0px #00000040;
+  --box-shadow-black: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
   --box-shadow-light-black: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   /* TEXT SHADOWS */
+  --text-shadow-dark: 0px 2px 4px rgba(0, 0, 0, 0.7);
   --text-shadow-medium: 0px 1px 2px rgba(0, 0, 0, 0.5);
   --text-shadow-light: 0px 1px 2px rgba(0, 0, 0, 0.3);
 
