@@ -1,8 +1,13 @@
-// src/components/StationColumn.jsx
 import { useState, useEffect } from "react"
 import axios from "axios"
+
+// --- Component Imports ---
 import SearchBar from "./SearchBar"
 import StationCard from "./StationCard"
+
+// --- Image Imports ---
+import loadingImgSrc from "../../../assets/images/Loading.png"
+
 import styles from "./StationColumn.module.css"
 
 // Constants
@@ -31,7 +36,7 @@ const FALLBACK_STATIONS = [
   },
 ]
 
-const StationColumn = ({ initialSlug }) => {
+const StationColumn = ({ initialSlug, isMobile = true }) => {
   // State is now self-contained within this component
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState([])
@@ -116,7 +121,11 @@ const StationColumn = ({ initialSlug }) => {
   }, [initialSlug])
 
   return (
-    <div className={styles.stationColumn}>
+    // --- Column display for mobile and row display for desktop ---
+    <div
+      className={`${styles.stationColumn} ${
+        !isMobile ? styles.stationRows : ""
+      }`}>
       <SearchBar
         query={searchQuery}
         onQueryChange={setSearchQuery}
@@ -126,23 +135,53 @@ const StationColumn = ({ initialSlug }) => {
         onSelect={handleStationSelect}
         isLoading={isLoading && searchResults.length === 0} // Only show loading for search
         placeholder="Enter Address"
+        isMobile={isMobile} // For desktop styling
       />
 
       {/* Overlay message without affecting layout */}
-      <div className={styles.messageArea}>
-        {isLoading && <p className={styles.loadingMessage}>Loading...</p>}
-        {error && <p className={styles.error}>{error}</p>}
+      {/* Shows the loading and error message for search*/}
+      <div
+        className={`${!isMobile ? styles.webMessageArea : styles.messageArea}`}>
+        {isLoading && (
+          <img
+            src={loadingImgSrc}
+            alt="Loading..."
+            className={`${!isMobile ? styles.webSpinner : styles.spinner}`}
+          />
+        )}
+        {error && (
+          <p className={`${styles.error} ${!isMobile ? styles.webError : ""}`}>
+            {error}
+          </p>
+        )}
       </div>
 
-      <div className={styles.cardsContainer}>
-        {stationDetails?.fuels.map(fuel => (
-          <StationCard
-            key={fuel.fuelType}
-            stationName={stationDetails.name}
-            stationAddress={stationDetails.address}
-            fuel={fuel}
-          />
-        ))}
+      <div className={`${!isMobile ? styles.webCardsWrapper : ""}`}>
+        {/* Show station name and address as header only for desktop */}
+        {!isMobile && stationDetails && (
+          <div className={styles.stationInfoHeader}>
+            <h2 className={styles.stationInfoName}>{stationDetails.name}</h2>
+            <p className={styles.stationInfoAddress}>
+              {stationDetails.address}
+            </p>
+          </div>
+        )}
+
+        {/*========== Card Section ==========*/}
+        <div
+          className={`${styles.cardsContainer} ${
+            !isMobile ? styles.webCardsContainer : ""
+          }`}>
+          {stationDetails?.fuels.map(fuel => (
+            <StationCard
+              key={fuel.fuelType}
+              stationName={stationDetails.name}
+              stationAddress={stationDetails.address}
+              fuel={fuel}
+              isMobile={isMobile}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 // Component and File Imports
@@ -16,9 +17,20 @@ const DEFAULT_STATIONS = ["437-z-shirley", "1602-z-moorhouse"]
 const PriceComparison = () => {
   const { isMobile } = useViewportSize()
 
+  // This state will be used for the desktop view
+  const [webStations, setWebStations] = useState([
+    { slug: DEFAULT_STATIONS[0] },
+    { slug: DEFAULT_STATIONS[1] },
+  ])
+
+  // Add another comparison row for desktop view
+  const addComparisonRow = () => {
+    setWebStations([...webStations, { slug: "" }])
+  }
+
   return (
     <div className={styles.container}>
-      {/* This will only be in the DOM on desktop */}
+      {/* Banner and hero section will only be in the DOM on desktop */}
       {!isMobile && (
         <>
           <div className={styles.banner}></div>
@@ -27,23 +39,49 @@ const PriceComparison = () => {
       )}
 
       {isMobile ? (
+        // MOBILE VIEW
         <>
           <div className={styles.titleContainer}>
             <Link to="/" className={styles.homeLink}>
-              {/* Use the imported HomeIcon */}
               <img src={HomeIcon} alt="Home" className={styles.homeIcon} />
             </Link>
             <h1 className={styles.title}>Price Comparison</h1>
           </div>
           <div className={styles.comparisonContainer}>
-            {/* Render two self-contained columns */}
+            {/* Render two self-contained columns - Comparing two stations - Mobile Version */}
             <StationColumn initialSlug={DEFAULT_STATIONS[0]} />
             <StationColumn initialSlug={DEFAULT_STATIONS[1]} />
           </div>
         </>
       ) : (
+        // DESKTOP VIEW
         <div className={styles.contentWrapper}>
-          <h2>Compare Prices Across Stations</h2>
+          <h2 className={styles.desktopTitle}>
+            Compare Prices Across Stations
+          </h2>
+
+          {/* Desktop comparison section with rows */}
+          <div className={styles.webComparisonContainer}>
+            {/* Map through web stations - each is a row - Send initial slug */}
+            {webStations.map((station, index) => (
+              <div
+                key={`station-index-${index}`}
+                className={styles.comparisonRow}>
+                <StationColumn initialSlug={station.slug} isMobile={isMobile} />
+              </div>
+            ))}
+
+            {/* "Add Another Station" button if less than 4 comparison rows */}
+            {webStations.length < 4 && (
+              <div className={styles.buttonContainer}>
+                <button
+                  className={styles.addStationButton}
+                  onClick={addComparisonRow}>
+                  Add Another Station
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

@@ -1,6 +1,19 @@
+/*
+  * SearchBar.module.css
+  * Styles for the search bar component including the dropdown selection in the Price Comparison page.
+  * This file contains styles for both mobile and desktop views.
+  * Desktop styles are prefixed with "web" to differentiate them.
+*/
+
+/*========== Search Bar Container ==========*/
+
 .searchContainer {
-  position: relative;
+  position: relative; /* For dropdown positioning */
   width: 100%;
+}
+
+.webSearchContainer {
+  max-width: 100%;
 }
 
 .searchForm {
@@ -9,17 +22,33 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  position: relative;
+  position: relative; /* for search icon positioning */
 }
 
+.webSearchForm {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+/*========== Search Input ==========*/
+
 .searchInput {
-  width: 143px;
+  /* Fixed width and height for dropdown */
+  width: 142px;
   height: 30px;
-  padding: 5px 11px;
+
+  background: var(--light-gray);
+  box-shadow: var(--box-shadow-black);
   border: none;
-  /* border-radius: 10px; */ /* Uncomment if no selections functionality */
+  border-radius: 3px 3px 0 0;
+  padding: 5px 11px;
+
+  font-family: "Inter", sans-serif;
   font-size: 0.8rem;
   font-weight: 300;
+  color: var(--black);
 }
 
 .searchInput:focus {
@@ -27,66 +56,170 @@
 }
 
 .searchInput:disabled {
-  background-color: #f5f5f5;
+  background-color: var(--light-gray);
   cursor: not-allowed;
 }
 
+.webSearchInput {
+  width: 20.625rem;
+  height: 2.625rem;
+
+  background: var(--light-gray);
+  box-shadow: var(--box-shadow-black);
+  padding: 0px 10px;
+  font-size: 1rem;
+
+  border-radius: 10px;
+  transition: border-radius 0.2s ease-in-out; /* for smooth transition */
+}
+
+/* Input's bottom border radius changes when dropdown opens */
+.webSearchInputWithDropdown {
+  width: 20.625rem;
+  height: 2.625rem;
+  border-radius: 10px 10px 0 0 !important; /* Round only top corners */
+  border-bottom: 1px solid var(--light-gray); /* Subtle separator */
+  box-shadow: var(--box-shadow-light);
+  font-size: 1rem;
+}
+
+/*========== Search Button ==========*/
+
+/* Search Icon Button for Mobile */
 .searchButton {
   position: absolute;
-  right: 4px;
-
-  background: #f37120;
-  border: none;
-  /* border-radius: 0 8px 8px 0; */ /* Uncomment if no selections functionality */
+  right: 2px;
   height: 100%;
   width: 15%;
+
+  background: var(--gray);
+  border: none;
+  border-radius: 0 3px 0 0;
 }
 
 .searchButton:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-  background: #e96419;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: var(--hover-transform);
+  filter: var(--hover-filter);
+  background: var(--medium-gray);
 }
 
-/* Active/click effect - pushed in appearance */
+/* Search Icon Click Effect */
 .searchButton:active {
-  background: #d45000;
-  transform: translateY(1px); /* Slight push down effect */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background: var(--gray);
+  transform: translateY(0.1px); /* Slight push down effect */
 }
 
-.searchIcon {
-  height: 100%;
-  font-size: 1em;
-  color: white;
+.webSearchButton {
+  width: 5.625rem;
+  height: 1.1875rem;
+  background: var(--secondary-orange-gradient);
+  color: var(--white);
+  text-shadow: var(--text-shadow-light);
+
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+
+  border: none;
+  border-radius: 10px;
+  padding: 0 10px;
 }
 
-/* Dropdown Styling */
+/*========== Dropdown Selection ==========*/
 .resultsDropdown {
   position: absolute;
   top: 30px;
-  left: 2px;
-  width: 143px;
-  max-height: 37px;
-  overflow-y: auto;
-  background-color: white;
-  /* border-radius: 10px; */ /* Uncomment if no selections functionality */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  left: 2.5px;
   z-index: 100;
+
+  width: 143px; /* Match input width  */
+  height: 40px;
+
+  background: var(--light-gray);
+  border-radius: 0 0 3px 3px; /* Round bottom corners only */
+  border-top: 1px solid var(--medium-gray);
+  box-shadow: var(--box-shadow-black);
+  overflow-y: auto;
+}
+
+.webResultsDropdown {
+  width: 20.625rem; /* Match input width */
+  height: auto;
+  max-height: 100px;
+
+  left: 0;
+  top: calc(
+    2.625rem + 1px
+  ); /* Position exactly at bottom of input, accounting for border */
+
+  background-color: var(--light-gray);
+  box-shadow: var(--box-shadow-light);
+  border-radius: 0 0 10px 10px; /* Round only bottom corners */
+  border-top: none;
+  overflow: hidden; /* Hide overflow for better aesthetics */
+
+  /* Wrapper for desktop scrolling */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inner scrollable container for desktop */
+.scrollContainer {
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: inherit; /* Inherit max-height from parent */
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+
+  /* Custom scrollbar styling */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--medium-gray) transparent; /* For Firefox */
+}
+
+/* Scrollbar styling for WebKit browsers (Chrome, Safari, Edge) */
+.scrollContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background-color: var(--medium-gray);
+  border-radius: 10px;
+}
+
+.webResultsDropdown::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px; /* Width of corner */
+  height: 10px; /* Height of corner */
+  background-color: var(--light-gray-color); /* Match parent background */
+  border-radius: 0 0 10px 0; /* Match the parent's bottom-right corner radius */
+}
+
+/* Style the first and last items to match the rounded corners */
+.webResultsDropdown .resultItem:first-child {
+  border-top: none;
+}
+
+.webResultsDropdown .resultItem:last-child {
+  border-bottom: none;
+  border-radius: 0 0 10px 10px; /* Match the container radius */
 }
 
 .resultItem {
   margin: 0;
   padding: 0px 10px;
   cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.2s;
+  border-bottom: 1px solid var(--gray);
 }
 
 .resultItem:hover,
 .resultItem.selected {
-  background-color: #f8f8f8;
+  background-color: var(--accent-lightest);
 }
 
 .resultItem:last-child {
@@ -95,6 +228,11 @@
 
 .stationName {
   font-weight: 500;
-  font-size: 11px;
-  color: #333;
+  font-size: 0.6875rem;
+  color: var(--text-colour);
+}
+
+/* Desktop station name */
+.webStationName {
+  font-size: 0.9375rem;
 }
