@@ -5,6 +5,7 @@
   --primary: #f36f21;
   --secondary: #ff9240;
   --accent: #1e196b;
+  --accent-lightest: #ececf5 /* Lightest shade of accent color - Navy 10 */;
 
   /*========== BRAND SPECIFIC GRADIENTS==========*/
   /* ORANGE GRADIENTS */
