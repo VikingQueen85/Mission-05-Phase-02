@@ -1,42 +1,136 @@
+/* 
+  * CSS for StationColumn component
+  * This file contains styles for the StationColumn component in the PriceComparison page.
+  * It includes styles for both mobile and desktop layouts, ensuring a responsive design.
+  * Desktop styles are prefixed with 'web' to differentiate them from mobile styles.
+*/
+
 .stationColumn {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0;
 
+  min-width: 0;
   position: relative;
 }
 
-.cardsContainer {
-  margin-top: 40px;
+/* Station cards are displayed in rows for desktop */
+.stationRows {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+  position: relative;
 }
 
 .messageArea {
+  height: 20px;
   position: absolute;
   top: 25px;
   left: 0;
   right: 0;
-  height: 10px;
   z-index: 10;
   pointer-events: none;
 
   font-size: 10px;
-
   text-align: center;
+  padding: 0px;
 }
 
 .messageArea p {
   display: inline-block;
 }
+.webMessageArea {
+  position: absolute;
+  width: 20.625rem;
+  height: 20px;
+  top: calc(2.625rem + 10px);
+  left: 0;
+  pointer-events: none;
+  z-index: 10;
 
-.loadingMessage {
-  color: #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  width: 20px;
+  height: 20px;
+}
+
+.webSpinner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.spinner,
+.webSpinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error {
   color: red;
+}
+
+.webError {
+  font-size: 1rem;
+}
+
+.webCardsWrapper {
+  margin-top: 10px;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #aaa #f1f1f1; /* Firefox */
+}
+
+.stationInfoHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.stationInfoName,
+.stationInfoAddress {
+  margin: 0;
+  padding: 0;
+  color: var(--accent);
+}
+
+.stationInfoName {
+  font-size: 1.5rem;
+}
+
+.stationInfoAddress {
+  font-size: 1rem;
+}
+
+.cardsContainer {
+  margin-top: 50px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.webCardsContainer {
+  display: flex;
+  flex-direction: row; /* Changed from column to row */
+  justify-content: flex-end; /* Align cards to the right */
+  gap: 30px;
+  padding-right: 20px;
+  margin-top: 20px;
 }
