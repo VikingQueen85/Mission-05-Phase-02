@@ -3,12 +3,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './OrderFoodOverlay.css';
 import zLogoImage from '../../../assets/images/Z-Logo.png';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+
 // Helper Component for a clickable item button
 const ItemButton = ({ item, onClick }) => {
     return (
         <button className="item-option-button" onClick={() => onClick(item)}>
-            <img src={item.imageUrl} alt={item.name} className="item-option-image" />
-            <p className="item-option-label">{item.name}</p>
+            <img
+                src={`${BACKEND_URL}${item.imageUrl}`}
+                alt={item.name}
+                className="item-option-image" />
         </button>
     );
 };
@@ -18,7 +22,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
     const [loadingAllFoodItems, setLoadingAllFoodItems] = useState(true);
     const [allFoodItemsError, setAllFoodItemsError] = useState(null);
 
-    // NEW STATES for integrated drink customization
+    // States for integrated drink customization
     const [customizedDrink, setCustomizedDrink] = useState(null);
     const [selectedSize, setSelectedSize] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -42,7 +46,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
             setLoadingAllFoodItems(true);
             setAllFoodItemsError(null);
             try {
-                const response = await fetch(`http://localhost:3000/api/fooditems`);
+                const response = await fetch(`${BACKEND_URL}/api/fooditems`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -65,10 +69,10 @@ function OrderFoodOverlay({ contentType, onClose }) {
             setOptionsError(null);
             try {
                 const [sizesRes, milksRes, strengthsRes, flavorsRes] = await Promise.all([
-                    fetch('http://localhost:3000/api/drinkoptions/sizes'),
-                    fetch('http://localhost:3000/api/drinkoptions/milks'),
-                    fetch('http://localhost:3000/api/drinkoptions/strengths'),
-                    fetch('http://localhost:3000/api/drinkoptions/flavors')
+                    fetch(`${BACKEND_URL}/api/drinkoptions/sizes`),
+                    fetch(`${BACKEND_URL}/api/drinkoptions/milks`),
+                    fetch(`${BACKEND_URL}/api/drinkoptions/strengths`),
+                    fetch(`${BACKEND_URL}/api/drinkoptions/flavors`)
                 ]);
 
                 if (!sizesRes.ok || !milksRes.ok || !strengthsRes.ok || !flavorsRes.ok) {
@@ -130,7 +134,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
         } else {
             console.log(`Clicked on ${itemDetails.name} (${itemDetails.category}). Customization not implemented for this category yet.`);
         }
-    }, [allFoodItems, optionsData]);
+    }, [optionsData]);
 
     // Handlers for coffee customization options
     const handleSizeChange = useCallback((sizeObj) => {
@@ -204,7 +208,11 @@ function OrderFoodOverlay({ contentType, onClose }) {
         return (
             <>
                 <div className="drink-info-section">
-                    <img src={customizedDrink.imageUrl} alt={customizedDrink.name} className="drink-detail-image" />
+                    <img
+                        src={`${BACKEND_URL}${customizedDrink.imageUrl}`}
+                        alt={customizedDrink.name}
+                        className="drink-detail-image"
+                    />
                     <div className="drink-text-content">
                         <h1 className="drink-detail-name">{customizedDrink.name}</h1>
                         <p className="drink-detail-description">{customizedDrink.description}</p>
@@ -303,7 +311,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
         );
     };
 
-    // Define renderItemsByCategory as a function within the component scope
+    // Render items grid filtered by category
     const renderItemsByCategory = () => {
         const filteredItems = allFoodItems.filter(item => item.category === contentType);
 
@@ -328,12 +336,11 @@ function OrderFoodOverlay({ contentType, onClose }) {
         return (
             <div className="item-options-grid">
                 {filteredItems.map(item => (
-                    <ItemButton key={item.name} item={item} onClick={handleItemClick} />
+                    <ItemButton key={item._id || item.name} item={item} onClick={handleItemClick} />
                 ))}
             </div>
         );
     };
-
 
     return (
         <div className="order-food-overlay" onClick={onClose}>

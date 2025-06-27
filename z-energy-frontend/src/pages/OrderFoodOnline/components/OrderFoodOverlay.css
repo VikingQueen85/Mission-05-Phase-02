@@ -117,19 +117,11 @@
 
 /* Image within the item option button */
 .item-option-image {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
     border-radius: 5px;
     margin-bottom: 5px;
-}
-
-/* Label within the item option button */
-.item-option-label {
-    font-size: 0.8em;
-    font-weight: normal;
-    color: #000000;
-    margin: 0;
 }
 
 /* Responsive adjustments for the overlay */

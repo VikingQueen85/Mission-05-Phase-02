@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './OrderFoodOnline.css';
 import OrderFoodOverlay from './components/OrderFoodOverlay';
+
 import orderFoodBannerImage from '../../assets/images/Order-Food-Banner.png';
 import zWebsiteFoodImage from '../../assets/images/Z-Website-Food-Image.png';
 import preOrderImage1 from '../../assets/images/HotDrinks.png';
@@ -13,13 +14,13 @@ function OrderFoodOnline() {
     const [showOverlay, setShowOverlay] = useState(false);
     const [overlayContentType, setOverlayContentType] = useState('');
 
-    // Function to handle clicks on the four main food images
+    // Handle clicks on main food images to open overlay with specific content
     const handleImageClick = (type) => {
         setOverlayContentType(type);
         setShowOverlay(true);
     };
 
-    // Function to close the overlay
+    // Close the overlay and reset content type
     const handleCloseOverlay = () => {
         setShowOverlay(false);
         setOverlayContentType('');
@@ -27,8 +28,11 @@ function OrderFoodOnline() {
 
     return (
         <div className="order-food-online-container">
-            {/* Banner Section */}
-            <div className="order-food-banner-section" style={{ backgroundImage: `url(${orderFoodBannerImage})` }}>
+            {/* Banner Section with background image */}
+            <div
+                className="order-food-banner-section"
+                style={{ backgroundImage: `url(${orderFoodBannerImage})` }}
+            >
             </div>
 
             {/* Main Content Section */}
@@ -38,17 +42,20 @@ function OrderFoodOnline() {
                     <h2 className="content-heading">Fuel up more than just your car!</h2>
                     <p className="content-description">
                         Our gas stations offer a delicious range of freshly prepared food and snacks, perfect for busy families and people on the go.
-                        <br />
-                        <br />
+                        <br /><br />
                         Whether you’re grabbing breakfast, a quick lunch, or a treat for the road, our convenient, high-quality options ensure you stay energized and satisfied wherever your journey takes you.
-                        <br />
-                        <br />
+                        <br /><br />
                         Stop in today and enjoy food that’s ready when you are!
                     </p>
                     <button className="find-z-station-button">Find your nearest Z Station</button>
                 </div>
 
-                <img src={zWebsiteFoodImage} alt="Delicious food" className="order-food-floating-image" />
+                {/* Floating image to the right */}
+                <img
+                    src={zWebsiteFoodImage}
+                    alt="Delicious food"
+                    className="order-food-floating-image"
+                />
             </div>
 
             {/* Pre-Order Message Section */}
@@ -58,7 +65,6 @@ function OrderFoodOnline() {
 
             {/* Pre-Order Images Container */}
             <section className="pre-order-images-container">
-                {/* Clickable buttons for each main food category */}
                 {[
                     { type: 'hot_drinks', src: preOrderImage1, alt: 'Hot Drinks' },
                     { type: 'cold_drinks', src: preOrderImage2, alt: 'Cold Drinks' },
@@ -75,7 +81,7 @@ function OrderFoodOnline() {
                 ))}
             </section>
 
-            {/* Order Food Overlay */}
+            {/* Overlay for order content */}
             {showOverlay && (
                 <div className="overlay-fixed-wrapper">
                     <OrderFoodOverlay
