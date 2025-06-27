@@ -7,6 +7,7 @@ import DrinkDetailPage from './DrinkDetailPage.jsx';
 import mobileFrameImage from "../../../assets/images/MobileFrame.png";
 import hotDrinksBannerImage from "../../../assets/images/Cart.png";
 import foodOrderFilterImage from "../../../assets/images/FoodOrderFilter.png";
+import Footer from "./common/Footer.jsx"
 
 function HotDrinksPage({ onClose }) {
     const [hotDrinks, setHotDrinks] = useState([]);
@@ -97,8 +98,7 @@ function HotDrinksPage({ onClose }) {
                 <div
                     key={drinkItem._id || drinkItem.id}
                     className="coffee-image-item"
-                    onClick={() => handleDrinkClick(drinkItem)}
-                >
+                    onClick={() => handleDrinkClick(drinkItem)}>
                     <img
                     src={drinkItem.imageUrl}
                     alt={drinkItem.name}
@@ -109,6 +109,9 @@ function HotDrinksPage({ onClose }) {
             </div>
             )}
         </div>
+
+        {/* Footer Section */}
+        <Footer />
         </div>
     );
 }

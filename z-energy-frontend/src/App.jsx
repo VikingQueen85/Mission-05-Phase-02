@@ -3,7 +3,7 @@ import { useViewportSize } from "./hooks/useViewportSize"
 
 // Component Imports
 import Header from "./common/Header.jsx"
-import Footer from "./common/Footer"
+import MainFooter from "./common/MainFooter.jsx"
 
 import MobileApp from "./MobileApp.jsx"
 import Homepage from "./pages/Home/Homepage"
@@ -46,7 +46,7 @@ function App() {
           </Routes>
         </main>
 
-        <Footer />
+        <MainFooter />
       </div>
     )
 }

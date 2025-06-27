@@ -15,7 +15,7 @@
 /* The actual content box */
 .overlay-content-box {
     width: 519px;
-    height: 805px;
+    height: 605px;
     background-color: #FFFFFF;
     border-radius: 15px;
     position: relative;
@@ -130,14 +130,6 @@
     font-weight: normal;
     color: #000000;
     margin: 0;
-}
-
-.placeholder-text {
-    font-size: 1.1em;
-    color: #888;
-    text-align: center;
-    width: 100%;
-    padding-top: 50px;
 }
 
 /* Responsive adjustments for the overlay */

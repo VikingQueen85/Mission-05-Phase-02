@@ -219,8 +219,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
                             <button
                                 key={size.name}
                                 className={`option-button ${selectedSize && selectedSize.name === size.name ? 'selected' : ''}`}
-                                onClick={() => handleSizeChange(size)}
-                            >
+                                onClick={() => handleSizeChange(size)} >
                                 <span className="cup-icon">☕</span> {size.name}
                                 {` $${((customizedDrink.price || 0) + (size.extraCost || 0)).toFixed(2)}`}
                             </button>
@@ -249,9 +248,8 @@ function OrderFoodOverlay({ contentType, onClose }) {
                                     name="custom-milk"
                                     value={milk.name}
                                     checked={selectedMilk && selectedMilk.name === milk.name}
-                                    onChange={() => handleMilkChange(milk)}
-                                />
-                                {milk.name} {milk.extraCost > 0 && <span>+ {milk.extraCost.toFixed(2)} cents</span>}
+                                    onChange={() => handleMilkChange(milk)} />
+                                {milk.name}
                             </label>
                         ))}
                     </div>
@@ -268,8 +266,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
                                     name="custom-strength"
                                     value={strength.name}
                                     checked={selectedStrength && selectedStrength.name === strength.name}
-                                    onChange={() => handleStrengthChange(strength)}
-                                />
+                                    onChange={() => handleStrengthChange(strength)} />
                                 {strength.name} {strength.extraCost > 0 && <span>+ {strength.extraCost.toFixed(2)} cents</span>}
                             </label>
                         ))}
@@ -278,7 +275,7 @@ function OrderFoodOverlay({ contentType, onClose }) {
 
                 {/* Flavor Options */}
                 <div className="option-group">
-                    <h2>Flavor <span className="extra-cost">+ $1.00</span></h2>
+                    <h2>Flavor <br /><span className="extra-cost">+ $1.00</span></h2>
                     <div className="radio-options-grid">
                         {optionsData.flavors.map((flavor) => (
                             <label key={flavor.name}>
@@ -287,9 +284,8 @@ function OrderFoodOverlay({ contentType, onClose }) {
                                     name="custom-flavor"
                                     value={flavor.name}
                                     checked={selectedFlavor && selectedFlavor.name === flavor.name}
-                                    onChange={() => handleFlavorChange(flavor)}
-                                />
-                                {flavor.name} {flavor.extraCost > 0 && <span>+ {flavor.extraCost.toFixed(2)} cents</span>}
+                                    onChange={() => handleFlavorChange(flavor)} />
+                                {flavor.name}
                             </label>
                         ))}
                     </div>
@@ -357,7 +353,6 @@ function OrderFoodOverlay({ contentType, onClose }) {
                     )}
                 </div>
             </div>
-            {/* ItemDetailOverlay removed */}
         </div>
     );
 }
