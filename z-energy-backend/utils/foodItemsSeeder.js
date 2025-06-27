@@ -1,4 +1,5 @@
 
+
 const FoodItem = require('../models/FoodItem');
 const foodItemsData = require('../data/foodItems');
 
@@ -7,7 +8,7 @@ const seedFoodItems = async () => {
         const count = await FoodItem.countDocuments();
         if (count === 0) {
             await FoodItem.insertMany(foodItemsData);
-            console.info("Food items data was seeded successfully!"); 
+            console.info("Food items data was seeded successfully!");
             return true;
         } else {
             console.info(`Database already contains ${count} Food Items. Skip seeding.`);

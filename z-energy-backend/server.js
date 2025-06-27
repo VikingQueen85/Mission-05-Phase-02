@@ -33,7 +33,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/zpetro
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/images', express.static(path.join(__dirname, 'src', 'assets', 'images')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // --- MongoDB Connection ---
 mongoose
