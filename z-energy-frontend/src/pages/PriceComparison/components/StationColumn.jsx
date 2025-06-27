@@ -133,7 +133,7 @@ const StationColumn = ({ initialSlug, isMobile = true }) => {
         results={searchResults}
         selectedValue={selectedStationSlug}
         onSelect={handleStationSelect}
-        isLoading={isLoading && searchResults.length === 0} // Only show loading for search
+        isLoading={isLoading && searchResults.length === 0}
         placeholder="Enter Address"
         isMobile={isMobile} // For desktop styling
       />
