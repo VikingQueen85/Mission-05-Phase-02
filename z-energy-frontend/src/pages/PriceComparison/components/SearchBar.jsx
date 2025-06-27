@@ -1,7 +1,9 @@
-
 import { useRef, useState, useEffect } from "react"
+
+// Image Imports
+import searchIcon from "../../../assets/icons/search.png"
+
 import styles from "./SearchBar.module.css"
-import { FaSearch } from "react-icons/fa"
 
 const SearchBar = ({
   query,
@@ -12,6 +14,7 @@ const SearchBar = ({
   selectedValue,
   isLoading,
   placeholder = "Enter Address",
+  isMobile = true, // prop to handle web layout styles
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false)
   const dropdownRef = useRef(null)
@@ -50,37 +53,75 @@ const SearchBar = ({
   }
 
   return (
-    <div className={styles.searchContainer} ref={dropdownRef}>
-      <form onSubmit={handleSubmit} className={styles.searchForm}>
+    <div
+      className={`${styles.searchContainer} ${
+        !isMobile ? styles.webSearchContainer : ""
+      }`}
+      ref={dropdownRef}>
+      <form
+        onSubmit={handleSubmit}
+        className={`${styles.searchForm} ${
+          !isMobile ? styles.webSearchForm : ""
+        }`}>
+        {/* Changes to input style if dropdown is visible */}
         <input
-          className={styles.searchInput}
+          className={`${styles.searchInput} ${
+            !isMobile && dropdownVisible && results?.length > 0
+              ? styles.webSearchInputWithDropdown
+              : !isMobile
+              ? styles.webSearchInput
+              : ""
+          }`}
           type="text"
           value={query}
           onChange={e => onQueryChange(e.target.value)}
           placeholder={placeholder}
           disabled={isLoading}
         />
-        <button
-          type="submit"
-          className={styles.searchButton}
-          disabled={isLoading}>
-          <FaSearch className={styles.searchIcon} />
-        </button>
+
+        {/* Search Icon for mobile and Search Button for desktop */}
+        {isMobile ? (
+          <button
+            type="submit"
+            className={styles.searchButton}
+            disabled={isLoading}>
+            <img src={searchIcon} alt="search-icon" />
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className={styles.webSearchButton}
+            disabled={isLoading}>
+            Search
+          </button>
+        )}
       </form>
 
-      {/* Results Dropdown */}
+      {/*========== Results Dropdown ==========*/}
+      {/* Show selections of Z stations from search */}
       {dropdownVisible && results.length > 0 && (
-        <div className={styles.resultsDropdown}>
-          {results.map(station => (
-            <div
-              key={station.id}
-              className={`${styles.resultItem} ${
-                selectedValue === station.slug ? styles.selected : ""
-              }`}
-              onClick={() => handleSelectStation(station.slug)}>
-              <div className={styles.stationName}>{station.name}</div>
-            </div>
-          ))}
+        <div
+          className={`${styles.resultsDropdown} ${
+            !isMobile ? styles.webResultsDropdown : ""
+          }`}>
+          {/* Inner scroll container */}
+          <div className={styles.scrollContainer}>
+            {results.map(station => (
+              <div
+                key={station.id}
+                className={`${styles.resultItem} ${
+                  selectedValue === station.slug ? styles.selected : ""
+                }`}
+                onClick={() => handleSelectStation(station.slug)}>
+                <div
+                  className={`${styles.stationName} ${
+                    !isMobile ? styles.webStationName : ""
+                  }`}>
+                  {station.name}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

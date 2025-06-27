@@ -1,0 +1,58 @@
+.fuelLogoContainer {
+  width: fit-content;
+  height: 19px; /* Fixed height for consistency */
+  border-radius: 15px;
+  padding: 10px 8px;
+
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* White Z Logo */
+.zLogoImgContainer {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.zLogo {
+  height: 12px; /* Fixed height for small logo */
+  width: auto;
+  object-fit: contain;
+
+  filter: var(
+    --filter-drop-shadow-light
+  ); /* Light drop shadow for small logo */
+}
+
+/* Fuel Type */
+.fuelType {
+  font-size: 16px; /* Fixed font size for consistency */
+  color: var(--white);
+  text-shadow: var(--text-shadow-medium);
+}
+
+/* Fuel-specific background gradients */
+.fuel91 {
+  background: var(--z91-gradient);
+}
+
+.fuel95 {
+  background: var(--z95-gradient);
+}
+
+.fuelDieselMobile {
+  background: var(--zD-yellow-gradient);
+}
+
+.fuelDiesel {
+  background: var(--zD-blue-gradient);
+}
+
+.fuelDefault {
+  background: var(--medium-gray);
+}

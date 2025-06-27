@@ -1,42 +1,89 @@
-.card {
-  /* Card Gradient Background Color */
-  background: linear-gradient(
-    325.69deg,
-    rgba(49, 41, 171, 0.782912) 24.99%,
-    #1e196b 63.26%
-  );
-  border: 2px solid #ffffff;
+/* 
+  * Station Card Styles
+  * This file contains the styles for the station card component used in the Price Comparison page.
+  * It includes styles for both mobile and desktop views
+  * Desktop styles are prefixed with 'web' to differentiate them from mobile styles.
+*/
 
-  width: 147px;
-  height: 255px;
+.card {
+  background: var(
+    --primary-blue-gradient
+  ); /* Blue gradient for cards in mobile */
+  border: 2px solid var(--white);
+
+  width: 9.1875rem; /* 147px */
+  height: 15.9375rem; /* 255px */
   padding: 10px 5px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   letter-spacing: -2%;
   color: #ffffff;
-  gap: 10px;
 }
+
+.webCard {
+  width: 13.06rem;
+  height: 13.06rem;
+
+  background: var(
+    --primary-orange-gradient
+  ); /* Orange gradient for cards in desktop */
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* padding: 1.5rem; */
+
+  /* Stop pushing other elements during hover */
+  position: relative; /* For fuel logo positioning and hover effect*/
+  z-index: 1; /* For hover effect*/
+  transform-origin: center bottom; /* For hover effect */
+}
+
+.webCard:hover {
+  transform: var(--hover-transform);
+  filter: var(--hover-filter);
+}
+
+/*========== Header ==========*/
+/* Logo, Station Name and Address */
 
 .header {
   width: 100%;
+  margin-bottom: 5px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  margin-bottom: 5px;
+}
+
+.webHeader {
+  margin-top: 30px;
 }
 
 .logo {
   width: 36px;
   height: 36px;
+  filter: var(--filter-drop-shadow-light);
 }
 
+.webLogo {
+  width: 3.9375rem;
+  height: 3.9375rem;
+  object-fit: contain;
+  filter: var(--filter-drop-shadow-medium);
+}
+
+/* Station Info - Name and Address - Mobile only */
 .stationInfo {
   display: flex;
   flex-direction: column;
@@ -44,26 +91,24 @@
   gap: 10px;
 }
 
+/* Station Name */
 .name {
-  font-size: 16px;
-  letter-spacing: -0.02em;
-  text-align: center;
   width: 100%;
-  margin: 0;
-  padding: 0;
-  line-height: 1.1;
   height: 35px;
-  align-items: center;
-  justify-content: center;
+
+  font-size: 1rem;
+  line-height: 1.1;
+  text-shadow: var(--text-shadow-dark);
 }
 
+/* Station Address */
 .address {
   width: 100%;
   height: 30px;
-  font-size: 11px;
-  letter-spacing: -0.02em;
+
+  font-size: 0.75rem;
   line-height: 1.3;
-  text-align: center;
+  text-shadow: var(--text-shadow-medium);
   overflow: hidden; /* Prevent overflow */
 }
 
@@ -71,73 +116,86 @@
 .address {
   margin: 0;
   padding: 0;
+  letter-spacing: -0.02em;
+  text-align: center;
 }
 
+/*========== Price Section ==========*/
+
 .priceSection {
-  height: 18px;
+  height: 1.125rem; /* 18px */
   width: fit-content;
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px */
   text-align: center;
+}
+
+.webPriceSection {
+  width: 80%;
+  height: 1.8125px;
 }
 
 .price {
   border-radius: 10px;
   padding: 0 10px;
   margin: 0;
+  text-shadow: var(--text-shadow-medium);
 }
+
+.webPrice {
+  padding: 5px;
+  font-size: 1rem; /* 16px */
+}
+
+/*========== Fuel Type Section ==========*/
+/* Fuel type logo being handled by CustomFuelLogo Component */
 
 .fuelSection {
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
-.fuelType {
-  margin: 0;
+/* Desktop fuel type logo position - Top Left*/
+.webFuelSection {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
-.fuelLogo {
-  height: 19px;
-  width: auto;
-  object-fit: contain;
-}
+/*========== Top Up Button ==========*/
 
 .topUpButton {
-  background: linear-gradient(
-    89.78deg,
-    #f37120 0.06%,
-    #f68c19 31.04%,
-    #f9a711 62.01%,
-    #ffdd02 92.99%
-  );
+  background: var(--primary-orange-gradient);
 
   border: none;
   border-radius: 10px;
-  color: #ffffff;
 
-  height: 22px;
   width: fit-content;
+  height: 1.375rem; /* 22px */
   padding: 0 10px;
-  font-size: 14px;
-  font-weight: 700;
 
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: var(--text-shadow-medium);
 }
 
 /* New Colour Classes */
 .greenGradient {
-  background: linear-gradient(180deg, #03924c 0%, #006f2a 100%);
+  background: var(--z91-gradient);
 }
 
 .orangeGradient {
-  background: linear-gradient(180deg, #f58a22 0%, #d93627 100%);
+  background: var(--z95-gradient);
 }
 
+/* ZD - yellow gradient for mobile */
 .yellowGradient {
-  background: linear-gradient(
-    89.78deg,
-    #f37120 0.06%,
-    #f68c19 31.04%,
-    #f9a711 62.01%,
-    #ffdd02 92.99%
-  );
+  background: var(--zD-yellow-gradient);
+}
+
+/* ZD - blue gradient for desktop */
+.blueGradient {
+  background: var(--zD-blue-gradient);
 }

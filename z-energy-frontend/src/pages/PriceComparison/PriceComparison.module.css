@@ -1,18 +1,39 @@
+/* 
+ * Price Comparison Component Styles
+ * This file contains styles for both mobile and desktop versions
+ * Mobile: Fixed 320px width with column layout
+ * Desktop: Responsive layout with banner, hero, and row display
+ * Rendering and hiding of elements may be done in the component file
+ */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/*========== LAYOUT AND CONTAINER STYLES ==========*/
 .container {
   font-family: "Roboto", sans-serif;
-  background-color: #f8f8f8;
+  background-color: var(--light-gray);
   width: 320px;
-  height: 568px;
+  height: 568px; /* Adjust height based on content */
   padding: 10px 5px;
   margin: 0 auto; /* Center the container */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
+
+/* Container for desktop */
+@media (min-width: 768px) {
+  .container {
+    background-color: var(--white);
+    width: 100%; /* Full width for desktop */
+    height: auto;
+    padding: 0; /*Remove padding for banner */
+  }
+}
+
+/*========== TITLE AND HOME ICON - MOBILE ==========*/
 
 .titleContainer {
   display: flex;
@@ -39,29 +60,102 @@
 }
 
 .title {
-  /* Applying linear-gradient to title "Price Comparison" */
-  background: linear-gradient(
-    89.78deg,
-    #f37120 0.06%,
-    #f68c19 5.89%,
-    #ffdd02 54.26%,
-    #f9a711 92.99%
-  );
+  background: var(
+    --primary-orange-gradient
+  ); /* Gradient background title for mobile */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   display: inline-block;
 
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
-
-  max-width: 193px;
-  max-height: 28px;
+  max-width: 12.0625rem; /* Limit width for mobile */
+  max-height: 1.75rem; /* Limit height for mobile */
 }
 
+/*========== BANNER AND HERO SECTION - DESKTOP  ==========*/
+
+.banner {
+  width: 100%;
+  aspect-ratio: 16 / 3; /* Maintain aspect ratio for banner - 16:9 for widescreen standard */
+  background-image: url("../../assets/images/Banner-Price-Comparison.png"); /* image path relative to this module.css */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.hero {
+  width: 100%;
+  aspect-ratio: 21 / 9; /* Maintain aspect ratio for hero section - 21:9 for ultra-wide monitors - 16:9 for widescreen standard */
+  background-image: url("../../assets/images/Hero-Price-Comparison.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*========== COLUMNS AND CARDS LAYOUT ==========*/
 .comparisonContainer {
   display: flex;
   justify-content: space-between;
   gap: 5px;
   align-items: flex-start;
+}
+
+/*========== Fonts ==========*/
+
+.title,
+.desktopTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/*========== Desktop Comparison Layout ==========*/
+.contentWrapper {
+  max-width: 1200px; /* Set a maximum width for larger screens */
+  margin: 0 auto; /* Center the content on larger screens */
+  padding: 0 20px; /* Add padding for larger screens */
+  overflow-x: hidden;
+}
+
+.webComparisonContainer {
+  display: flex;
+  flex-direction: column; /* Station Column will now be stacked in rows */
+  gap: 30px; /* Gap for better spacing */
+}
+
+.comparisonRow {
+  width: 100%;
+  padding: 20px;
+}
+
+.desktopTitle {
+  color: var(--accent);
+}
+
+.buttonContainer {
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.addStationButton {
+  width: fit-content;
+  padding: 10px;
+
+  background: var(--primary-orange-gradient);
+  color: var(--white);
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--hover-transition);
+  text-shadow: var(--text-shadow-light);
+}
+
+.addStationButton:hover {
+  transform: var(--hover-transform);
+  filter: var(--hover-filter);
 }
