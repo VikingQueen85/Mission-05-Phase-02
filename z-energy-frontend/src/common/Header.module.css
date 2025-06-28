@@ -5,6 +5,7 @@
   top: 0;
   z-index: 100;
   background-color: var(--white-color);
+  flex-shrink: 0;
 }
 
 .headerTopBand {

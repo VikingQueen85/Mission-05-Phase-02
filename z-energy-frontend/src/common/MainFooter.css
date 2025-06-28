@@ -1,15 +1,28 @@
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 30vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
 .main-app-footer {
-  position: relative;
+   margin-top: auto;
   background-color: #f0f0f0;
-  height: 484px;
+  padding: 60px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Roboto', sans-serif;
   color: #000000;
-  padding: 0 20px;
   box-sizing: border-box;
+  position: relative;
+  min-height: 300px;
+  flex-shrink: 0;
 }
 
 .footer-content-wrapper {

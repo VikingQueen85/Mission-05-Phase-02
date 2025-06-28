@@ -1,0 +1,217 @@
+.mobile-homepage {
+  position: relative;
+  padding: 1.25rem 1rem 0;
+  font-family: "Roboto", sans-serif;
+  background: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.background-circle {
+  position: fixed;
+  width: 50rem;
+  height: 50rem;
+  border-radius: 50rem;
+  background: linear-gradient(180deg, #F37120 0%, #F68C19 33%, #F9A711 66%, #FFDD02 100%);
+  top: -480px;
+ left: -220px;  
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.top-section {
+  position: relative;
+  z-index: 1;
+}
+
+.greeting {
+  margin-top: 4rem;
+  width: 8.4375rem;
+  height: 1.75rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.sharetank-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.gas-station-placeholder {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: transparent;
+}
+
+.sharetank-text {
+  margin-left: 0.5rem;
+  width: 4.4375rem;
+  height: 1.1875rem;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.1875rem;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #ffffff;
+}
+
+.subtitle {
+  width: 9.5rem;
+  height: 0.875rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.view-tank-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 6.0625rem;
+  min-height: 1.5rem;
+
+  padding: 0.25rem 1rem;
+  margin-top: 2.5rem;
+
+  border: none;
+  border-radius: 50px;
+  background-color: #322e78;
+
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 400; 
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+
+
+.middle-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  z-index: 1;
+  position: relative;
+}
+
+.btn {
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.btn-vertical {
+  width: 8.5rem;
+  height: 13rem;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  background: linear-gradient(180deg, #F37120 0%, #F68C19 33%, #F9A711 66%, #FFDD02 100%);
+  font-weight: 400;
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-vertical::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.btn-group-horizontal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.btn-horizontal {
+  width: 9.5rem;
+  height: 6.3rem;
+  border-radius: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(180deg, #F37120 0%, #F68C19 33%, #F9A711 66%, #FFDD02 100%);
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  text-align: left;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-horizontal::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -30%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.bottom-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.75rem 0;
+  border-top: 1px solid #ddd;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #322e78;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.footer-icon-placeholder {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: transparent;
+  margin-bottom: 0.25rem;
+}
+
+.footer-text {
+  text-align: center;
+}
