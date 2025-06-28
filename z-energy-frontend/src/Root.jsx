@@ -3,19 +3,27 @@ import App from "./App.jsx";
 import MobileApp from "./MobileApp.jsx";
 
 function Root() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 768);
-    }
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|windows phone/i;
+    const isMobileUA = mobileRegex.test(userAgent.toLowerCase());
+    
+    // Check if the browser supports userAgentData and if it indicates a mobile device
+    const isMobileUAData = navigator.userAgentData?.mobile ?? false;
 
-    window.addEventListener("resize", handleResize);
+    const isMobile = isMobileUA || isMobileUAData;
 
-    return () => window.removeEventListener("resize", handleResize);
+    console.log("UserAgent:", userAgent);
+    console.log("isMobileUA:", isMobileUA);
+    console.log("isMobileUAData:", isMobileUAData);
+    console.log("Final isMobileDevice:", isMobile);
+
+    setIsMobileDevice(isMobile);
   }, []);
 
-  return isMobile ? <MobileApp /> : <App />;
+  return isMobileDevice ? <MobileApp /> : <App />;
 }
 
 export default Root;

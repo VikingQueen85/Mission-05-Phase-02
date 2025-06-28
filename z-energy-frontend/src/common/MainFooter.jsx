@@ -5,6 +5,7 @@ import zLogo from '../assets/images/Z-Logo.png';
 
 function MainFooter() {
   return (
+      <div className="page-wrapper">
     <footer className="main-app-footer">
       <div className="footer-content-wrapper">
         <div className="footer-logo-section">
@@ -46,6 +47,7 @@ function MainFooter() {
         <button className="contact-us-button">Contact Us</button>
       </div>
     </footer>
+    </div>
   );
 }
 
