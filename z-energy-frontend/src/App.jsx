@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom"
-import { useViewportSize } from "./hooks/useViewportSize"
 
 // Component Imports
 import Header from "./common/Header.jsx"
@@ -23,7 +22,6 @@ import Search from "./pages/Search/Search"
 import "./styles.css"
 
 function App() {
-    const { isMobile } = useViewportSize()
 
     return (
       <div className="app-container">
@@ -31,10 +29,10 @@ function App() {
 
         <main className="main-content">
           <Routes>
-            <Route path="/*" element={isMobile ? <MobileApp /> : <Homepage />} />
+             <Route path="/*" element={<Homepage />} />
             <Route path="/share-tank" element={<ShareTank />} />
             <Route path="/price-comparison" element={<PriceComparison />} />
-            <Route path="/order-food" element={isMobile ? <OrderFoodOnlineMobile /> : <OrderFoodOnline />} />
+            <Route path="/order-food" element={<OrderFoodOnline />} />
             <Route path="/z-app" element={<ZApp />} />
             <Route path="/about-z" element={<AboutZ />} />
             <Route path="/how-to-enjoy-Z-station" element={<HowToEnjoyZStation />} />

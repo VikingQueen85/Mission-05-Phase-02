@@ -31,13 +31,11 @@
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+  filter: drop-shadow(23px 15px 3px rgba(0, 0, 0, 0.25));
   font-size: 3.5rem;
   line-height: 1.2;
   text-align: left;
   margin: 0;
-  box-sizing: border-box;
-  overflow: hidden;
 }
 
 /* Main section */
