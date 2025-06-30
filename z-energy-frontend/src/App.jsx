@@ -29,7 +29,7 @@ function App() {
 
         <main className="main-content">
           <Routes>
-             <Route path="/*" element={<Homepage />} />
+            <Route path="/*" element={<Homepage />} />
             <Route path="/share-tank" element={<ShareTank />} />
             <Route path="/price-comparison" element={<PriceComparison />} />
             <Route path="/order-food" element={<OrderFoodOnline />} />
