@@ -1,5 +1,4 @@
 
-
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 /* Basic setup for HTML, body, and root element */
@@ -48,46 +47,6 @@ body,
   margin-top: 10px;
   padding: 0 16px;
   box-sizing: border-box;
-}
-
-.banner-text-overlay {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-.banner-logo {
-  width: 33px;
-  height: 33px;
-  margin-right: 8px;
-  object-fit: contain;
-}
-
-.banner-text {
-  width: 218px;
-  height: 33px;
-  align-items: center;
-  justify-content: center;
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 15px;
-  letter-spacing: 0;
-  color: #1e3a8a;
-  text-align: center;
-  white-space: normal;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  display: flex;
 }
 
 /* Main Content Section */
