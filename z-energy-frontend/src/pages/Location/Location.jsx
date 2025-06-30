@@ -62,10 +62,10 @@ const Location = () => {
       return locations;
     }
 
-    return locations.filter(location => 
+    return locations.filter(location =>
       location.name.toLowerCase().includes(query.toLowerCase()) ||
       location.address.toLowerCase().includes(query.toLowerCase()) ||
-      location.services.some(service => 
+      location.services.some(service =>
         service.toLowerCase().includes(query.toLowerCase())
       )
     );
@@ -182,7 +182,7 @@ const Location = () => {
               onChange={handleSearchChange}
               onKeyPress={handleKeyPress}
             />
-            <button 
+            <button
               className="search-button"
               onClick={handleSearch}
             >
@@ -203,8 +203,10 @@ const Location = () => {
                 <p className="location-hours">Hours: {location.hours}</p>
                 <p className="location-phone">Phone: {location.phone}</p>
                 <div className="location-services">
-                  {location.services.map(service => (
-                    <span key={service} className="service-tag">{service}</span>
+                  {location.services.map((service, index) => (
+                    <span key={`${location.id}-${service}-${index}`} className="service-tag">
+                      {service}
+                    </span>
                   ))}
                 </div>
               </div>

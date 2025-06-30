@@ -4,7 +4,6 @@ import "./OrderFoodOnlineMobile.css";
 
 // Component Imports
 import OrderFoodOverlay from "./components/OrderFoodOverlay";
-import HotDrinksPage from "./components/HotDrinksPage";
 import Footer from "./components/common/Footer.jsx"
 
 // Image Imports

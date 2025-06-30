@@ -408,8 +408,8 @@ useEffect(() => {
                 onChange={handleSearch}
                 className="location-search-input"
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="search-button"
                 disabled={isSearching}
               >
@@ -434,8 +434,8 @@ useEffect(() => {
                     {location.name}
                     {location.distance && (
                       <span className="distance-badge">
-                        {location.distance < 1 
-                          ? `${Math.round(location.distance * 1000)}m` 
+                        {location.distance < 1
+                          ? `${Math.round(location.distance * 1000)}m`
                           : `${location.distance.toFixed(1)}km`
                         }
                       </span>
@@ -449,8 +449,8 @@ useEffect(() => {
                     <div className="services-section">
                       <h4 className="services-title">Services Offered</h4>
                       <div className="services-icons">
-                        {location.services && location.services.map((service, index) => (
-                          <div key={index} className="service-icon" title={service}>
+                        {location.services && location.services.map((service) => (
+                          <div key={`${location.id}-${service}`} className="service-icon" title={service}>
                             {getServiceIcon(service)}
                           </div>
                         ))}

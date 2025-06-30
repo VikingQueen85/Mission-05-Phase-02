@@ -1,5 +1,4 @@
 
-
 const FoodItem = require('../models/FoodItem');
 const foodItemsData = require('../data/foodItems');
 
