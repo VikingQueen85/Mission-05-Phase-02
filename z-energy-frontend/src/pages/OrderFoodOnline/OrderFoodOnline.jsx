@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import './OrderFoodOnline.css';
 import OrderFoodOverlay from './components/OrderFoodOverlay';
+import { useViewportSize} from '../../hooks/useViewportSize'
+import OrderFoodOnlineMobile from './OrderFoodOnlineMobile'
 
 import orderFoodBannerImage from '../../assets/images/Order-Food-Banner.png';
 import zWebsiteFoodImage from '../../assets/images/Z-Website-Food-Image.png';
@@ -11,8 +13,13 @@ import preOrderImage3 from '../../assets/images/Food.png';
 import preOrderImage4 from '../../assets/images/MakeItACombo.png';
 
 function OrderFoodOnline() {
+    const { isMobile } = useViewportSize();
     const [showOverlay, setShowOverlay] = useState(false);
     const [overlayContentType, setOverlayContentType] = useState('');
+
+    if (isMobile) {
+        return <OrderFoodOnlineMobile />;
+    }
 
     // Handle clicks on main food images to open overlay with specific content
     const handleImageClick = (type) => {

@@ -38,24 +38,17 @@ function OrderFoodOnlineMobile() {
     <div className="mobile-order-food-container">
       <div
         className="mobile-top-frame"
-        style={{ backgroundImage: `url(${mobileFrameImage})` }}
-      >
+        style={{ backgroundImage: `url(${mobileFrameImage})` }} >
         <img src={zLogo} alt="Z Logo" className="zLogo" />
       </div>
 
       {/* Main Banner Section */}
       <div
         className="mobile-main-banner-section"
-        style={{ backgroundImage: `url(${mobileBannerImage})` }}
-      >
-        <div className="banner-text-overlay">
-          <img src={zLogo} alt="Z Logo" className="banner-logo" />
-          <div className="banner-text">
-            Your Coffee, Your Way - Ready When You Are!
-          </div>
-        </div>
+        style={{ backgroundImage: `url(${mobileBannerImage})` }} >
       </div>
 
+      {/* Main Content Section */}
       <div
         className="mobile-main-content-section"
         style={{ backgroundImage: `url(${mobileMainImage})` }}

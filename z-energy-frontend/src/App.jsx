@@ -7,7 +7,6 @@ import MainFooter from "./common/MainFooter.jsx"
 import MobileApp from "./MobileApp.jsx"
 import Homepage from "./pages/Home/Homepage"
 import PriceComparison from "./pages/PriceComparison/PriceComparison"
-import OrderFoodOnlineMobile from "./pages/OrderFoodOnline/OrderFoodOnlineMobile"
 import OrderFoodOnline from "./pages/OrderFoodOnline/OrderFoodOnline"
 
 import ShareTank from "./pages/ShareTank/ShareTank"
@@ -49,4 +48,4 @@ function App() {
     )
 }
 
-export default App
+export default App;
