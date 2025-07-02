@@ -2,8 +2,9 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 
 // Component and File Imports
-import StationColumn from "./components/StationColumn" // Import the new component
+import StationColumn from "./components/StationColumn"
 import { useViewportSize } from "../../hooks/useViewportSize"
+import MainFooter from "../../common/MainFooter";
 
 // Image Imports
 import HomeIcon from "../../assets/images/Home-Icon.png"
@@ -84,6 +85,7 @@ const PriceComparison = () => {
           </div>
         </div>
       )}
+      <MainFooter />
     </div>
   )
 }

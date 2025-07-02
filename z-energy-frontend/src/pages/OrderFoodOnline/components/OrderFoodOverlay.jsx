@@ -12,8 +12,9 @@ const ItemButton = ({ item, onClick }) => {
             <img
                 src={`${BACKEND_URL}${item.imageUrl}`}
                 alt={item.name}
-                className="item-option-image"
-            />
+                className="item-option-image" />
+            <div className="item-button-info">
+            </div>
         </button>
     );
 };
@@ -22,7 +23,6 @@ function OrderFoodOverlay({ contentType, onClose }) {
     const [allFoodItems, setAllFoodItems] = useState([]);
     const [loadingAllFoodItems, setLoadingAllFoodItems] = useState(true);
     const [allFoodItemsError, setAllFoodItemsError] = useState(null);
-    const [showDevelopmentMessages, setShowDevelopmentMessages] = useState(false);
 
     // States for integrated drink customization
     const [customizedDrink, setCustomizedDrink] = useState(null);
@@ -110,18 +110,17 @@ function OrderFoodOverlay({ contentType, onClose }) {
         fetchDrinkOptions();
     }, []);
 
-    // --- Effect to manage the "Under Development" message visibility ---
-    useEffect(() => {
-        if (contentType === 'cold_drinks' || contentType === 'food') {
-            setShowDevelopmentMessages(true);
-        } else {
-            setShowDevelopmentMessages(false);
+    // --- Determine if development message should be shown based on contentType ---
+    const showDevelopmentMessagesForCategory = useCallback(() => {
+        if (contentType === 'hot_drinks') {
+            return false;
         }
+        // Cold drinks, Food, and Combo are always under development for desktop
+        return true;
     }, [contentType]);
 
-
     // Helper function to get the appropriate label for the overlay header
-    const getLabelText = (type) => {
+    const getLabelText = useCallback((type) => {
         if (customizedDrink) {
             return `Customize ${customizedDrink.name}:`;
         }
@@ -132,19 +131,21 @@ function OrderFoodOverlay({ contentType, onClose }) {
             case 'combo': return 'Select Combo:';
             default: return 'Select Item:';
         }
-    };
+    }, [customizedDrink]);
 
     // Function to handle clicking on an item button
     const handleItemClick = useCallback((itemDetails) => {
+        setQuantity(1);
+        setSelectedFlavor(null);
+
+        // Only hot drinks lead to customization in the desktop overlay
         if (itemDetails.category === 'hot_drinks') {
             setCustomizedDrink(itemDetails);
-            setQuantity(1);
             setSelectedSize(optionsData.sizes.find(s => s.name === 'Medium') || optionsData.sizes[0]);
             setSelectedMilk(optionsData.milks.find(m => m.name === 'Full cream') || optionsData.milks[0]);
             setSelectedStrength(optionsData.strengths.find(s => s.name === 'Single Shot') || optionsData.strengths[0]);
-            setSelectedFlavor(null);
         } else {
-            console.log(`Clicked on ${itemDetails.name} (${itemDetails.category}). No action taken yet.`);
+            console.log(`Clicked on ${itemDetails.name} (${itemDetails.category}). This category is under development for desktop.`);
         }
     }, [optionsData]);
 
@@ -169,45 +170,65 @@ function OrderFoodOverlay({ contentType, onClose }) {
         setSelectedFlavor(prev => (prev && prev.name === flavorObj.name ? null : flavorObj));
     }, []);
 
-    // Calculate total price for the customized drink
+    // Calculate total price for the customized drink or simple item
     const calculateTotalPrice = useCallback(() => {
         if (!customizedDrink) return (0).toFixed(2);
 
         let price = customizedDrink.price || 0;
 
-        if (selectedSize && typeof selectedSize.extraCost === 'number') {
-            price += selectedSize.extraCost;
-        }
-        if (selectedMilk && typeof selectedMilk.extraCost === 'number') {
-            price += selectedMilk.extraCost;
-        }
-        if (selectedStrength && typeof selectedStrength.extraCost === 'number') {
-            price += selectedStrength.extraCost;
-        }
-        if (selectedFlavor && typeof selectedFlavor.extraCost === 'number') {
-            price += selectedFlavor.extraCost;
+        // Apply customization only if it's a hot drink
+        if (customizedDrink.category === 'hot_drinks') {
+            if (selectedSize && typeof selectedSize.extraCost === 'number') {
+                price += selectedSize.extraCost;
+            }
+            if (selectedMilk && typeof selectedMilk.extraCost === 'number') {
+                price += selectedMilk.extraCost;
+            }
+            if (selectedStrength && typeof selectedStrength.extraCost === 'number') {
+                price += selectedStrength.extraCost;
+            }
+            if (selectedFlavor && typeof selectedFlavor.extraCost === 'number') {
+                price += selectedFlavor.extraCost;
+            }
         }
 
         return (price * quantity).toFixed(2);
     }, [customizedDrink, selectedSize, quantity, selectedMilk, selectedStrength, selectedFlavor]);
 
-    const handleAddToCart = () => {
+    // Refactored handleAddToCart to accept an item object, if it's ever needed
+    const handleAddToCart = useCallback(() => {
+        if (!customizedDrink) return;
+
         console.log("Adding to cart:", {
-            drinkId: customizedDrink._id,
+            itemId: customizedDrink._id,
             name: customizedDrink.name,
-            size: selectedSize ? selectedSize.name : 'N/A',
+            category: customizedDrink.category,
             quantity: quantity,
-            milk: selectedMilk ? selectedMilk.name : 'N/A',
-            strength: selectedStrength ? selectedStrength.name : 'N/A',
-            flavor: selectedFlavor ? selectedFlavor.name : 'N/A',
+            // Customization details only for hot drinks
+            ...(customizedDrink.category === 'hot_drinks' && {
+                size: selectedSize ? selectedSize.name : 'N/A',
+                milk: selectedMilk ? selectedMilk.name : 'N/A',
+                strength: selectedStrength ? selectedStrength.name : 'N/A',
+                flavor: selectedFlavor ? selectedFlavor.name : 'N/A',
+            }),
             totalPrice: calculateTotalPrice(),
         });
+        // Reset state after adding to cart
         setCustomizedDrink(null);
-    };
+        setQuantity(1);
+        setSelectedSize(optionsData.sizes.find(s => s.name === 'Medium') || optionsData.sizes[0]);
+        setSelectedMilk(optionsData.milks.find(m => m.name === 'Full cream') || optionsData.milks[0]);
+        setSelectedStrength(optionsData.strengths.find(s => s.name === 'Single Shot') || optionsData.strengths[0]);
+        setSelectedFlavor(null);
+    }, [customizedDrink, quantity, selectedSize, selectedMilk, selectedStrength, selectedFlavor, calculateTotalPrice, optionsData]);
 
-    // Render the customization section (your original combined layout)
+
+    // Render the customization section
     const renderCustomizationSection = () => {
         if (!customizedDrink) return null;
+
+        // Only hot drinks have full customization in this desktop overlay
+        const isHotDrink = customizedDrink.category === 'hot_drinks';
 
         if (loadingOptions) {
             return <p className="loading-message">Loading customization options...</p>;
@@ -233,25 +254,29 @@ function OrderFoodOverlay({ contentType, onClose }) {
                         <h1 className="drink-detail-name">{customizedDrink.name}</h1>
                         <p className="drink-detail-description">{customizedDrink.description}</p>
 
-                        {/* Size Selection */}
-                        <div className="option-group">
-                            <h2>Size</h2>
-                            <div className="size-options">
-                                {optionsData.sizes.map((size) => (
-                                    <button
-                                        key={size.name}
-                                        className={`size-button ${selectedSize && selectedSize.name === size.name ? 'selected' : ''}`}
-                                        onClick={() => handleSizeChange(size)}
-                                    >
-                                        <span className="cup-icon">☕</span>
-                                        <span className="size-name">{size.name}</span>
-                                        <span className="size-price">${((customizedDrink.price || 0) + (size.extraCost || 0)).toFixed(2)}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+                        {isHotDrink && (
+                            <>
+                                {/* Size Selection */}
+                                <div className="option-group">
+                                    <h2>Size</h2>
+                                    <div className="size-options">
+                                        {optionsData.sizes.map((size) => (
+                                            <button
+                                                key={size.name}
+                                                className={`size-button ${selectedSize && selectedSize.name === size.name ? 'selected' : ''}`}
+                                                onClick={() => handleSizeChange(size)}
+                                            >
+                                                <span className="cup-icon">☕</span>
+                                                <span className="size-name">{size.name}</span>
+                                                <span className="size-price">${((customizedDrink.price || 0) + (size.extraCost || 0)).toFixed(2)}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </>
+                        )}
 
-                        {/* Quantity, Edit, Delete Controls */}
+                        {/* Quantity, Edit, Delete Controls - always available for any selected item */}
                         <div className="option-group">
                             <h2>Quantity</h2>
                             <div className="quantity-selector">
@@ -263,68 +288,69 @@ function OrderFoodOverlay({ contentType, onClose }) {
                     </div>
                 </div>
 
-                {/* Preferences Section (Milk, Strength, Flavor) */}
-                <div className="preferences-section">
-                    <h2 className="preferences-heading">Select Preferences</h2>
-                    <div className="preferences-grid">
-                        {/* Milk Options */}
-                        <div className="option-group">
-                            <h3>Milk</h3>
-                            <div className="radio-options-grid">
-                                {optionsData.milks.map((milk) => (
-                                    <label key={milk.name} className="radio-label">
-                                        <input
-                                            type="radio"
-                                            name="custom-milk"
-                                            value={milk.name}
-                                            checked={selectedMilk && selectedMilk.name === milk.name}
-                                            onChange={() => handleMilkChange(milk)}
-                                        />
-                                        {milk.name} {milk.extraCost > 0 && <span className="extra-cost-small">+{milk.extraCost.toFixed(2)}</span>}
-                                    </label>
-                                ))}
+                {isHotDrink && (
+                    <div className="preferences-section">
+                        <h2 className="preferences-heading">Select Preferences</h2>
+                        <div className="preferences-grid">
+                            {/* Milk Options */}
+                            <div className="option-group">
+                                <h3>Milk</h3>
+                                <div className="radio-options-grid">
+                                    {optionsData.milks.map((milk) => (
+                                        <label key={milk.name} className="radio-label">
+                                            <input
+                                                type="radio"
+                                                name="custom-milk"
+                                                value={milk.name}
+                                                checked={selectedMilk && selectedMilk.name === milk.name}
+                                                onChange={() => handleMilkChange(milk)}
+                                            />
+                                            {milk.name} {milk.extraCost > 0 && <span className="extra-cost-small">+{milk.extraCost.toFixed(2)}</span>}
+                                        </label>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Strength Options */}
-                        <div className="option-group">
-                            <h3>Strength</h3>
-                            <div className="radio-options-grid">
-                                {optionsData.strengths.map((strength) => (
-                                    <label key={strength.name} className="radio-label">
-                                        <input
-                                            type="radio"
-                                            name="custom-strength"
-                                            value={strength.name}
-                                            checked={selectedStrength && selectedStrength.name === strength.name}
-                                            onChange={() => handleStrengthChange(strength)}
-                                        />
-                                        {strength.name} {strength.extraCost > 0 && <span className="extra-cost-small">+{strength.extraCost.toFixed(2)}</span>}
-                                    </label>
-                                ))}
+                            {/* Strength Options */}
+                            <div className="option-group">
+                                <h3>Strength</h3>
+                                <div className="radio-options-grid">
+                                    {optionsData.strengths.map((strength) => (
+                                        <label key={strength.name} className="radio-label">
+                                            <input
+                                                type="radio"
+                                                name="custom-strength"
+                                                value={strength.name}
+                                                checked={selectedStrength && selectedStrength.name === strength.name}
+                                                onChange={() => handleStrengthChange(strength)}
+                                            />
+                                            {strength.name} {strength.extraCost > 0 && <span className="extra-cost-small">+{strength.extraCost.toFixed(2)}</span>}
+                                        </label>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Flavor Options */}
-                        <div className="option-group">
-                            <h3>Flavor <span className="extra-cost-header">+ ${flavorExtraCost}</span></h3>
-                            <div className="radio-options-grid">
-                                {optionsData.flavors.map((flavor) => (
-                                    <label key={flavor.name} className="radio-label">
-                                        <input
-                                            type="radio"
-                                            name="custom-flavor"
-                                            value={flavor.name}
-                                            checked={selectedFlavor && selectedFlavor.name === flavor.name}
-                                            onChange={() => handleFlavorChange(flavor)}
-                                        />
-                                        {flavor.name}
-                                    </label>
-                                ))}
+                            {/* Flavor Options */}
+                            <div className="option-group">
+                                <h3>Flavor <span className="extra-cost-header">+ ${flavorExtraCost}</span></h3>
+                                <div className="radio-options-grid">
+                                    {optionsData.flavors.map((flavor) => (
+                                        <label key={flavor.name} className="radio-label">
+                                            <input
+                                                type="radio"
+                                                name="custom-flavor"
+                                                value={flavor.name}
+                                                checked={selectedFlavor && selectedFlavor.name === flavor.name}
+                                                onChange={() => handleFlavorChange(flavor)}
+                                            />
+                                            {flavor.name}
+                                        </label>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )}
 
                 <div className="action-buttons-container">
                     <button className="cancel-button" onClick={() => setCustomizedDrink(null)}>
@@ -350,30 +376,34 @@ function OrderFoodOverlay({ contentType, onClose }) {
             return <p className="error-text">{allFoodItemsError}</p>;
         }
 
+        const showDevMsgForCurrentCategory = showDevelopmentMessagesForCategory();
+
         return (
             <>
-                {/* Display the "Under Development" message and specific unavailable message */}
-                {showDevelopmentMessages && (
+                {/* Display the "Under Development" */}
+                {showDevMsgForCurrentCategory ? (
                     <div className="development-messages-container">
                         <p className="under-development-message">Under Development: </p>
                         {contentType === 'cold_drinks' && (
-                            <p className="unavailable-specific-message">Cold drink orders are not available on our website, please check out our app</p>
+                            <p className="unavailable-specific-message">Cold drink orders are not available on our website, please check out our app.</p>
                         )}
-                        {contentType === 'food' && (
-                            <p className="unavailable-specific-message">Food orders are not available on our website, please check out our app</p>
+                        {(contentType === 'food' || contentType === 'combo') && (
+                            <p className="unavailable-specific-message">This category is not yet available for online ordering. Please order at the counter.</p>
                         )}
-                    </div>
-                )}
-
-                {itemsToDisplay.length > 0 ? (
-                    <div className="item-options-grid">
-                        {itemsToDisplay.map(item => (
-                            <ItemButton key={item._id || item.name} item={item} onClick={handleItemClick} />
-                        ))}
                     </div>
                 ) : (
-                    // Fallback for when no items are found at all for the category
-                    !showDevelopmentMessages && (
+                    // Only render grid if NOT showing development message
+                    itemsToDisplay.length > 0 ? (
+                        <div className="item-options-grid">
+                            {itemsToDisplay.map(item => (
+                                <ItemButton
+                                    key={item._id || item.name}
+                                    item={item}
+                                    onClick={handleItemClick}
+                                />
+                            ))}
+                        </div>
+                    ) : (
                         <p className="placeholder-text">No items available for this category yet.</p>
                     )
                 )}
@@ -388,11 +418,11 @@ function OrderFoodOverlay({ contentType, onClose }) {
 
                 <div className="overlay-header-frame">
                     <img src={zLogoImage} alt="Z Energy Logo" className="overlay-logo" />
-                    <p className="overlay-label">{getLabelText(contentType)}</p>
                 </div>
 
                 <div className="overlay-items-container">
-                    {contentType === 'hot_drinks' && customizedDrink ? (
+                    {/* Render customization if a drink is selected for it, otherwise render category grid */}
+                    {customizedDrink ? (
                         renderCustomizationSection()
                     ) : (
                         renderItemsByCategory()

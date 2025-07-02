@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from "react"
-import "./Locations.css"
-import DesktopLocationImg from "../../assets/images/Desktoplocation.png"
+
+import React, { useState, useEffect, useRef } from 'react';
+import './Locations.css';
+import DesktopLocationImg from '../../assets/images/Desktoplocation.png';
+import MainFooter from "../../common/MainFooter";
 
 const Locations = () => {
   // -------------------- State --------------------
@@ -727,6 +729,7 @@ const Locations = () => {
           )}
         </div>
       </div>
+      <MainFooter />
     </>
   )
 }

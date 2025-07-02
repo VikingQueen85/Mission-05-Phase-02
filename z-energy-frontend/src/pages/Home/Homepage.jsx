@@ -1,6 +1,7 @@
 import StationFinder from "./components/StationFinder"
 import ContentBlock from "./components/ContentBlock"
 import "./Homepage.css"
+import MainFooter from "../../common/MainFooter";
 
 // Image Imports
 import shareTankImgSrc from "../../assets/images/Sharetank.png"
@@ -74,6 +75,7 @@ function Homepage() {
           ))}
         </div>
       </section>
+      <MainFooter />
     </div>
   )
 }
