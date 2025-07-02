@@ -19,12 +19,6 @@ const foodItems = [
     { name: "Banofee Frappe", category: "cold_drinks", price: 6.50, description: "Indulge in the irresistable combination of banana and toffee, blended with ice and creamy goodness, finished with whipped cream and a caramel drizzle.", imageUrl: "/images/cold-drinks/BanofeeFrappe.png" },
     { name: "Banana Berry Smoothie", category: "cold_drinks", price: 7.00, description: "A vibrant blend of ripe bananas, juicy berries and creamy yougurt, packed with natural sweetness and icy refreshment in every sip.", imageUrl: "/images/cold-drinks/BananaBerrySmoothie.png" },
     { name: "Chocolate Frappe", category: "cold_drinks", price: 6.00, description: "A velevty chocolate treat blended with ice for a refreshing twist, finished with whipped cream and a drizzle of chocolate syrup.", imageUrl: "/images/cold-drinks/ChocolateFrappe.png" },
-
-    // --- Hot Food Items ---
-    { name: "Spinach & Feta Roll", category: "food", price: 5.50, description: "Flaky pastry filled with savory spinach and creamy feta cheese.", imageUrl: "/images/food/SpinachandFetaRoll.png" },
-    { name: "Classic Mince & Cheese Pie", category: "food", price: 6.80, description: "A beloved combination of savory mince and melted cheese in a golden crust.", imageUrl: "/images/food/ClassicMinceandCheesePie.png" },
-    { name: "Classic Potato Top Pie", category: "food", price: 6.50, description: "Hearty mince encased in a golden pastry, topped with creamy mashed potato.", imageUrl: "/images/food/ClassicPotatoTopPie.png" },
-    { name: "Classic Steak & Cheese Pie", category: "food", price: 7.00, description: "Tender steak pieces and melted cheese in a rich gravy, baked in a crispy pastry.", imageUrl: "/images/food/ClassicSteakandCheesePie.png" },
 ];
 
 module.exports = foodItems;
