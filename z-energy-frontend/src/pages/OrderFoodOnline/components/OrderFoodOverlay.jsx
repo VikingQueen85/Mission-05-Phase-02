@@ -6,29 +6,27 @@ import zLogoImage from '../../../assets/images/Z-Logo.png';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
 // Helper Component for a clickable item button
-const ItemButton = ({ item, onClick, isColdDrinkAndMobile, onQuickAdd }) => { // Added new props
+const ItemButton = ({ item, onClick, isColdDrinkAndMobile, onQuickAdd }) => {
     return (
         <button className="item-option-button" onClick={() => {
             if (isColdDrinkAndMobile) {
                 onClick(item);
             } else {
-                onClick(item); // For hot drinks, this opens customization
+                onClick(item);
             }
         }}>
             <img
                 src={`${BACKEND_URL}${item.imageUrl}`}
                 alt={item.name}
-                className="item-option-image"
-            />
-            {/* Display item name and price for clarity in the button itself for cold drinks/food items */}
+                className="item-option-image" />
             <div className="item-button-info">
             </div>
-            {isColdDrinkAndMobile && ( // Show a quick add button if it's a cold drink on mobile
+            {isColdDrinkAndMobile && (
                 <button
                     className="quick-add-button"
                     onClick={(e) => {
-                        e.stopPropagation(); // Prevent parent button's onClick
-                        onQuickAdd(item); // Call the quick add handler
+                        e.stopPropagation();
+                        onQuickAdd(item);
                     }}
                 >
                     + Add
@@ -45,11 +43,8 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
     const [loadingAllFoodItems, setLoadingAllFoodItems] = useState(true);
     const [allFoodItemsError, setAllFoodItemsError] = useState(null);
 
-    // No longer a separate state, determined by contentType and isMobileView
-    // const [showDevelopmentMessages, setShowDevelopmentMessages] = useState(false);
-
     // States for integrated drink customization
-    const [customizedDrink, setCustomizedDrink] = useState(null); // This holds the *selected* item for customization/detail view
+    const [customizedDrink, setCustomizedDrink] = useState(null);
     const [selectedSize, setSelectedSize] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [selectedMilk, setSelectedMilk] = useState(null);
@@ -137,10 +132,10 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
     // --- Determine if development message should be shown based on contentType AND isMobileView ---
     const showDevelopmentMessagesForCategory = useCallback(() => {
         if (contentType === 'hot_drinks') {
-            return false; // Hot drinks are always available
+            return false;
         }
         if (contentType === 'cold_drinks') {
-            return !isMobileView; // Cold drinks show message only if NOT mobile
+            return !isMobileView;
         }
         // Food and Combo are always under development
         return true;
@@ -163,21 +158,17 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
 
     // Function to handle clicking on an item button
     const handleItemClick = useCallback((itemDetails) => {
-        setQuantity(1); // Reset quantity whenever a new item is selected
-        setSelectedFlavor(null); // Clear flavor on new item selection
+        setQuantity(1);
+        setSelectedFlavor(null);
 
         if (itemDetails.category === 'hot_drinks') {
-            setCustomizedDrink(itemDetails); // Set to show customization for hot drinks
-            // Reset to defaults for hot drink customization
+            setCustomizedDrink(itemDetails);
             setSelectedSize(optionsData.sizes.find(s => s.name === 'Medium') || optionsData.sizes[0]);
             setSelectedMilk(optionsData.milks.find(m => m.name === 'Full cream') || optionsData.milks[0]);
             setSelectedStrength(optionsData.strengths.find(s => s.name === 'Single Shot') || optionsData.strengths[0]);
         } else if (itemDetails.category === 'cold_drinks' && isMobileView) {
-            // For cold drinks on mobile, directly go to a simplified "add to cart" view
-            setCustomizedDrink(itemDetails); // Set the item to display its details for adding
+            setCustomizedDrink(itemDetails);
         } else {
-            // This case should ideally be covered by showDevelopmentMessagesForCategory,
-            // but as a fallback, log if an unexpected item type is clicked.
             console.log(`Clicked on ${itemDetails.name} (${itemDetails.category}). No specific action defined.`);
         }
     }, [optionsData, isMobileView]);
@@ -224,8 +215,6 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
                 price += selectedFlavor.extraCost;
             }
         }
-        // For cold drinks (or other simple items), just use base price
-        // No extra cost logic needed for cold drinks unless you add it later
 
         return (price * quantity).toFixed(2);
     }, [customizedDrink, selectedSize, quantity, selectedMilk, selectedStrength, selectedFlavor]);
@@ -248,18 +237,17 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
             }),
             totalPrice: calculateTotalPrice(),
         });
-        setCustomizedDrink(null); // Go back to category selection after adding to cart
-        setQuantity(1); // Reset quantity for next selection
+        setCustomizedDrink(null);
+        setQuantity(1);
     }, [customizedDrink, quantity, selectedSize, selectedMilk, selectedStrength, selectedFlavor, calculateTotalPrice]);
 
 
-    // Render the customization section (your original combined layout for hot drinks)
+    // Render the customization section
     const renderCustomizationSection = () => {
         if (!customizedDrink) return null;
 
         // Hot drinks have full customization
         const isHotDrink = customizedDrink.category === 'hot_drinks';
-        // Cold drinks (on mobile) have simplified "add to cart"
         const isColdDrink = customizedDrink.category === 'cold_drinks';
 
         if (loadingOptions) {
@@ -271,7 +259,6 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
         }
 
         const flavorExtraCost = optionsData.flavors.length > 0 ? (optionsData.flavors[0].extraCost || 0).toFixed(2) : '0.00';
-
 
         return (
             <>
@@ -321,7 +308,7 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
                     </div>
                 </div>
 
-                {isHotDrink && ( // Only show preferences for hot drinks
+                {isHotDrink && (
                     <div className="preferences-section">
                         <h2 className="preferences-heading">Select Preferences</h2>
                         <div className="preferences-grid">
@@ -419,10 +406,10 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
                 {showDevMsgForCurrentCategory ? (
                     <div className="development-messages-container">
                         <p className="under-development-message">Under Development: </p>
-                        {contentType === 'cold_drinks' && !isMobileView && ( // Specific message for cold drinks on desktop
+                        {contentType === 'cold_drinks' && !isMobileView && (
                             <p className="unavailable-specific-message">Cold drink orders are not available on our website, please check out our app.</p>
                         )}
-                        {(contentType === 'food' || contentType === 'combo') && ( // General message for food/combo
+                        {(contentType === 'food' || contentType === 'combo') && (
                             <p className="unavailable-specific-message">This category is not yet available for online ordering. Please order at the counter.</p>
                         )}
                     </div>
@@ -435,20 +422,16 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
                                     key={item._id || item.name}
                                     item={item}
                                     onClick={handleItemClick}
-                                    // Pass props to ItemButton so it can render a quick add button if applicable
                                     isColdDrinkAndMobile={item.category === 'cold_drinks' && isMobileView}
                                     onQuickAdd={(itemToQuickAdd) => {
-                                        // This handles the direct quick add from the grid for cold drinks on mobile
                                         console.log("Quick adding:", itemToQuickAdd.name);
-                                        // Simulate adding to cart with quantity 1 and no customization
                                         handleAddToCart({ ...itemToQuickAdd, quantity: 1, customizedDrink: null });
-                                        onClose(); // Close overlay after quick add
+                                        onClose();
                                     }}
                                 />
                             ))}
                         </div>
                     ) : (
-                        // Fallback for when no items are found for the category AND it's not under development
                         <p className="placeholder-text">No items available for this category yet.</p>
                     )
                 )}
