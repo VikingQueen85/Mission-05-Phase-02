@@ -15,16 +15,16 @@ const foodItems = [
     { name: "Chai Latte", category: "hot_drinks", price: 5.30, description: "A fragrant mix of spiced tea and steamed milk, infused with cinnamon, cardamon and cloves, topped with a light foam and a dusting of cinnamon", imageUrl: "/images/hot-drinks/ChaiLatte.png" },
 
     // --- Cold Drinks ---
-    { name: "Tropical Smoothie", category: "cold_drinks", price: 7.00, description: "A refreshing blend of tropical fruits, perfect for a hot day.", imageUrl: "/images/cold-drinks/TropicalSmoothie(v).png" },
-    { name: "Banofee Frappe", category: "cold_drinks", price: 6.50, description: "Indulge in this rich and creamy banoffee-flavored frappe.", imageUrl: "/images/cold-drinks/BanofeeFrappe.png" },
-    { name: "Banana Berry Smoothie", category: "cold_drinks", price: 7.00, description: "A delightful mix of sweet bananas and tart berries.", imageUrl: "/images/cold-drinks/BananaBerrySmoothie.png" },
-    { name: "Chocolate Frappe", category: "cold_drinks", price: 6.00, description: "Classic chocolate frappe, cool and creamy.", imageUrl: "/images/cold-drinks/ChocolateFrappe.png" },
+    { name: "Tropical Smoothie", category: "cold_drinks", price: 7.00, description: "A burst of tropical flavors with pineapple, mango and passionfruit blended with ice for a refreshing and naturally vegan delight.", imageUrl: "/images/cold-drinks/TropicalSmoothieV.png" },
+    { name: "Banofee Frappe", category: "cold_drinks", price: 6.50, description: "Indulge in the irresistable combination of banana and toffee, blended with ice and creamy goodness, finished with whipped cream and a caramel drizzle.", imageUrl: "/images/cold-drinks/BanofeeFrappe.png" },
+    { name: "Banana Berry Smoothie", category: "cold_drinks", price: 7.00, description: "A vibrant blend of ripe bananas, juicy berries and creamy yougurt, packed with natural sweetness and icy refreshment in every sip.", imageUrl: "/images/cold-drinks/BananaBerrySmoothie.png" },
+    { name: "Chocolate Frappe", category: "cold_drinks", price: 6.00, description: "A velevty chocolate treat blended with ice for a refreshing twist, finished with whipped cream and a drizzle of chocolate syrup.", imageUrl: "/images/cold-drinks/ChocolateFrappe.png" },
 
     // --- Hot Food Items ---
-    { name: "Spinach & Feta Roll", category: "food", price: 5.50, description: "Flaky pastry filled with savory spinach and creamy feta cheese.", imageUrl: "/images/food/Spinach&FetaRoll.png" },
-    { name: "Classic Mince & Cheese Pie", category: "food", price: 6.80, description: "A beloved combination of savory mince and melted cheese in a golden crust.", imageUrl: "/images/food/ClassicMince&CheesePie.png" },
+    { name: "Spinach & Feta Roll", category: "food", price: 5.50, description: "Flaky pastry filled with savory spinach and creamy feta cheese.", imageUrl: "/images/food/SpinachandFetaRoll.png" },
+    { name: "Classic Mince & Cheese Pie", category: "food", price: 6.80, description: "A beloved combination of savory mince and melted cheese in a golden crust.", imageUrl: "/images/food/ClassicMinceandCheesePie.png" },
     { name: "Classic Potato Top Pie", category: "food", price: 6.50, description: "Hearty mince encased in a golden pastry, topped with creamy mashed potato.", imageUrl: "/images/food/ClassicPotatoTopPie.png" },
-    { name: "Classic Steak & Cheese Pie", category: "food", price: 7.00, description: "Tender steak pieces and melted cheese in a rich gravy, baked in a crispy pastry.", imageUrl: "/images/food/ClassicSteak&CheesePie.png" },
+    { name: "Classic Steak & Cheese Pie", category: "food", price: 7.00, description: "Tender steak pieces and melted cheese in a rich gravy, baked in a crispy pastry.", imageUrl: "/images/food/ClassicSteakandCheesePie.png" },
 ];
 
 module.exports = foodItems;

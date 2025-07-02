@@ -1,0 +1,247 @@
+
+.detail-page-container {
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
+    height: 100dvh;
+    min-height: 100dvh;
+    font-family: 'Inter', sans-serif;
+}
+
+/* --- Top Bar (Header) --- */
+.top-bar {
+    width: 100%;
+    height: 46px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.header-banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* --- Drink Summary Section --- */
+.drink-summary-section {
+    display: flex;
+    align-items: flex-start;
+    background-color: #f8f8f8;
+    padding: 20px 16px;
+    gap: 16px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.drink-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.drink-info {
+    flex-grow: 1;
+}
+
+.drink-name {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.drink-description {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+
+/* --- Customization Sections --- */
+.customization-sections {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    background-color: #FFFFFF;
+}
+
+.section-group {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Size Options */
+.size-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.size-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    min-width: 100px;
+    height: 90px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.size-button:hover {
+    border-color: #888;
+}
+
+.size-button.selected {
+    border-color: #6a0dad;
+    background-color: #e6e6fa;
+    box-shadow: 0 2px 8px rgba(106, 13, 173, 0.2);
+}
+
+.cup-icon {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+.size-name {
+    font-size: 1em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.size-price {
+    font-size: 0.9em;
+    color: #6a0dad;
+    font-weight: 700;
+}
+
+/* Quantity Control */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.quantity-control button {
+    background-color: #6a0dad;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.quantity-control button:hover:not(:disabled) {
+    background-color: #5a0c9c;
+}
+
+.quantity-control button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.quantity-control span {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #333;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* --- Action Buttons --- */
+.action-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 16px;
+    background-color: #FFFFFF;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    gap: 15px;
+}
+
+.cancel-button,
+.add-to-cart-button {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.cancel-button {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.cancel-button:hover {
+    background-color: #d0d0d0;
+    transform: translateY(-1px);
+}
+
+.add-to-cart-button {
+    background-color: #6a0dad;
+    color: #FFFFFF;
+}
+
+.add-to-cart-button:hover {
+    background-color: #5a0c9c;
+    transform: translateY(-1px);
+}
+
+/* --- Loading/Error Styles --- */
+.loading-page, .error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-size: 1.5em;
+    color: #555;
+    background-color: #f0f0f0;
+}
+
+.error-page {
+    color: #d9534f;
+}

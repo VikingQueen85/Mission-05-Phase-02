@@ -1,10 +1,7 @@
 
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./OrderFoodOnlineMobile.css";
-
-// Component Imports
-import OrderFoodOverlay from "./components/OrderFoodOverlay";
-import Footer from "./components/common/Footer.jsx";
 
 // Image Imports
 import mobileFrameImage from "../../assets/images/MobileFrame.png";
@@ -19,19 +16,10 @@ import orderColdDrinksImage from "../../assets/images/OrderColdDrinks.png";
 import zLogo from "../../assets/images/Z-Logo-2.png";
 
 function OrderFoodOnlineMobile() {
-  const [showOverlay, setShowOverlay] = useState(false);
-  const [overlayContentType, setOverlayContentType] = useState("");
+  const navigate = useNavigate();
 
-  // Function to open the overlay with a specific content type
-  const openOverlay = (type) => {
-    setOverlayContentType(type);
-    setShowOverlay(true);
-  };
-
-  // Function to close the overlay and reset state
-  const handleCloseOverlay = () => {
-    setShowOverlay(false);
-    setOverlayContentType("");
+  const handleFoodOrComboClick = (type) => {
+    console.log(`Clicked ${type}. New page/feature for ${type} is under development.`);
   };
 
   return (
@@ -65,7 +53,7 @@ function OrderFoodOnlineMobile() {
           <div
             className="white-box hot-drinks-box"
             style={{ backgroundImage: `url(${whiteBoxBackground})` }}
-            onClick={() => openOverlay("hot_drinks")}
+            onClick={() => navigate('/mobile/hot-drinks')}
           >
             <img
               src={mobileHotDrinkIcon}
@@ -82,7 +70,7 @@ function OrderFoodOnlineMobile() {
           <div
             className="white-box cold-drinks-box"
             style={{ backgroundImage: `url(${whiteBoxBackground})` }}
-            onClick={() => openOverlay("cold_drinks")}
+            onClick={() => navigate('/mobile/cold-drinks')}
           >
             <img
               src={orderColdDrinksImage}
@@ -94,7 +82,7 @@ function OrderFoodOnlineMobile() {
           <div
             className="white-box"
             style={{ backgroundImage: `url(${whiteBoxBackground})` }}
-            onClick={() => openOverlay("food")}
+            onClick={() => handleFoodOrComboClick("food")}
           >
             <img src={mobileFoodIcon} alt="Order Food" className="food-icon" />
             <div className="hot-food-text">
@@ -107,7 +95,7 @@ function OrderFoodOnlineMobile() {
           <div
             className="white-box food-icons-box"
             style={{ backgroundImage: `url(${whiteBoxBackground})` }}
-            onClick={() => openOverlay("food")}
+            onClick={() => handleFoodOrComboClick("food")}
           >
             <img
               src={mobileVegeLeafIcon}
@@ -126,7 +114,7 @@ function OrderFoodOnlineMobile() {
         <div
           className="white-rectangle combo-rectangle"
           style={{ backgroundImage: `url(${whiteRectangleBackground})` }}
-          onClick={() => openOverlay("combo")}
+          onClick={() => handleFoodOrComboClick("combo")}
         >
           <div className="combo-text">
             <span>Make</span>
@@ -145,19 +133,6 @@ function OrderFoodOnlineMobile() {
           />
         </div>
       </div>
-
-      {/* Footer Section */}
-      <Footer />
-
-      {/* Render the OrderFoodOverlay conditionally */}
-      {showOverlay && (
-        <div className="mobile-inline-overlay-wrapper">
-          <OrderFoodOverlay
-            contentType={overlayContentType}
-            onClose={handleCloseOverlay}
-          />
-        </div>
-      )}
     </div>
   );
 }
