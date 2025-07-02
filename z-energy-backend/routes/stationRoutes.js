@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const Station = require("../models/Station")
+const locationWithServiceController = require("../controllers/locationWithServiceController")
 
 // Route to get all stations
 router.get("/", async (req, res) => {
@@ -14,5 +15,14 @@ router.get("/", async (req, res) => {
       .json({ message: "Error fetching stations", error: error.message })
   }
 })
+
+// Route to get stations with services
+router.get(
+  "/with-services",
+  locationWithServiceController.getStationsWithServices
+)
+
+// Route to get stations near a location
+router.get("/nearby", locationWithServiceController.getNearbyStations)
 
 module.exports = router
