@@ -4,6 +4,7 @@ import './OrderFoodOnline.css';
 import OrderFoodOverlay from './components/OrderFoodOverlay';
 import { useViewportSize} from '../../hooks/useViewportSize'
 import OrderFoodOnlineMobile from './OrderFoodOnlineMobile'
+import MainFooter from "../../common/MainFooter";
 
 import orderFoodBannerImage from '../../assets/images/Order-Food-Banner.png';
 import zWebsiteFoodImage from '../../assets/images/Z-Website-Food-Image.png';
@@ -97,6 +98,7 @@ function OrderFoodOnline() {
                     />
                 </div>
             )}
+            <MainFooter />
         </div>
     );
 }

@@ -4,7 +4,6 @@ import { useViewportSize } from './hooks/useViewportSize';
 
 // Component Imports
 import Header from "./common/Header.jsx";
-import MainFooter from "./common/MainFooter.jsx";
 
 import Homepage from "./pages/Home/Homepage";
 import PriceComparison from "./pages/PriceComparison/PriceComparison";
@@ -64,8 +63,6 @@ function App() {
                     )}
                 </Routes>
             </main>
-
-            <MainFooter />
         </div>
     );
 }

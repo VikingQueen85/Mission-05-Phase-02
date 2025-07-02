@@ -32,7 +32,8 @@ function ColdDrinksPage() {
             } catch (err) {
                 console.error("Failed to fetch cold drinks:", err);
                 setError("Failed to load cold drinks. Please try again later.");
-                setColdDrinks(staticColdDrinks);
+                // Set coldDrinks to an empty array to gracefully handle the error
+                setColdDrinks([]);
             } finally {
                 setLoading(false);
             }

@@ -17,7 +17,7 @@ const foodItems = [
     // --- Cold Drinks ---
     { name: "Tropical Smoothie", category: "cold_drinks", price: 7.00, description: "A burst of tropical flavors with pineapple, mango and passionfruit blended with ice for a refreshing and naturally vegan delight.", imageUrl: "/images/cold-drinks/TropicalSmoothieV.png" },
     { name: "Banofee Frappe", category: "cold_drinks", price: 6.50, description: "Indulge in the irresistable combination of banana and toffee, blended with ice and creamy goodness, finished with whipped cream and a caramel drizzle.", imageUrl: "/images/cold-drinks/BanofeeFrappe.png" },
-    { name: "Banana Berry Smoothie", category: "cold_drinks", price: 7.00, description: "A vibrant blend of ripe bananas, juicy berries and creamy yougurt, packed with natural sweetness and icy refreshment in every sip.", imageUrl: "/images/cold-drinks/BananaBerrySmoothie.png" },
+    { name: "Banana Berry Smoothie", category: "cold_drinks", price: 7.00, description: "A vibrant blend of ripe bananas, juicy berries and creamy yogurt, packed with natural sweetness and icy refreshment in every sip.", imageUrl: "/images/cold-drinks/BananaBerrySmoothie.png" },
     { name: "Chocolate Frappe", category: "cold_drinks", price: 6.00, description: "A velevty chocolate treat blended with ice for a refreshing twist, finished with whipped cream and a drizzle of chocolate syrup.", imageUrl: "/images/cold-drinks/ChocolateFrappe.png" },
 ];
 

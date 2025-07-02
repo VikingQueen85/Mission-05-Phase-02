@@ -6,39 +6,20 @@ import zLogoImage from '../../../assets/images/Z-Logo.png';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
 // Helper Component for a clickable item button
-const ItemButton = ({ item, onClick, isColdDrinkAndMobile, onQuickAdd }) => {
+const ItemButton = ({ item, onClick }) => {
     return (
-        <button className="item-option-button" onClick={() => {
-            if (isColdDrinkAndMobile) {
-                onClick(item);
-            } else {
-                onClick(item);
-            }
-        }}>
+        <button className="item-option-button" onClick={() => onClick(item)}>
             <img
                 src={`${BACKEND_URL}${item.imageUrl}`}
                 alt={item.name}
                 className="item-option-image" />
             <div className="item-button-info">
             </div>
-            {isColdDrinkAndMobile && (
-                <button
-                    className="quick-add-button"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onQuickAdd(item);
-                    }}
-                >
-                    + Add
-                </button>
-            )}
         </button>
     );
 };
 
-
-// ADD isMobileView prop to OrderFoodOverlay
-function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
+function OrderFoodOverlay({ contentType, onClose }) {
     const [allFoodItems, setAllFoodItems] = useState([]);
     const [loadingAllFoodItems, setLoadingAllFoodItems] = useState(true);
     const [allFoodItemsError, setAllFoodItemsError] = useState(null);
@@ -129,18 +110,14 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
         fetchDrinkOptions();
     }, []);
 
-    // --- Determine if development message should be shown based on contentType AND isMobileView ---
+    // --- Determine if development message should be shown based on contentType ---
     const showDevelopmentMessagesForCategory = useCallback(() => {
         if (contentType === 'hot_drinks') {
             return false;
         }
-        if (contentType === 'cold_drinks') {
-            return !isMobileView;
-        }
-        // Food and Combo are always under development
+        // Cold drinks, Food, and Combo are always under development for desktop
         return true;
-    }, [contentType, isMobileView]);
-
+    }, [contentType]);
 
     // Helper function to get the appropriate label for the overlay header
     const getLabelText = useCallback((type) => {
@@ -161,17 +138,16 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
         setQuantity(1);
         setSelectedFlavor(null);
 
+        // Only hot drinks lead to customization in the desktop overlay
         if (itemDetails.category === 'hot_drinks') {
             setCustomizedDrink(itemDetails);
             setSelectedSize(optionsData.sizes.find(s => s.name === 'Medium') || optionsData.sizes[0]);
             setSelectedMilk(optionsData.milks.find(m => m.name === 'Full cream') || optionsData.milks[0]);
             setSelectedStrength(optionsData.strengths.find(s => s.name === 'Single Shot') || optionsData.strengths[0]);
-        } else if (itemDetails.category === 'cold_drinks' && isMobileView) {
-            setCustomizedDrink(itemDetails);
         } else {
-            console.log(`Clicked on ${itemDetails.name} (${itemDetails.category}). No specific action defined.`);
+            console.log(`Clicked on ${itemDetails.name} (${itemDetails.category}). This category is under development for desktop.`);
         }
-    }, [optionsData, isMobileView]);
+    }, [optionsData]);
 
     // Handlers for coffee customization options
     const handleSizeChange = useCallback((sizeObj) => {
@@ -219,10 +195,10 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
         return (price * quantity).toFixed(2);
     }, [customizedDrink, selectedSize, quantity, selectedMilk, selectedStrength, selectedFlavor]);
 
+    // Refactored handleAddToCart to accept an item object, if it's ever needed
     const handleAddToCart = useCallback(() => {
         if (!customizedDrink) return;
 
-        // You would typically send this data to a global state, context, or an API
         console.log("Adding to cart:", {
             itemId: customizedDrink._id,
             name: customizedDrink.name,
@@ -237,18 +213,22 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
             }),
             totalPrice: calculateTotalPrice(),
         });
+        // Reset state after adding to cart
         setCustomizedDrink(null);
         setQuantity(1);
-    }, [customizedDrink, quantity, selectedSize, selectedMilk, selectedStrength, selectedFlavor, calculateTotalPrice]);
+        setSelectedSize(optionsData.sizes.find(s => s.name === 'Medium') || optionsData.sizes[0]);
+        setSelectedMilk(optionsData.milks.find(m => m.name === 'Full cream') || optionsData.milks[0]);
+        setSelectedStrength(optionsData.strengths.find(s => s.name === 'Single Shot') || optionsData.strengths[0]);
+        setSelectedFlavor(null);
+    }, [customizedDrink, quantity, selectedSize, selectedMilk, selectedStrength, selectedFlavor, calculateTotalPrice, optionsData]);
 
 
     // Render the customization section
     const renderCustomizationSection = () => {
         if (!customizedDrink) return null;
 
-        // Hot drinks have full customization
+        // Only hot drinks have full customization in this desktop overlay
         const isHotDrink = customizedDrink.category === 'hot_drinks';
-        const isColdDrink = customizedDrink.category === 'cold_drinks';
 
         if (loadingOptions) {
             return <p className="loading-message">Loading customization options...</p>;
@@ -372,7 +352,6 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
                     </div>
                 )}
 
-
                 <div className="action-buttons-container">
                     <button className="cancel-button" onClick={() => setCustomizedDrink(null)}>
                         Back to Selection
@@ -384,7 +363,6 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
             </>
         );
     };
-
 
     // Render items grid filtered by category
     const renderItemsByCategory = () => {
@@ -402,11 +380,11 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
 
         return (
             <>
-                {/* Display the "Under Development" message based on the new logic */}
+                {/* Display the "Under Development" */}
                 {showDevMsgForCurrentCategory ? (
                     <div className="development-messages-container">
                         <p className="under-development-message">Under Development: </p>
-                        {contentType === 'cold_drinks' && !isMobileView && (
+                        {contentType === 'cold_drinks' && (
                             <p className="unavailable-specific-message">Cold drink orders are not available on our website, please check out our app.</p>
                         )}
                         {(contentType === 'food' || contentType === 'combo') && (
@@ -422,12 +400,6 @@ function OrderFoodOverlay({ contentType, onClose, isMobileView = false }) {
                                     key={item._id || item.name}
                                     item={item}
                                     onClick={handleItemClick}
-                                    isColdDrinkAndMobile={item.category === 'cold_drinks' && isMobileView}
-                                    onQuickAdd={(itemToQuickAdd) => {
-                                        console.log("Quick adding:", itemToQuickAdd.name);
-                                        handleAddToCart({ ...itemToQuickAdd, quantity: 1, customizedDrink: null });
-                                        onClose();
-                                    }}
                                 />
                             ))}
                         </div>
