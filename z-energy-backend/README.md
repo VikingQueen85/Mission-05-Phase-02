@@ -28,7 +28,7 @@ Ensure your MongoDB instance is running, or replace mongodb://localhost:27017/zp
 
 Start the server:
 
-npm start
+npm run dev
 
 The server will connect to MongoDB, seed initial data if the collections are empty, and then start listening on the specified port (default: 3000). You should see console messages indicating successful connection, seeding, and server start.
 
